@@ -1,12 +1,16 @@
 import axios from "axios";
+import { getCommonApiHeader } from "../../Utils/utils";
 import { Gallery_List, GALLARY_ALL_DATA, GALLARY_VIDEO_LIST, CSR_LIST } from "../constants";
-
 
 export const galleryDataAPI = (data) => {
     return (dispatch, getState) => {
         dispatch(getGellaryRequest());
         axios
-            .get(Gallery_List)
+            .get(Gallery_List, {
+                headers: {
+                    ...getCommonApiHeader(),
+                },
+            })
             .then((response) => {
                 dispatch(getGalleryDataRespond(response?.data));
             }).catch(err => {
@@ -19,7 +23,11 @@ export const galleryAllDataAPI = (data) => {
     return (dispatch, getState) => {
         dispatch(getGellaryRequest());
         axios
-            .get(GALLARY_ALL_DATA + '' + data)
+            .get(GALLARY_ALL_DATA + '' + data, {
+                headers: {
+                    ...getCommonApiHeader(),
+                },
+            })
             .then((response) => {
                 dispatch(getGalleryAllDataRespond(response?.data));
             }).catch(err => {
@@ -32,7 +40,11 @@ export const galleryVideoAPI = (data) => {
     return (dispatch, getState) => {
         dispatch(getGellaryRequest());
         axios
-            .get(GALLARY_VIDEO_LIST)
+            .get(GALLARY_VIDEO_LIST, {
+                headers: {
+                    ...getCommonApiHeader(),
+                },
+            })
             .then((response) => {
                 dispatch(getGalleryVideoRespond(response?.data));
             }).catch(err => {
@@ -45,7 +57,11 @@ export const CSRAPI = (data) => {
     return (dispatch, getState) => {
         dispatch(getGellaryRequest());
         axios
-            .get(CSR_LIST)
+            .get(CSR_LIST, {
+                headers: {
+                    ...getCommonApiHeader(),
+                },
+            })
             .then((response) => {
                 dispatch(getCSRRespond(response?.data));
             }).catch(err => {

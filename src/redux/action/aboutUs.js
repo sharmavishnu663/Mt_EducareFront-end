@@ -1,12 +1,16 @@
 import axios from "axios";
-import { CENTERS_LIST, INTRO_LIST, DIRECTOR_LIST, KEY_MANAGEMENT_LIST, AWARDS_LIST, AWARDS_DETAIL_LIST } from "../constants";
-
+import { getCommonApiHeader } from "../../Utils/utils";
+import { CENTERS_LIST, INTRO_LIST, DIRECTOR_LIST, KEY_MANAGEMENT_LIST, AWARDS_LIST, AWARDS_DETAIL_LIST, CENTER_SERACH } from "../constants";
 
 export const centerListAPI = (data) => {
     return (dispatch, getState) => {
         dispatch(getAboutRequest());
         axios
-            .get(CENTERS_LIST)
+            .get(CENTERS_LIST, {
+                headers: {
+                    ...getCommonApiHeader(),
+                },
+            })
             .then((response) => {
                 dispatch(getCentersDataRespond(response?.data));
             }).catch(err => {
@@ -19,7 +23,11 @@ export const introListAPI = (data) => {
     return (dispatch, getState) => {
         dispatch(getAboutRequest());
         axios
-            .get(INTRO_LIST)
+            .get(INTRO_LIST, {
+                headers: {
+                    ...getCommonApiHeader(),
+                },
+            })
             .then((response) => {
                 dispatch(getIntroDataRespond(response?.data));
             }).catch(err => {
@@ -33,7 +41,11 @@ export const boardDirectorAPI = (data) => {
     return (dispatch, getState) => {
         dispatch(getAboutRequest());
         axios
-            .get(DIRECTOR_LIST)
+            .get(DIRECTOR_LIST, {
+                headers: {
+                    ...getCommonApiHeader(),
+                },
+            })
             .then((response) => {
                 dispatch(getDirectorDataRespond(response?.data));
             }).catch(err => {
@@ -46,7 +58,11 @@ export const boardCommitteeAPI = (data) => {
     return (dispatch, getState) => {
         dispatch(getAboutRequest());
         axios
-            .get(DIRECTOR_LIST)
+            .get(DIRECTOR_LIST, {
+                headers: {
+                    ...getCommonApiHeader(),
+                },
+            })
             .then((response) => {
                 dispatch(getCommitteeDataRespond(response?.data));
             }).catch(err => {
@@ -59,7 +75,11 @@ export const keyManagementAPI = (data) => {
     return (dispatch, getState) => {
         dispatch(getAboutRequest());
         axios
-            .get(KEY_MANAGEMENT_LIST)
+            .get(KEY_MANAGEMENT_LIST, {
+                headers: {
+                    ...getCommonApiHeader(),
+                },
+            })
             .then((response) => {
                 dispatch(getKeyManagementDataRespond(response?.data));
             }).catch(err => {
@@ -72,7 +92,11 @@ export const awardsAPI = (data) => {
     return (dispatch, getState) => {
         dispatch(getAboutRequest());
         axios
-            .get(AWARDS_LIST)
+            .get(AWARDS_LIST, {
+                headers: {
+                    ...getCommonApiHeader(),
+                },
+            })
             .then((response) => {
                 dispatch(getAwardsDataRespond(response?.data));
             }).catch(err => {
@@ -85,9 +109,31 @@ export const awardsDetailAPI = (data) => {
     return (dispatch, getState) => {
         dispatch(getAboutRequest());
         axios
-            .get(AWARDS_DETAIL_LIST + '' + data)
+            .get(AWARDS_DETAIL_LIST + '' + data, {
+                headers: {
+                    ...getCommonApiHeader(),
+                },
+            })
             .then((response) => {
                 dispatch(getAwardsDetailsDataRespond(response?.data));
+            }).catch(err => {
+                dispatch(handleError(err));
+            });
+    };
+}
+
+export const centerSearchAPI = (data) => {
+    console.log(data)
+    return (dispatch, getState) => {
+        dispatch(getAboutRequest());
+        axios
+            .post(CENTER_SERACH, data, {
+                headers: {
+                    ...getCommonApiHeader(),
+                },
+            })
+            .then((response) => {
+                dispatch(getCenterSearchDataRespond(response?.data));
             }).catch(err => {
                 dispatch(handleError(err));
             });
@@ -146,6 +192,13 @@ export const getAwardsDataRespond = data => {
 export const getAwardsDetailsDataRespond = data => {
     return {
         type: "AWARDS_DETAILS_DATA_RESPONSE",
+        data: data,
+    };
+};
+
+export const getCenterSearchDataRespond = data => {
+    return {
+        type: "CENTER_SEARCH_DATA_RESPONSE",
         data: data,
     };
 };

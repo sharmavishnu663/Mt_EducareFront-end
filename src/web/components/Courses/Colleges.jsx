@@ -23,11 +23,11 @@ function College() {
 
               <div className="article-header with-search">
                 <div className="pills">
-                   <Link to = "/courses/competativeExams"  >
+                  <Link to="/courses/competativeExams"  >
                     Competative Exams
-                    </Link>
-                  <Link to = "/courses/college" className="active">Colleges</Link>
-                  <Link to = "/courses/school" >School</Link>
+                  </Link>
+                  <Link to="/courses/college" className="active">Colleges</Link>
+                  <Link to="/courses/school" >School</Link>
                 </div>
 
                 <form action="">
@@ -47,7 +47,7 @@ function College() {
                   />
                 </div>
                 <div>
-                  <a href="http://commerce.maheshtutorials.com/"className="btn btn-lg mr-3">
+                  <a href="http://commerce.maheshtutorials.com/" className="btn btn-lg mr-3">
                     Explore Commerce
                   </a>
                   &nbsp;
@@ -74,23 +74,23 @@ function College() {
           </div>
         </div>
       </section>
-        
-        {/* ======================== OUR TOPPERS STARTS =================== */}
-        <TopperDetails />
+
+      {/* ======================== OUR TOPPERS STARTS =================== */}
+      <TopperDetails />
       {/* ================ OUR TOPPERS ENDS ======================= */}
 
-       {/* ===================== DEMO VIDEO SECTION STARTS ==================== */}
-     <DemoVideos />
+      {/* ===================== DEMO VIDEO SECTION STARTS ==================== */}
+      {/* <DemoVideos /> */}
 
-     {/* ========================== DEMO VIDEO SECTION ENDS =================*/}
-     
-     {/* ========================== FEEDBACK STARTS HERE ====================*/}
-     <Feedback />
-     {/* ========================== FEEDBACK ENDS HERE ====================== */}
+      {/* ========================== DEMO VIDEO SECTION ENDS =================*/}
 
-    {/* =========================== CONNECT SECTION STARTS HERE =============*/}
-    <Connect/>
-    {/* =========================== CONNECT SECTION ENDS HERE ================ */}
+      {/* ========================== FEEDBACK STARTS HERE ====================*/}
+      <Feedback />
+      {/* ========================== FEEDBACK ENDS HERE ====================== */}
+
+      {/* =========================== CONNECT SECTION STARTS HERE =============*/}
+      <Connect />
+      {/* =========================== CONNECT SECTION ENDS HERE ================ */}
 
     </>
   );

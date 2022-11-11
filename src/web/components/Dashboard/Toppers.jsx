@@ -1,7 +1,5 @@
 import React from "react";
-import TopperBlue from "../Cards/Topper-BlueCard";
-import TopperOrange from "../Cards/Topper-OrangeCard";
-function TopperDetails() {
+const TopperDetails = ({ toppersData }) => {
   return (
     <>
       <section class="our-toppers">
@@ -14,18 +12,18 @@ function TopperDetails() {
               <p>Meet these shining stars who made it at the top and are proud to be called toppers of there exams.</p>
 
               <div class="toppers">
+                {toppersData && toppersData.data && toppersData.data.map((item) =>
+                  <div class="student-card bg-light-orange">
+                    <div class="detail">
+                      <h4 class="text-orange">{item.percentage}</h4>
+                      <p class="name">{item.name}</p>
+                      <p class="rank">{item.description}</p>
+                    </div>
 
-                <TopperOrange />
+                    <img src={item.image} alt="topper" />
+                  </div>
+                )}
 
-                <TopperBlue />
-
-                <TopperOrange />
-
-                <TopperBlue />
-
-                <TopperOrange />
-
-                <TopperBlue />
               </div>
             </div>
           </div>

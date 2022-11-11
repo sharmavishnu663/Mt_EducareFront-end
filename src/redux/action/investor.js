@@ -1,12 +1,16 @@
 import axios from "axios";
+import { getCommonApiHeader } from "../../Utils/utils";
 import { CORPORATE_LIST, INVESTOR_LIST, RELEASE_DATA, REPORT_DATA } from "../constants";
-
 
 export const CorporateDataAPI = (data) => {
     return (dispatch, getState) => {
         dispatch(getInvestorRequest());
         axios
-            .get(CORPORATE_LIST)
+            .get(CORPORATE_LIST, {
+                headers: {
+                    ...getCommonApiHeader(),
+                },
+            })
             .then((response) => {
                 dispatch(getCorporateDataRespond(response?.data));
             }).catch(err => {
@@ -19,7 +23,11 @@ export const investorDataAPI = (data) => {
     return (dispatch, getState) => {
         dispatch(getInvestorRequest());
         axios
-            .get(INVESTOR_LIST)
+            .get(INVESTOR_LIST, {
+                headers: {
+                    ...getCommonApiHeader(),
+                },
+            })
             .then((response) => {
                 dispatch(getInvestorDataRespond(response?.data));
             }).catch(err => {
@@ -32,7 +40,11 @@ export const releaseDataAPI = (data) => {
     return (dispatch, getState) => {
         dispatch(getInvestorRequest());
         axios
-            .get(RELEASE_DATA + '' + data)
+            .get(RELEASE_DATA + '' + data, {
+                headers: {
+                    ...getCommonApiHeader(),
+                },
+            })
             .then((response) => {
                 dispatch(getReleaseDataRespond(response?.data));
             }).catch(err => {
@@ -45,7 +57,11 @@ export const reportDataAPI = (data) => {
     return (dispatch, getState) => {
         dispatch(getInvestorRequest());
         axios
-            .get(REPORT_DATA + '' + data)
+            .get(REPORT_DATA + '' + data, {
+                headers: {
+                    ...getCommonApiHeader(),
+                },
+            })
             .then((response) => {
                 dispatch(getReportDataRespond(response?.data));
             }).catch(err => {

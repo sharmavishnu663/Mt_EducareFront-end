@@ -1,12 +1,16 @@
 import axios from "axios";
+import { getCommonApiHeader } from "../../Utils/utils";
 import { POLICY_LIST, TERMS_LIST, DISCLAIMER_LIST } from "../constants";
-
 
 export const policyListAPI = (data) => {
     return (dispatch, getState) => {
         dispatch(getPolicyRequest());
         axios
-            .get(POLICY_LIST)
+            .get(POLICY_LIST, {
+                headers: {
+                    ...getCommonApiHeader(),
+                },
+            })
             .then((response) => {
                 dispatch(getPolicyDataRespond(response?.data));
             }).catch(err => {
@@ -19,7 +23,11 @@ export const termsListAPI = (data) => {
     return (dispatch, getState) => {
         dispatch(getPolicyRequest());
         axios
-            .get(TERMS_LIST)
+            .get(TERMS_LIST, {
+                headers: {
+                    ...getCommonApiHeader(),
+                },
+            })
             .then((response) => {
                 dispatch(getTermsDataRespond(response?.data));
             }).catch(err => {
@@ -32,7 +40,11 @@ export const disclaimerListAPI = (data) => {
     return (dispatch, getState) => {
         dispatch(getPolicyRequest());
         axios
-            .get(DISCLAIMER_LIST)
+            .get(DISCLAIMER_LIST, {
+                headers: {
+                    ...getCommonApiHeader(),
+                },
+            })
             .then((response) => {
                 dispatch(getDisclaimerDataRespond(response?.data));
             }).catch(err => {

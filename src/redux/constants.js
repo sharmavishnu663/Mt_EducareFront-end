@@ -1,4 +1,4 @@
-export const BASE_URL = 'http://127.0.0.1:8000/api';
+export const BASE_URL = 'http://staging.mteducare.com/mteducare_admin/public/api';
 
 export const IMAGE_BASE_URL = 'https://s3.ap-south-1.amazonaws.com/static.idpl.io/static/img';
 
@@ -79,3 +79,37 @@ export const JOB_DATA_LIST = `${BASE_URL}/job-data-list/`;
 
 // Enquiry form  api
 export const ENQUIRY_POST_DATA = `${BASE_URL}/enquiry-post/`;
+
+// Category List  api
+export const Category_LIST = `${BASE_URL}/category-list`;
+
+// Category Details  api
+export const Category_Details = `${BASE_URL}/category-details/`;
+
+//Demo Video Category Details  api
+export const DEMO_VIDEO_CATEGORY = `${BASE_URL}/demo-video-category`;
+
+//Demo Video  Details  api
+export const DEMO_VIDEO_DETAIL = `${BASE_URL}/demo-video-detail/`;
+
+//Topper List api
+export const TOPPER_LIST = `${BASE_URL}/topper-list`;
+
+//Email subscription api
+export const EMAIL_SUBSCRIPTION = `${BASE_URL}/email-subscription/`;
+
+//ACHIVEMENTS api
+export const ACHIVEMENTS = `${BASE_URL}/our-achivement`;
+
+
+//Category bards standards api
+export const CATEGORY_BOARD_STANDARDS = `${BASE_URL}/category-boards-standards/`;
+
+//City api
+export const CITY_LIST = `${BASE_URL}/city-list`;
+
+//Area api
+export const AREA_LIST = `${BASE_URL}/area-data/`;
+
+//Centers api
+export const CENTER_SERACH = `${BASE_URL}/center-search`;

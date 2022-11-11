@@ -1,20 +1,20 @@
 import axios from "axios";
 import { getCommonApiHeader } from "../../Utils/utils";
-import { ENQUIRY_POST_DATA, EMAIL_SUBSCRIPTION } from "../constants";
+import { DEMO_VIDEO_CATEGORY, DEMO_VIDEO_DETAIL } from "../constants";
 
 
-export const enquiryForm = (data) => {
+export const demoVideoListApi = (data) => {
     return (dispatch, getState) => {
-        dispatch(getEnquiryPostDataRequest());
+        dispatch(getDemoVideoDataRequest());
         axios
-            .post(ENQUIRY_POST_DATA, data, {
+            .get(DEMO_VIDEO_CATEGORY, {
                 headers: {
                     ...getCommonApiHeader(),
                 },
             })
             .then((response) => {
                 if (response) {
-                    dispatch(handleSuccess({ message: response.data.message }));
+                    dispatch(getDEMOVIDEODataRespond(response?.data));
                 }
             }).catch(err => {
                 dispatch(handleError(err));
@@ -22,18 +22,18 @@ export const enquiryForm = (data) => {
     };
 }
 
-export const emailSubscriptionApi = (data) => {
+export const demoVideoDetailApi = (data) => {
     return (dispatch, getState) => {
-        dispatch(getEnquiryPostDataRequest());
+        dispatch(getDemoVideoDataRequest());
         axios
-            .post(EMAIL_SUBSCRIPTION, data, {
+            .post(DEMO_VIDEO_DETAIL, data, {
                 headers: {
                     ...getCommonApiHeader(),
                 },
             })
             .then((response) => {
                 if (response) {
-                    dispatch(handleSuccess({ message: response.data.message }));
+                    dispatch(getVideoDetailataRespond(response?.data));
                 }
             }).catch(err => {
                 dispatch(handleError(err));
@@ -41,9 +41,23 @@ export const emailSubscriptionApi = (data) => {
     };
 }
 
-export const getEnquiryPostDataRequest = data => {
+export const getDemoVideoDataRequest = data => {
     return {
-        type: "ENQUIRY_POST_Data_REQUESTED",
+        type: "DEMO_VIDEO_Data_REQUESTED",
+    };
+};
+
+export const getVideoDetailataRespond = data => {
+    return {
+        type: "VIDEO_DETAIL_DATA_RESPONSE",
+        data: data,
+    };
+};
+
+export const getDEMOVIDEODataRespond = data => {
+    return {
+        type: "DEMO_VIDEO_DATA_RESPONSE",
+        data: data,
     };
 };
 
@@ -56,7 +70,7 @@ export const handleSuccess = (data) => {
 };
 export const handleError = error => {
     return {
-        type: "ENQUIRY_ERROR",
+        type: "DEMO_VIDEO_ERROR",
         error,
     };
 };

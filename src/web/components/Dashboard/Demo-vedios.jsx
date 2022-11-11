@@ -1,12 +1,18 @@
 import React, { useState } from "react";
+import { useEffect } from "react";
 import ReactDOM from 'react-dom';
 import VideoCard from "../Cards/VideoCard";
 
 
 
-function DemoVideos() {
+const DemoVideos = ({ demoListData, demoVideoDetailApi, videoDetailData }) => {
+  const [activeTab, setActiveTab] = useState();
+  const [activeTabDetail, setActiveTabDetail] = useState();
 
- 
+  useEffect(() => {
+    demoVideoDetailApi(activeTabDetail)
+  }, [activeTabDetail])
+
   return (
     <>
       <section className="cards" id="demo-videos">
@@ -23,27 +29,18 @@ function DemoVideos() {
 
               <div className="article-header">
                 <div className="pills">
-                  <a href="#" className="active">
-                    VIII to X
-                  </a>
-                  <a href="#">XI and XII Commerce</a>
-                  <a href="#">XI and XII Science</a>
-                  <a href="#">IIT-JEE</a>
-                  <a href="#">CA</a>
-                  <a href="#">View All</a>
-                </div>
+                  {demoListData && demoListData.data && demoListData.data.map((item) =>
 
-                <div className="view-all">
-                  <a href="#">View All</a>
+                    <a href="#" className={`${item && item.id == activeTab ? "active" : ""}`} onClick={(e) => { setActiveTab(item && item.id); setActiveTabDetail(item && item.class_id) }}>
+                      {item && item.class_category && item.class_category.name}
+                    </a>
+                  )}
                 </div>
               </div>
 
               <div className="articles">
                 <VideoCard />
-                
-                <VideoCard />
 
-                <VideoCard />
               </div>
             </div>
           </div>

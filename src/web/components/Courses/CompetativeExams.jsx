@@ -7,7 +7,7 @@ import DemoVideos from "../Dashboard/Demo-vedios";
 import CourseCard from "../Cards/CourseCard";
 function CompetativeExam() {
   return (
-    <> 
+    <>
       <section class="cards" id="courses">
         <div class="container">
           <div class="row">
@@ -22,11 +22,11 @@ function CompetativeExam() {
 
               <div class="article-header with-search">
                 <div class="pills">
-                  <Link to = "/courses/competativeExams"  class="active">
+                  <Link to="/courses/competativeExams" class="active">
                     Competative Exams
-                    </Link>
-                  <Link to = "/courses/college" >Colleges</Link>
-                  <Link to = "/courses/school" >School</Link>
+                  </Link>
+                  <Link to="/courses/college" >Colleges</Link>
+                  <Link to="/courses/school" >School</Link>
                 </div>
 
                 <form action="">
@@ -66,7 +66,7 @@ function CompetativeExam() {
                 <CourseCard />
 
                 <CourseCard />
-                
+
               </div>
             </div>
           </div>
@@ -115,17 +115,17 @@ function CompetativeExam() {
         </div>
       </section>
 
-     <DemoVideos/>
+      {/* <DemoVideos/> */}
 
-     <TopperDetails/>
+      <TopperDetails />
 
-      <Feedback/>
+      <Feedback />
 
-     <Connect/>
+      <Connect />
 
-    
 
-     
+
+
     </>
   );
 }

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { Suspense, useEffect } from "react";
 import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { WebRoutes } from "./routes";
@@ -28,8 +28,6 @@ import GallaryGrid from "./web/components/Gallary/Gallary-grid";
 import TermService from "./web/components/Term_Policies/Term-of-services";
 import PrivacyPolicy from "./web/components/Term_Policies/Privacy-Policy";
 import Disclaimer from "./web/components/Term_Policies/Disclaimer";
-import Header from "./web/components/Common/Header";
-import Footer from "./web/components/Common/Footer";
 import Career from "./web/components/OtherPages/Career";
 import ResearchReport from "./web/components/Investor_Relations/ResearchReport";
 import { Provider } from "react-redux";
@@ -37,6 +35,7 @@ import { store } from "./redux/store";
 import CareerDetails from "./web/components/OtherPages/CareerDetails";
 import Enquiry from "./web/components/modal/Enquiry";
 import AwardDetails from "./web/components/AboutUs/AwardDetails";
+import BaseDashboard from "./web/components";
 
 
 
@@ -130,71 +129,76 @@ function App() {
 
   return (
     <div className="App">
-      <BrowserRouter>
-        <ScrollToTop>
-          <Header />
-          <Routes>
-            <Route path={WebRoutes.DASHBOARD} element={<Provider store={store}><Dashboard /> </Provider>} />
+      <ScrollToTop>
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <Suspense>
+                <BaseDashboard />
+              </Suspense>
+            }
+          >
+            <Route path={WebRoutes.DASHBOARD} element={<Dashboard />} />
 
-            <Route path={WebRoutes.COMPETATIVE_EXAM} element={<Provider store={store}><CompetativeExam /></Provider>} />
+            <Route path={WebRoutes.COMPETATIVE_EXAM} element={<CompetativeExam />} />
 
-            <Route path={WebRoutes.COLLEGE} element={<Provider store={store}><College /></Provider>} />
+            <Route path={WebRoutes.COLLEGE} element={<College />} />
 
-            <Route path={WebRoutes.SCHOOL} element={<Provider store={store}><School /></Provider>} />
+            <Route path={WebRoutes.SCHOOL} element={<School />} />
 
-            <Route path={WebRoutes.CENTERS} element={<Provider store={store}><Center /></Provider>} />
+            <Route path={WebRoutes.CENTERS} element={<Center />} />
 
-            <Route path={WebRoutes.ABOUT_US} element={<Provider store={store}><About /></Provider>} />
+            <Route path={WebRoutes.ABOUT_US} element={<About />} />
 
-            <Route path={WebRoutes.BOARD_DIRECTORS} element={<Provider store={store}><BoardOfDirectors /></Provider>} />
+            <Route path={WebRoutes.BOARD_DIRECTORS} element={<BoardOfDirectors />} />
 
-            <Route path={WebRoutes.KEY_MANAGEMENT} element={<Provider store={store}><KeyManagement /></Provider>} />
+            <Route path={WebRoutes.KEY_MANAGEMENT} element={<KeyManagement />} />
 
-            <Route path={WebRoutes.BOARD_COMMITTEE} element={<Provider store={store}><BoardCommittee /> </Provider>} />
+            <Route path={WebRoutes.BOARD_COMMITTEE} element={<BoardCommittee />} />
 
-            <Route path={WebRoutes.AWARD_RECOGNITION} element={<Provider store={store}><AwardsRecognition /> </Provider>} />
+            <Route path={WebRoutes.AWARD_RECOGNITION} element={<AwardsRecognition />} />
 
-            <Route path={WebRoutes.AWARD_DETAIL} element={<Provider store={store}><AwardDetails /> </Provider>} />
+            <Route path={WebRoutes.AWARD_DETAIL} element={<AwardDetails />} />
 
-            <Route path={WebRoutes.CORPORATE_GOVERNANCE} element={<Provider store={store}><CorporateGovernance /> </Provider>} />
+            <Route path={WebRoutes.CORPORATE_GOVERNANCE} element={<CorporateGovernance />} />
 
-            <Route path={WebRoutes.INVESTOR_PRESENTATIONS} element={<Provider store={store}><InvestorPresentations /> </Provider>} />
+            <Route path={WebRoutes.INVESTOR_PRESENTATIONS} element={<InvestorPresentations />} />
 
-            <Route path={WebRoutes.PRESS_RELEASE} element={<Provider store={store}><PressRelease /> </Provider>} />
+            <Route path={WebRoutes.PRESS_RELEASE} element={<PressRelease />} />
 
-            <Route path={WebRoutes.POSTAL_BALLOT} element={<Provider store={store}><PostalBallot /> </Provider>} />
+            <Route path={WebRoutes.POSTAL_BALLOT} element={<PostalBallot />} />
 
-            <Route path={WebRoutes.STATUTORY_COMMUNICATION} element={<Provider store={store}><StatuoryCommunication /> </Provider>} />
+            <Route path={WebRoutes.STATUTORY_COMMUNICATION} element={<StatuoryCommunication />} />
 
-            <Route path={WebRoutes.SHAREHOLDING_PATTERN} element={<Provider store={store}><ShareholdingPattern /> </Provider>} />
+            <Route path={WebRoutes.SHAREHOLDING_PATTERN} element={<ShareholdingPattern />} />
 
-            <Route path={WebRoutes.REPORTS} element={<Provider store={store}><Reports /> </Provider>} />
+            <Route path={WebRoutes.REPORTS} element={<Reports />} />
 
-            <Route path={WebRoutes.RESEARCH_REPORT} element={<Provider store={store}><ResearchReport /> </Provider>} />
+            <Route path={WebRoutes.RESEARCH_REPORT} element={<ResearchReport />} />
 
-            <Route path={WebRoutes.PHOTO_GALLARY} element={<Provider store={store}><PhotoGallary /> </Provider>} />
+            <Route path={WebRoutes.PHOTO_GALLARY} element={<PhotoGallary />} />
 
-            <Route path={WebRoutes.VIDEO_GALLARY} element={<Provider store={store}><VideoGallary /> </Provider>} />
+            <Route path={WebRoutes.VIDEO_GALLARY} element={<VideoGallary />} />
 
-            <Route path={`${WebRoutes.GALLARY_GRID}:id`} element={<Provider store={store}><GallaryGrid /></Provider>} />
+            <Route path={`${WebRoutes.GALLARY_GRID}:id`} element={<GallaryGrid />} />
 
-            <Route path={WebRoutes.CSR} element={<Provider store={store}><Csr /></Provider>} />
+            <Route path={WebRoutes.CSR} element={<Csr />} />
 
-            <Route path={WebRoutes.MEDIA} element={<Provider store={store}><Media /></Provider>} />
+            <Route path={WebRoutes.MEDIA} element={<Media />} />
 
-            <Route path={WebRoutes.TERMS_SERVICE} element={<Provider store={store}><TermService /> </Provider>} />
+            <Route path={WebRoutes.TERMS_SERVICE} element={<TermService />} />
 
-            <Route path={WebRoutes.PRIVACY_POLICY} element={<Provider store={store}><PrivacyPolicy /></Provider>} />
+            <Route path={WebRoutes.PRIVACY_POLICY} element={<PrivacyPolicy />} />
 
-            <Route path={WebRoutes.DISCLAIMER} element={<Provider store={store}><Disclaimer /></Provider>} />
+            <Route path={WebRoutes.DISCLAIMER} element={<Disclaimer />} />
 
-            <Route path={WebRoutes.CAREER} element={<Provider store={store}><Career /></Provider>} />
-            <Route path={`${WebRoutes.CAREER_DETAILS}:id`} element={<Provider store={store}><CareerDetails /></Provider>} />
-          </Routes>
-          <Footer />
-        </ScrollToTop>
-      </BrowserRouter>
-    </div>
+            <Route path={WebRoutes.CAREER} element={<Career />} />
+            <Route path={`${WebRoutes.CAREER_DETAILS}:id`} element={<CareerDetails />} />
+          </Route>
+        </Routes>
+      </ScrollToTop>
+    </div >
   );
 }
 

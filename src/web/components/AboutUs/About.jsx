@@ -9,7 +9,7 @@ const About = ({ introListAPI, introData }) => {
     const [activeYear, setActiveYear] = useState();
     useEffect(() => {
         introListAPI();
-        setActiveYear(introData.data && introData.data[0].id)
+        // setActiveYear(introData.data && introData.data && introData.data[0].id)
     }, []);
 
 

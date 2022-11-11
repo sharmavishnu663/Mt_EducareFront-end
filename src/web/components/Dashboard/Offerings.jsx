@@ -20,7 +20,7 @@ function Offerings() {
               <div className="articles">
                 <div className="article">
                   <div className="thumbnail">
-                    <a href="#">
+                    <a href="https://roboestore.com/" target="_blank">
                       <img src="../assets/imgs/offer1.png" alt="image" />
                     </a>
                   </div>
@@ -34,7 +34,7 @@ function Offerings() {
                       </p>
                     </div>
                     <div className="tag-link justify-content-end">
-                      <a href="#" className="btn btn-sm">
+                      <a href="https://roboestore.com/" className="btn btn-sm" target="_blank">
                         <img
                           src="../assets/imgs/icon-arrow-right.svg"
                           alt="icon"
@@ -46,7 +46,7 @@ function Offerings() {
 
                 <div className="article">
                   <div className="thumbnail">
-                    <a href="#">
+                    <a href="https://www.lakshyainstitute.com/" target="_blank">
                       <img src="../assets/imgs/offer2.png" alt="image" />
                     </a>
                   </div>
@@ -60,7 +60,7 @@ function Offerings() {
                       </p>
                     </div>
                     <div className="tag-link justify-content-end">
-                      <a href="#" className="btn btn-sm">
+                      <a href="https://www.lakshyainstitute.com/" className="btn btn-sm" target="_blank">
                         <img
                           src="../assets/imgs/icon-arrow-right.svg"
                           alt="icon"
@@ -72,7 +72,7 @@ function Offerings() {
 
                 <div className="article">
                   <div className="thumbnail">
-                    <a href="#">
+                    <a href="https://www.lakshyainstitute.com/" target="_blank">
                       <img src="../assets/imgs/offer3.png" alt="image" />
                     </a>
                   </div>
@@ -86,7 +86,7 @@ function Offerings() {
                       </p>
                     </div>
                     <div className="tag-link justify-content-end">
-                      <a href="#" className="btn btn-sm">
+                      <a href="https://www.lakshyainstitute.com/" className="btn btn-sm" target="_blank">
                         <img
                           src="../assets/imgs/icon-arrow-right.svg"
                           alt="icon"

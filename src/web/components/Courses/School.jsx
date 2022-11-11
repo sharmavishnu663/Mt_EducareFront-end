@@ -8,7 +8,7 @@ import DemoVideos from "../Dashboard/Demo-vedios";
 
 function School() {
   return (
-    <>  
+    <>
       <section className="cards" id="courses">
         <div className="container">
           <div className="row">
@@ -23,11 +23,11 @@ function School() {
 
               <div className="article-header with-search">
                 <div className="pills">
-                <Link to = "/courses/competativeExams"  >
+                  <Link to="/courses/competativeExams"  >
                     Competative Exams
-                    </Link>
-                  <Link to = "/courses/college" >Colleges</Link>
-                  <Link to = "/courses/school" className="active">School</Link>
+                  </Link>
+                  <Link to="/courses/college" >Colleges</Link>
+                  <Link to="/courses/school" className="active">School</Link>
                 </div>
 
                 <form action="">
@@ -56,13 +56,13 @@ function School() {
               </div>
 
               <div className="articles">
-               <CourseCard />
-
                 <CourseCard />
 
                 <CourseCard />
 
-                 <CourseCard />
+                <CourseCard />
+
+                <CourseCard />
 
                 <CourseCard />
 
@@ -75,9 +75,9 @@ function School() {
 
       <Topper />
 
-      <DemoVideos />
-     
-     <Feedback/>
+      {/* <DemoVideos /> */}
+
+      <Feedback />
 
       <Connect />
 

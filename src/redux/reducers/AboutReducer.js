@@ -6,6 +6,7 @@ const initState = {
     keyManagementData: [],
     awardsData: [],
     awardsDetails: [],
+    centerSearchData: [],
     error: null
 };
 const AboutReducer = (state = initState, action) => {
@@ -49,6 +50,11 @@ const AboutReducer = (state = initState, action) => {
             return {
                 ...state,
                 awardsDetails: data,
+            };
+        case "CENTER_SEARCH_DATA_RESPONSE":
+            return {
+                ...state,
+                centerSearchData: data,
             };
         case "ABOUT_ERROR":
             return {

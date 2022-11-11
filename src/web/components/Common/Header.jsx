@@ -5,12 +5,20 @@ import Enquiry from "../modal/Enquiry";
 import ContactUs from "../modal/ContactUs";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { categoryListApi } from "../../../redux/action/category";
+import { connect } from "react-redux";
 
 
-function Header() {
+
+const Header = ({ categoryListApi, categoryData }) => {
   const [openContact, setOpenContact] = useState(false);
   const [openEnquiry, setOpenEnquiry] = useState(false);
   const [toastType, setToastType] = useState(localStorage.getItem('postData'));
+
+  useEffect(() => {
+    categoryListApi()
+  }, [])
+
   useEffect(() => {
     if (toastType) {
       showToast();
@@ -225,4 +233,18 @@ function Header() {
   );
 }
 
-export default Header;
+const mapStateToProps = (state) => {
+  const { CategoryReducer } = state;
+  const { categoryData } = CategoryReducer;
+  return {
+    categoryData: CategoryReducer.categoryData,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    categoryListApi: () => dispatch(categoryListApi()),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header);

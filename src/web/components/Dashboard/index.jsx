@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Connect from "./Connect"
 import Courses from "./Courses";
@@ -10,10 +10,18 @@ import WhyMtEducare from "./WhyMTEducare";
 import OwlCarousel from "react-owl-carousel";
 import "owl.carousel/dist/assets/owl.carousel.css";
 import "owl.carousel/dist/assets/owl.theme.default.css";
-import { Form, Input } from "antd";
+import { Form, Input, Select } from "antd";
+import { connect } from "react-redux";
+import { demoVideoListApi, demoVideoDetailApi } from "../../../redux/action/demoVideo";
+import { useEffect } from "react";
+import { topperListAPI, achivementListAPI, categoryBaodStandardsListAPI, cityListAPI, AreaListAPI } from "../../../redux/action/home";
+import { categoryListApi } from "../../../redux/action/category";
+import { WebRoutes } from "../../../routes";
 
 
-function Dashboard() {
+
+
+const Dashboard = ({ categoryListApi, demoVideoListApi, demoVideoDetailApi, demoListData, videoDetailData, topperListAPI, toppersData, achivementListAPI, achivementsData, categoryBaodStandardsListAPI, boardStandardsData, categoryData, cityListAPI, AreaListAPI, cityData, areaData }) => {
     const homeHeroCarousel = {
         loop: true,
         items: 1,
@@ -23,17 +31,42 @@ function Dashboard() {
         autoplay: true,
     };
 
+    const [category, setCategory] = useState();
+    const [boards, setBoards] = useState();
+    const [standards, setStandards] = useState();
+    const [city, setCity] = useState();
+    const [area, setArea] = useState();
+
+    useEffect(() => {
+        demoVideoListApi();
+        topperListAPI();
+        achivementListAPI();
+        categoryListApi();
+        cityListAPI();
+    }, []);
+
+    useEffect(() => {
+        categoryBaodStandardsListAPI(category);
+    }, [category]);
+
+    useEffect(() => {
+        if (city) {
+            console.log(localStorage.getItem('cityId'))
+            AreaListAPI(localStorage.getItem('cityId'));
+        }
+    }, [city]);
+
+    const handleCityChange = (e) => {
+        setCity(e.target.value);
+        localStorage.setItem('cityId', city)
+    }
+
     const onFinish = (event) => {
         const data = {
-            // name: name,
-            // mobile: mobile,
-            // email: email,
-            // category: category,
-            // city: city,
-            // board: board,
-            // standard: standard,
-            // demo_time: demoTime
-        };
+            city: city,
+            area: area
+        }
+        localStorage.setItem('centersearch', data);
     };
     return (
         <>
@@ -282,7 +315,6 @@ function Dashboard() {
                                 wrapperCol={{
                                     span: 16,
                                 }}
-                                onFinish={onFinish}
                             >
                                 <div className="floating-form in-banner">
                                     <div className="form-controls">
@@ -291,9 +323,11 @@ function Dashboard() {
                                             name="category"
                                             className="form-label"
                                             rules={[{ required: true, message: 'Please select your category!' }]}>
-                                            <select name="course" id="course" required>
-                                                <option value="Program of UPSC">Program of UPSC</option>
-                                                <option value="Program of IPS">Program of IPS</option>
+                                            <select name="course" className="form-controls" id="course" value={category} onChange={(e) => setCategory(e.target.value)} required>
+                                                <option disabled selected>Please select category</option>
+                                                {categoryData && categoryData.data && categoryData.data.map((item) =>
+                                                    <option value={item.id}>{item.name}</option>
+                                                )}
                                             </select>
                                         </Form.Item>
                                     </div>
@@ -304,9 +338,26 @@ function Dashboard() {
                                             name="board"
                                             className="form-label"
                                             rules={[{ required: true, message: 'Please select your board!' }]}>
-                                            <select name="board" id="board">
-                                                <option value="10th CBSE">10th CBSE</option>
-                                                <option value="12th CBSE">12th CBSE</option>
+                                            <select name="boards" className="form-controls" id="boards" value={boards} onChange={(e) => setBoards(e.target.value)} required>
+                                                <option disabled selected>Please select board</option>
+                                                {boardStandardsData && boardStandardsData.data && boardStandardsData.data.map((item) =>
+                                                    <option value={item.board_name}>{item.board_name}</option>
+                                                )}
+                                            </select>
+                                        </Form.Item>
+                                    </div>
+
+                                    <div className="form-controls">
+                                        <Form.Item
+                                            label="Standards"
+                                            name="standards"
+                                            className="form-label"
+                                            rules={[{ required: true, message: 'Please select your standard!' }]}>
+                                            <select name="standards" id="standards" value={standards} onChange={(e) => setStandards(e.target.value)} required>
+                                                <option disabled selected>Please select Standards</option>
+                                                {boardStandardsData && boardStandardsData.data && boardStandardsData.data.map((item) =>
+                                                    <option value={item.id}>{item.name}</option>
+                                                )}
                                             </select>
                                         </Form.Item>
                                     </div>
@@ -317,9 +368,11 @@ function Dashboard() {
                                             name="city"
                                             className="form-label"
                                             rules={[{ required: true, message: 'Please select your city!' }]}>
-                                            <select name="course" id="course">
-                                                <option value="Delhi">Delhi</option>
-                                                <option value="Noida">Sector 2</option>
+                                            <select name="standards" id="standards" value={city} onChange={(e) => handleCityChange(e)} className="form-controls" required>
+                                                <option disabled selected>Please select city</option>
+                                                {cityData && cityData.data && cityData.data.map((item) =>
+                                                    <option value={item.id}>{item.name}</option>
+                                                )}
                                             </select>
                                         </Form.Item>
                                     </div>
@@ -330,15 +383,17 @@ function Dashboard() {
                                             name="area"
                                             className="form-label"
                                             rules={[{ required: true, message: 'Please select your area!' }]}>
-                                            <select name="are" id="area" required>
-                                                <option value="Greater Kailash">Greater Kailash</option>
-                                                <option value="South Extn.">South Extn.</option>
+                                            <select name="area" id="area" className="form-controls" value={area} onChange={(e) => setArea(e.target.value)} required>
+                                                <option disabled selected>Please select city</option>
+                                                {areaData && areaData.data && areaData.data.map((item) =>
+                                                    <option value={item.id}>{item.name}</option>
+                                                )}
                                             </select>
                                         </Form.Item>
                                     </div>
 
                                     <div className="form-controls">
-                                        <button className="btn btn-primary btn-submit" type="submit">Submit</button>
+                                        <Link to={WebRoutes.CENTERS}>   <button className="btn btn-primary btn-submit" type="button" onClick={(e) => onFinish()}>Submit</button></Link>
                                     </div>
                                 </div>
                                 {/* -- floating-form -- */}
@@ -365,27 +420,27 @@ function Dashboard() {
                         <div className="col-md-4">
                             <div className="record-grid">
                                 <div className="students row-span bg-g-orange">
-                                    <span className="record">100k+</span>
+                                    <span className="record">{achivementsData && achivementsData.data && achivementsData.data.student_ratio}+</span>
                                     <span className="label">Students</span>
                                 </div>
 
                                 <div className="faculties bg-light-blue">
-                                    <span className="record text-g-blue">400+</span>
+                                    <span className="record text-g-blue">{achivementsData && achivementsData.data && achivementsData.data.faculty_ratio}+</span>
                                     <span className="label text-g-blue">Faculties</span>
                                 </div>
 
                                 <div className="schools bg-light-orange">
-                                    <span className="record text-g-orange">200+</span>
+                                    <span className="record text-g-orange">{achivementsData && achivementsData.data && achivementsData.data.school_ratio}+</span>
                                     <span className="label text-g-orange">Schools</span>
                                 </div>
 
                                 <div className="institutes bg-light-blue">
-                                    <span className="record text-g-blue">400+</span>
+                                    <span className="record text-g-blue">{achivementsData && achivementsData.data && achivementsData.data.institute_ratio}+</span>
                                     <span className="label text-g-blue">Institutes</span>
                                 </div>
 
                                 <div className="colleges bg-light-orange">
-                                    <span className="record text-g-orange">100+</span>
+                                    <span className="record text-g-orange">{achivementsData && achivementsData.data && achivementsData.data.college_ratio}+</span>
                                     <span className="label text-g-orange">Colleges</span>
                                 </div>
                             </div>
@@ -643,13 +698,13 @@ function Dashboard() {
             </section>
 
             {/* TOPPER DETAILS */}
-            <TopperDetails />
+            <TopperDetails toppersData={toppersData} />
 
             {/* WHY MT EDUCARE? */}
             <WhyMtEducare />
 
             {/* DEMO VIDEOS */}
-            <DemoVideos />
+            <DemoVideos demoListData={demoListData} demoVideoDetailApi={demoVideoDetailApi} videoDetailData={videoDetailData} />
 
             {/* OFFERINGS */}
             <Offerings />
@@ -662,5 +717,34 @@ function Dashboard() {
         </>
     );
 }
+const mapStateToProps = (state) => {
+    const { DemoVideoReducer, HomeReducer, CategoryReducer } = state;
+    const { demoListData, videoDetailData } = DemoVideoReducer;
+    const { toppersData, achivementsData, cityData, areaData } = HomeReducer;
+    const { categoryData } = CategoryReducer;
+    return {
+        demoListData: DemoVideoReducer.demoListData,
+        videoDetailData: DemoVideoReducer.videoDetailData,
+        toppersData: HomeReducer.toppersData,
+        achivementsData: HomeReducer.achivementsData,
+        boardStandardsData: HomeReducer.boardStandardsData,
+        cityData: HomeReducer.cityData,
+        areaData: HomeReducer.areaData,
+        categoryData: CategoryReducer.categoryData,
+    };
+};
 
-export default Dashboard;
+const mapDispatchToProps = (dispatch) => {
+    return {
+        demoVideoListApi: () => dispatch(demoVideoListApi()),
+        topperListAPI: () => dispatch(topperListAPI()),
+        achivementListAPI: () => dispatch(achivementListAPI()),
+        demoVideoDetailApi: (data) => dispatch(demoVideoDetailApi(data)),
+        categoryBaodStandardsListAPI: (data) => dispatch(categoryBaodStandardsListAPI(data)),
+        categoryListApi: () => dispatch(categoryListApi()),
+        cityListAPI: () => dispatch(cityListAPI()),
+        AreaListAPI: (data) => dispatch(AreaListAPI(data)),
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);

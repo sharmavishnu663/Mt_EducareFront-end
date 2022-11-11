@@ -1,14 +1,25 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import { centerListAPI } from "../../../redux/action/aboutUs";
+import { centerListAPI, centerSearchAPI } from "../../../redux/action/aboutUs";
 import { parseHtml } from "../../../Utils/utils";
 
-const Center = ({ centerListAPI, centersData }) => {
+const Center = ({ centerListAPI, centersData, centerSearchAPI, centerSearchData }) => {
+
+    const searchData = localStorage.getItem('centersearch');
+    console.log(searchData)
 
     useEffect(() => {
         centerListAPI()
     }, []);
+
+    useEffect(() => {
+        if (searchData) {
+            centerSearchAPI(searchData);
+            centersData = centerSearchData;
+        }
+    }, [])
+
 
 
     return (
@@ -176,12 +187,14 @@ const mapStateToProps = (state) => {
     const { centersData } = AboutReducer;
     return {
         centersData: AboutReducer.centersData,
+        centerSearchData: AboutReducer.centerSearchData,
     };
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
         centerListAPI: () => dispatch(centerListAPI()),
+        centerSearchAPI: (data) => dispatch(centerSearchAPI(data)),
     };
 };
 

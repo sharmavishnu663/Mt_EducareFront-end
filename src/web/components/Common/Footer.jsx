@@ -1,11 +1,21 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { WebRoutes } from "../../../routes";
+import { connect } from "react-redux";
 import ContactUs from "../modal/ContactUs";
+import { Form, Input } from "antd";
 
 
-function Footer() {
+const Footer = ({ emailSubscriptionApi }) => {
   const [openContact, setOpenContact] = useState(false);
+  const [email, setEmail] = useState();
+
+  const onFinish = () => {
+    const data = { email: email }
+    emailSubscriptionApi(data);
+
+  }
+
 
   return (
     <>
@@ -139,10 +149,17 @@ function Footer() {
               </div>
               {/* ================  SUBSCRIPTION FORM ================ */}
               <div className="subscription-form">
-                <form action="">
+                <Form labelCol={{
+                  span: 8,
+                }}
+                  wrapperCol={{
+                    span: 16,
+                  }}
+                  onFinish={onFinish}
+                >
                   <label for="subscribe">Subsribe Our News Letter</label>
                   <div>
-                    <input type="email" id="subscribe" placeholder="example@mail.com" />
+                    <input type="email" id="subscribe" value={email} placeholder="example@mail.com" onChange={(e) => setEmail(e.target.value)} required />
                     <button type="submit">
                       <img
                         src="../assets/imgs/button-submit.svg"
@@ -150,7 +167,7 @@ function Footer() {
                       />
                     </button>
                   </div>
-                </form>
+                </Form>
               </div>
 
               {/* ================   SUBSCRIPTION FORM Ends ================ */}
@@ -161,13 +178,13 @@ function Footer() {
             <div className="col-md-12 social-bookmarks">
               <h5 className="text-center mb-3">Follow Us</h5>
               <div className="social-icons">
-                <a href="#">
+                <a href="https://www.facebook.com/mteducareltd" target="_blank">
                   <img src="../assets/imgs/icon-facebook.svg" alt="icon" />
                 </a>
-                <a href="">
+                <a href="https://twitter.com/mt_education" target="_blank">
                   <img src="../assets/imgs/icon-twitter.svg" alt="icon" />
                 </a>
-                <a href="#">
+                <a href="https://www.youtube.com/c/mteducarecachennai/videos" target="_blank">
                   <img src="../assets/imgs/icon-youtube.svg" alt="icon" />
                 </a>
               </div>
