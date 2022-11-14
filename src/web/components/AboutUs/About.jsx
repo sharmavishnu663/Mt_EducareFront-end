@@ -58,9 +58,8 @@ const About = ({ introListAPI, introData }) => {
 
                                 <div className="content">
 
-                                    <div className="row align-items-center">
-                                        <Intro introData={introData} activeYear={activeYear} />
-                                    </div>
+
+                                    <Intro introData={introData} activeYear={activeYear} />
 
                                 </div>
 
