@@ -1,12 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { connect } from "react-redux";
 import { Modal } from "react-bootstrap";
 import { Form, Input } from "antd";
 import axios from "axios";
 import { ENQUIRY_POST_DATA } from "../../../redux/constants";
+import { categoryBaodStandardsListAPI, cityListAPI, AreaListAPI } from "../../../redux/action/home";
+import { categoryListApi } from "../../../redux/action/category";
 
-
-
-function Enquiry({ openEnquiry, handleCancel }) {
+const Enquiry = ({ openEnquiry, handleCancel, categoryListApi, userQueryApi, categoryBaodStandardsListAPI, cityListAPI, AreaListAPI, categoryData, boardStandardsData, cityData }) => {
   const [validated, setValidated] = useState(false);
   const [name, setName] = useState('');
   const [mobile, setMobile] = useState('');
@@ -16,6 +17,14 @@ function Enquiry({ openEnquiry, handleCancel }) {
   const [board, setBoard] = useState('');
   const [standard, setStandard] = useState('');
   const [demoTime, setDemoTime] = useState('');
+
+  useEffect(() => {
+    categoryListApi();
+    cityListAPI();
+  }, []);
+  useEffect(() => {
+    categoryBaodStandardsListAPI(category);
+  }, [category]);
 
   const onFinish = (event) => {
     const data = {
@@ -126,12 +135,11 @@ function Enquiry({ openEnquiry, handleCancel }) {
                     className="form-label"
                     rules={[{ required: true, message: 'Please select your Category!' }]}>
 
-                    <select id="" className="custom-select form-select" value={category} onChange={(e) => setCategory(e.target.value)} required>
-                      <option value="">Select Category</option>
-                      <option value="Entrance Exam">Entrance Exam</option>
-                      <option value="School">School</option>
-                      <option value="Commerce">Commerce</option>
-                      <option value="Science">Science</option>
+                    <select name="course" className="custom-select form-select" id="course" value={category} onChange={(e) => setCategory(e.target.value)} required>
+                      <option disabled selected>Please select category</option>
+                      {categoryData && categoryData.data && categoryData.data.map((item) =>
+                        <option value={item.id}>{item.name}</option>
+                      )}
                     </select>
                   </Form.Item>
                 </div>
@@ -143,14 +151,11 @@ function Enquiry({ openEnquiry, handleCancel }) {
                     className="form-label"
                     rules={[{ required: true, message: 'Please select your board!' }]}>
 
-
-                    <select id="" className="custom-select form-select" value={board} onChange={(e) => setBoard(e.target.value)} required>
-
-                      <option value="">Select board</option>
-                      <option value="ICSE">ICSE</option>
-                      <option value="CBSE">CBSE</option>
-                      <option value="MHSB">MHSB</option>
-                      <option value="State Board">State Board</option>
+                    <select name="boards" className="custom-select form-select" id="boards" value={board} onChange={(e) => setBoard(e.target.value)} required>
+                      <option disabled selected>Please select board</option>
+                      {boardStandardsData && boardStandardsData.data && boardStandardsData.data.map((item) =>
+                        <option value={item.board_name}>{item.board_name}</option>
+                      )}
                     </select>
                   </Form.Item>
                 </div>
@@ -163,13 +168,11 @@ function Enquiry({ openEnquiry, handleCancel }) {
                     rules={[{ required: true, message: 'Please select your standrd!' }]}>
 
 
-                    <select id="" className="custom-select form-select" value={standard} onChange={(e) => setStandard(e.target.value)} required>
-                      <option value="">Select standard</option>
-                      <option value="VII">VII</option>
-                      <option value="IX">IX</option>
-                      <option value="X">X</option>
-                      <option value="XI">XI</option>
-                      <option value="XII">XII</option>
+                    <select className="custom-select form-select" name="standards" id="standards" value={standard} onChange={(e) => setStandard(e.target.value)} required>
+                      <option disabled selected>Please select Standards</option>
+                      {boardStandardsData && boardStandardsData.data && boardStandardsData.data.map((item) =>
+                        <option value={item.name}>{item.name}</option>
+                      )}
                     </select>
                   </Form.Item>
                 </div>
@@ -200,12 +203,11 @@ function Enquiry({ openEnquiry, handleCancel }) {
                     name="city"
                     className="form-label"
                     rules={[{ required: true, message: 'Please select your city!' }]}>
-
-                    <select id="" className="custom-select form-select" value={city} onChange={(e) => setCity(e.target.value)} required>
-                      <option value="">Select City</option>
-                      <option value="Noida">Noida</option>
-                      <option value="Delhi">Delhi</option>
-                      <option value="Mumbai">Mumbai</option>
+                    <select name="standards" id="standards" value={city} onChange={(e) => setCity(e.target.value)} className="custom-select form-select" required>
+                      <option disabled selected>Please select city</option>
+                      {cityData && cityData.data && cityData.data.map((item) =>
+                        <option value={item.id}>{item.name}</option>
+                      )}
                     </select>
                   </Form.Item>
                 </div>
@@ -263,4 +265,25 @@ function Enquiry({ openEnquiry, handleCancel }) {
   );
 }
 
-export default Enquiry;
+
+const mapStateToProps = (state) => {
+  const { AboutReducer, HomeReducer, CategoryReducer } = state;
+  const { centersData, centerSearchData } = AboutReducer;
+  return {
+    boardStandardsData: HomeReducer.boardStandardsData,
+    cityData: HomeReducer.cityData,
+    areaData: HomeReducer.areaData,
+    categoryData: CategoryReducer.categoryData,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    categoryBaodStandardsListAPI: (data) => dispatch(categoryBaodStandardsListAPI(data)),
+    categoryListApi: () => dispatch(categoryListApi()),
+    cityListAPI: () => dispatch(cityListAPI()),
+    AreaListAPI: (data) => dispatch(AreaListAPI(data)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Enquiry);
