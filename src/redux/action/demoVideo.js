@@ -26,7 +26,7 @@ export const demoVideoDetailApi = (data) => {
     return (dispatch, getState) => {
         dispatch(getDemoVideoDataRequest());
         axios
-            .post(DEMO_VIDEO_DETAIL, data, {
+            .get(DEMO_VIDEO_DETAIL + '' + data, {
                 headers: {
                     ...getCommonApiHeader(),
                 },

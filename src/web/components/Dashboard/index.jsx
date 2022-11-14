@@ -8,20 +8,20 @@ import Offerings from "./Offerings";
 import TopperDetails from "./Toppers";
 import WhyMtEducare from "./WhyMTEducare";
 import OwlCarousel from "react-owl-carousel";
-import "owl.carousel/dist/assets/owl.carousel.css";
-import "owl.carousel/dist/assets/owl.theme.default.css";
+import Slider from "react-slick";
 import { Form, Input, Select } from "antd";
 import { connect } from "react-redux";
-import { demoVideoListApi, demoVideoDetailApi } from "../../../redux/action/demoVideo";
 import { useEffect } from "react";
 import { topperListAPI, achivementListAPI, categoryBaodStandardsListAPI, cityListAPI, AreaListAPI } from "../../../redux/action/home";
-import { categoryListApi } from "../../../redux/action/category";
+import { categoryListApi, categoryDetailsApi } from "../../../redux/action/category";
 import { WebRoutes } from "../../../routes";
+import { parseHtml } from "../../../Utils/utils";
 
 
 
 
-const Dashboard = ({ categoryListApi, demoVideoListApi, demoVideoDetailApi, demoListData, videoDetailData, topperListAPI, toppersData, achivementListAPI, achivementsData, categoryBaodStandardsListAPI, boardStandardsData, categoryData, cityListAPI, AreaListAPI, cityData, areaData }) => {
+const Dashboard = ({ categoryListApi, categoryDetailsApi, topperListAPI, toppersData, achivementListAPI, achivementsData, categoryBaodStandardsListAPI, boardStandardsData, categoryData, cityListAPI, AreaListAPI, cityData, areaData, categoryDetailsData }) => {
+    const [categoryActive, setCategoryActive] = useState(categoryData && categoryData.data && categoryData.data[0].id);
     const homeHeroCarousel = {
         loop: true,
         items: 1,
@@ -31,6 +31,25 @@ const Dashboard = ({ categoryListApi, demoVideoListApi, demoVideoDetailApi, demo
         autoplay: true,
     };
 
+    const demoVideoConfig = {
+        loop: true,
+        autoplay: false,
+        margin: 0,
+        dots: true,
+        autoplayTimeout: 4000,
+        responsive: {
+            0: {
+                items: 1,
+            },
+            600: {
+                items: 2,
+            },
+            1000: {
+                items: 3,
+            },
+        },
+    };
+
     const [category, setCategory] = useState();
     const [boards, setBoards] = useState();
     const [standards, setStandards] = useState();
@@ -38,11 +57,11 @@ const Dashboard = ({ categoryListApi, demoVideoListApi, demoVideoDetailApi, demo
     const [area, setArea] = useState();
 
     useEffect(() => {
-        demoVideoListApi();
         topperListAPI();
         achivementListAPI();
         categoryListApi();
         cityListAPI();
+        categoryDetailsApi(categoryData && categoryData.data && categoryData.data[0].id);
     }, []);
 
     useEffect(() => {
@@ -68,6 +87,16 @@ const Dashboard = ({ categoryListApi, demoVideoListApi, demoVideoDetailApi, demo
         }
         localStorage.setItem('centersearch', data);
     };
+
+    const handleCategoryId = (id) => {
+        localStorage.setItem('categorySelectedId', id);
+        categoryDetailsApi(id);
+    }
+    useEffect(() => {
+        categoryDetailsApi(categoryActive);
+    }, [categoryActive])
+
+
     return (
         <>
             {/* BANNER  */}
@@ -86,225 +115,39 @@ const Dashboard = ({ categoryListApi, demoVideoListApi, demoVideoDetailApi, demo
                                 </div>
 
                                 <div className="carousel-inner">
-                                    <div className="carousel-item banner bg-light-orange active" data-bs-interval="10000">
+                                    {toppersData && toppersData.data && toppersData.data.map((item) =>
 
-                                        <div className="row">
-                                            <div className="col-md-7 col-sm-12">
-                                                <div className="caption">
-                                                    <h2><span className="text-orange">30+ Years</span> of legacy with Sterling Results</h2>
-                                                    <p className="mt-3">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Volutpat montes, pharetra cras odio nec scelerisque viverra.</p>
-                                                </div>
-                                            </div>
 
-                                            <div className="col-md-5 col-sm-12 sub-slider">
-
-                                                <div className="top-students top-students-a">
-                                                    <div className="students">
-                                                        <div className="detail">
-                                                            <div className="student text-center">
-                                                                <img src="../assets/imgs/photo-student-a.png" alt="student-photo" className="photograph" />
-                                                                <h3 className="percentage text-blue mt-3">98.8%</h3>
-                                                                <p className="name mb-2">Priyanka Shah</p>
-                                                                <p className="rank-year">All India Topper - CBSE 2021</p>
-                                                            </div>
-
-                                                            <div className="student text-center">
-                                                                <img src="../assets/imgs/photo-student-b.png" alt="student-photo" className="photograph" />
-                                                                <h3 className="percentage text-blue mt-3">95.8%</h3>
-                                                                <p className="name mb-2">Nayan Kumar</p>
-                                                                <p className="rank-year">All India Topper - CBSE 2021</p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                                    <div className="students">
-                                                        <div className="detail">
-                                                            <div className="student text-center">
-                                                                <img src="../assets/imgs/photo-student-b.png" alt="student-photo" className="photograph" />
-                                                                <h3 className="percentage text-blue mt-3">95.8%</h3>
-                                                                <p className="name mb-2">Nayan Kumar</p>
-                                                                <p className="rank-year">All India Topper - CBSE 2021</p>
-                                                            </div>
-
-                                                            <div className="student text-center">
-                                                                <img src="../assets/imgs/photo-student-a.png" alt="student-photo" className="photograph" />
-                                                                <h3 className="percentage text-blue mt-3">98.8%</h3>
-                                                                <p className="name mb-2">Priyanka Shah</p>
-                                                                <p className="rank-year">All India Topper - CBSE 2021</p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                                    <div className="students">
-                                                        <div className="detail">
-                                                            <div className="student text-center">
-                                                                <img src="../assets/imgs/photo-student-a.png" alt="student-photo" className="photograph" />
-                                                                <h3 className="percentage text-blue mt-3">98.8%</h3>
-                                                                <p className="name mb-2">Priyanka Shah</p>
-                                                                <p className="rank-year">All India Topper - CBSE 2021</p>
-                                                            </div>
-
-                                                            <div className="student text-center">
-                                                                <img src="../assets/imgs/photo-student-b.png" alt="student-photo" className="photograph" />
-                                                                <h3 className="percentage text-blue mt-3">95.8%</h3>
-                                                                <p className="name mb-2">Nayan Kumar</p>
-                                                                <p className="rank-year">All India Topper - CBSE 2021</p>
-                                                            </div>
-                                                        </div>
+                                        <div className="carousel-item banner bg-light-orange active" data-bs-interval="10000">
+                                            <div className="row">
+                                                <div className="col-md-7 col-sm-12">
+                                                    <div className="caption">
+                                                        <h2>
+                                                            <span className="text-orange">30+ Years</span> of legacy with Sterling Results
+                                                        </h2>
+                                                        <p className="mt-3">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Volutpat montes, pharetra cras odio nec scelerisque viverra.</p>
                                                     </div>
                                                 </div>
 
+                                                <div className="col-md-5 col-sm-12 sub-slider">
+                                                    <Slider className="top-students top-students-a">
+                                                        <div className="students">
+                                                            <div className="detail">
+                                                                <div className="student text-center">
+                                                                    <img src={item && item.image} alt="student" className="photograph" />
+                                                                    <h3 className="percentage text-blue mt-3">{item && item.percentage}%</h3>
+                                                                    <p className="name mb-2">{item && item.name}</p>
+                                                                    <p className="rank-year">{item && parseHtml(item.description.substring(0, 100))}</p>
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+
+                                                    </Slider>
+                                                </div>
                                             </div>
                                         </div>
-
-                                    </div>
-
-                                    <div className="carousel-item banner bg-light-blue" data-bs-interval="10000">
-
-                                        <div className="row">
-                                            <div className="col-md-7">
-                                                <div className="caption">
-                                                    <h2><span className="text-orange">30+ Years</span> of legacy with Sterling Results</h2>
-                                                    <p className="mt-3">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Volutpat montes, pharetra cras odio nec scelerisque viverra.</p>
-                                                </div>
-                                            </div>
-
-                                            <div className="col-md-5 sub-slider">
-
-                                                <div className="top-students top-students-b">
-                                                    <div className="students">
-                                                        <div className="detail">
-                                                            <div className="student text-center">
-                                                                <img src="../assets/imgs/photo-student-a.png" alt="student-photo" className="photograph" />
-                                                                <h3 className="percentage text-blue mt-3">98.8%</h3>
-                                                                <p className="name mb-2">Priyanka Shah</p>
-                                                                <p className="rank-year">All India Topper - CBSE 2021</p>
-                                                            </div>
-
-                                                            <div className="student text-center">
-                                                                <img src="../assets/imgs/photo-student-b.png" alt="student-photo" className="photograph" />
-                                                                <h3 className="percentage text-blue mt-3">95.8%</h3>
-                                                                <p className="name mb-2">Nayan Kumar</p>
-                                                                <p className="rank-year">All India Topper - CBSE 2021</p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                                    <div className="students">
-                                                        <div className="detail">
-                                                            <div className="student text-center">
-                                                                <img src="../assets/imgs/photo-student-b.png" alt="student-photo" className="photograph" />
-                                                                <h3 className="percentage text-blue mt-3">95.8%</h3>
-                                                                <p className="name mb-2">Nayan Kumar</p>
-                                                                <p className="rank-year">All India Topper - CBSE 2021</p>
-                                                            </div>
-
-                                                            <div className="student text-center">
-                                                                <img src="../assets/imgs/photo-student-a.png" alt="student-photo" className="photograph" />
-                                                                <h3 className="percentage text-blue mt-3">98.8%</h3>
-                                                                <p className="name mb-2">Priyanka Shah</p>
-                                                                <p className="rank-year">All India Topper - CBSE 2021</p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                                    <div className="students">
-                                                        <div className="detail">
-                                                            <div className="student text-center">
-                                                                <img src="../assets/imgs/photo-student-a.png" alt="student-photo" className="photograph" />
-                                                                <h3 className="percentage text-blue mt-3">98.8%</h3>
-                                                                <p className="name mb-2">Priyanka Shah</p>
-                                                                <p className="rank-year">All India Topper - CBSE 2021</p>
-                                                            </div>
-
-                                                            <div className="student text-center">
-                                                                <img src="../assets/imgs/photo-student-b.png" alt="student-photo" className="photograph" />
-                                                                <h3 className="percentage text-blue mt-3">95.8%</h3>
-                                                                <p className="name mb-2">Nayan Kumar</p>
-                                                                <p className="rank-year">All India Topper - CBSE 2021</p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                {/* --- top-students ---- */}
-                                            </div>
-                                        </div>
-                                        {/* -- sub-slider -- */}
-
-                                    </div>
-
-                                    <div className="carousel-item banner bg-light-orange" data-bs-interval="10000">
-
-                                        <div className="row">
-                                            <div className="col-md-7">
-                                                <div className="caption">
-                                                    <h2><span className="text-orange">30+ Years</span> of legacy with Sterling Results</h2>
-                                                    <p className="mt-3">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Volutpat montes, pharetra cras odio nec scelerisque viverra.</p>
-                                                </div>
-                                            </div>
-
-                                            <div className="col-md-5 sub-slider">
-
-                                                <div className="top-students top-students-c">
-                                                    <div className="students">
-                                                        <div className="detail">
-                                                            <div className="student text-center">
-                                                                <img src="../assets/imgs/photo-student-a.png" alt="student-photo" className="photograph" />
-                                                                <h3 className="percentage text-blue mt-3">98.8%</h3>
-                                                                <p className="name mb-2">Priyanka Shah</p>
-                                                                <p className="rank-year">All India Topper - CBSE 2021</p>
-                                                            </div>
-
-                                                            <div className="student text-center">
-                                                                <img src="../assets/imgs/photo-student-b.png" alt="student-photo" className="photograph" />
-                                                                <h3 className="percentage text-blue mt-3">95.8%</h3>
-                                                                <p className="name mb-2">Nayan Kumar</p>
-                                                                <p className="rank-year">All India Topper - CBSE 2021</p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                                    <div className="students">
-                                                        <div className="detail">
-                                                            <div className="student text-center">
-                                                                <img src="../assets/imgs/photo-student-b.png" alt="student-photo" className="photograph" />
-                                                                <h3 className="percentage text-blue mt-3">95.8%</h3>
-                                                                <p className="name mb-2">Nayan Kumar</p>
-                                                                <p className="rank-year">All India Topper - CBSE 2021</p>
-                                                            </div>
-
-                                                            <div className="student text-center">
-                                                                <img src="../assets/imgs/photo-student-a.png" alt="student-photo" className="photograph" />
-                                                                <h3 className="percentage text-blue mt-3">98.8%</h3>
-                                                                <p className="name mb-2">Priyanka Shah</p>
-                                                                <p className="rank-year">All India Topper - CBSE 2021</p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                                    <div className="students">
-                                                        <div className="detail">
-                                                            <div className="student text-center">
-                                                                <img src="../assets/imgs/photo-student-a.png" alt="student-photo" className="photograph" />
-                                                                <h3 className="percentage text-blue mt-3">98.8%</h3>
-                                                                <p className="name mb-2">Priyanka Shah</p>
-                                                                <p className="rank-year">All India Topper - CBSE 2021</p>
-                                                            </div>
-
-                                                            <div className="student text-center">
-                                                                <img src="../assets/imgs/photo-student-b.png" alt="student-photo" className="photograph" />
-                                                                <h3 className="percentage text-blue mt-3">95.8%</h3>
-                                                                <p className="name mb-2">Nayan Kumar</p>
-                                                                <p className="rank-year">All India Topper - CBSE 2021</p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                {/* -- top-students -- */}
-                                            </div>
-                                        </div>
-                                        {/* -- sub-slider -- */}
-                                    </div>
+                                    )}
                                 </div>
                             </div>
                             {/* -- banner ends here -- */}
@@ -472,229 +315,75 @@ const Dashboard = ({ categoryListApi, demoVideoListApi, demoVideoDetailApi, demo
             </section>
 
             {/* COURSES */}
-            <section class="cards" id="courses">
+            <section className="cards" id="courses">
+                <div className="container">
+                    <div className="row">
+                        <div className="col-md-12 bg-light-blue box-radius">
+                            <h3 className="headline text-center mb-3">
+                                <span className="text-blue">Courses</span> we offer
+                            </h3>
+                            <p className="sub-headline text-center">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Volutpat montes, pharetra cras odio nec scelerisque viverra.</p>
 
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-12 bg-light-blue box-radius">
-
-                            <h3 class="headline text-center mb-3"><span class="text-blue">Courses</span> we offer</h3>
-                            <p class="sub-headline text-center">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Volutpat montes, pharetra cras odio nec scelerisque viverra.</p>
-
-                            <div class="article-header">
-                                <div class="pills">
-                                    <Link to="/courses/competativeExams" class="active">Competative Exams</Link>
-                                    <Link to="/courses/college">Colleges</Link>
-                                    <Link to="/courses/school">School</Link>
-                                    <a href="#">View All</a>
-                                    {/* <!-- mobile only --> */}
+                            <div className="article-header">
+                                <ul className="nav nav-tabs MT_Tab" id="MT_Tab" role="tablist">
+                                    {categoryData && categoryData.data && categoryData.data.map((item) =>
+                                        <li className="nav-item" role="presentation">
+                                            <button className={`${item && item.id == categoryActive ? "nav-link active" : "nav-link"}`} id={`Edu-tab-${categoryActive}`} data-bs-toggle="tab" data-bs-target={`#MT-tabPane-${categoryActive}`} type="button" role="tab" aria-controls={`MT-tabPane-${categoryActive}`} aria-selected="true" onClick={(e) => { setCategoryActive(item && item.id); handleCategoryId(item && item.id) }}>
+                                                {item && item.name}
+                                            </button>
+                                        </li>
+                                    )}
+                                </ul>
+                                <div className="view-all">
+                                    <Link to={WebRoutes.COLLEGE}>View All</Link>
                                 </div>
-
-                                <div class="view-all">
-                                    <a href="#">View All</a>
-                                </div>
-                                {/* <!-- desktop only --> */}
                             </div>
-                            {/* <!-- article-header --> */}
 
-                            <div class="explore-lakshya bg-light-orange">
-                                <div>
-                                    <img src="../assets/imgs/lakshya-logo.png" alt="lakshya-logo" />
-                                    <p>Lakshay is our partner which provides the higher secondary education science courses for competitive exams.</p>
+                            <div className="tab-content MT_TabContent" id="MT_TabContent">
+                                <div className="tab-pane fade show active" id={`MT-tabPane-${categoryActive}`} role="tabpanel" aria-labelledby={`Edu-tab-${categoryActive}`} tabindex="0">
+                                    <div className="explore-lakshya bg-light-orange">
+                                        <div>
+                                            <img src="../assets/imgs/lakshya-logo.png" alt="lakshya-logo" />
+                                            <p>Lakshay is our partner which provides the higher secondary education science courses for competitive exams.</p>
+                                        </div>
+                                        <a href="#" className="btn btn-lg">
+                                            Explore Lakshya
+                                        </a>
+                                    </div>
+                                    {/* <!-- explore-lakshya --> */}
+
+                                    <OwlCarousel>
+                                        {categoryDetailsData && categoryDetailsData.data && categoryDetailsData.data.map((item) =>
+                                            <div className="item">
+                                                <div className="articles our-courses">
+                                                    <div className="article">
+                                                        <div className="thumbnail">
+                                                            <img src={item && item.image} alt="thumbnail" />
+                                                        </div>
+
+                                                        <div className="detail">
+                                                            <h5>{item && item.title}</h5>
+                                                            <div className="description">
+                                                                <p>{item && parseHtml(item.description.substring(0, 300))}</p>
+                                                            </div>
+                                                            <div className="tag-link">
+                                                                <div className="tag">{item.tag_name}</div>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        )}
+
+                                    </OwlCarousel>
                                 </div>
-                                <a href="#" class="btn btn-lg">Explore Lakshya</a>
-                            </div>
-                            {/* <!-- explore-lakshya --> */}
 
-                            <div class="articles our-courses">
-
-                                <div class="article">
-                                    <div class="thumbnail">
-                                        <img src="../assets/imgs/article1.png" alt="image" />
-                                    </div>
-
-                                    <div class="detail">
-                                        <h5>Best IIT JEE Coaching</h5>
-                                        <div class="description">
-                                            <p>Lakshya offers unparalleled IIT JEE coaching in India which results in producing top rankers in entrance exams who go on to become world-class engineers and technologists.</p>
-                                        </div>
-                                        <div class="tag-link">
-                                            <div class="tag">IIT JEE</div>
-                                            <a href="#" class="btn btn-sm">
-                                                <img src="../assets/imgs/icon-arrow-right.svg" alt="icon" />
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                                {/* <!-- article --> */}
-
-                                <div class="article">
-                                    <div class="thumbnail">
-                                        <img src="../assets/imgs/article2.png" alt="image" />
-                                    </div>
-
-                                    <div class="detail">
-                                        <h5>Top NEET Coaching</h5>
-                                        <div class="description">
-                                            <p>NEET is the most important exam for medical aspirants, as it is required for them to join the best medical college in the country.</p>
-                                        </div>
-                                        <div class="tag-link">
-                                            <div class="tag">NEET</div>
-                                            <a href="#" class="btn btn-sm">
-                                                <img src="../assets/imgs/icon-arrow-right.svg" alt="icon" />
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                                {/* <!-- article --> */}
-
-                                <div class="article">
-                                    <div class="thumbnail">
-                                        <img src="../assets/imgs/article3.png" alt="image" />
-                                    </div>
-
-                                    <div class="detail">
-                                        <h5>NTSE Coaching</h5>
-                                        <div class="description">
-                                            <p>National Talent Search Examination  is one of the most recognized examinations in India which is conducted by NCERT.</p>
-                                        </div>
-                                        <div class="tag-link">
-                                            <div class="tag">NTSE</div>
-                                            <a href="#" class="btn btn-sm">
-                                                <img src="../assets/imgs/icon-arrow-right.svg" alt="icon" />
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                                {/* <!-- article --> */}
-
-                                <div class="article">
-                                    <div class="thumbnail">
-                                        <img src="../assets/imgs/article1.png" alt="image" />
-                                    </div>
-
-                                    <div class="detail">
-                                        <h5>Best IIT JEE Coaching</h5>
-                                        <div class="description">
-                                            <p>Lakshya offers unparalleled IIT JEE coaching in India which results in producing top rankers in entrance exams who go on to become world-class engineers and technologists.</p>
-                                        </div>
-                                        <div class="tag-link">
-                                            <div class="tag">IIT JEE</div>
-                                            <a href="#" class="btn btn-sm">
-                                                <img src="../assets/imgs/icon-arrow-right.svg" alt="icon" />
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                                {/* <!-- article --> */}
-
-                                <div class="article">
-                                    <div class="thumbnail">
-                                        <img src="../assets/imgs/article2.png" alt="image" />
-                                    </div>
-
-                                    <div class="detail">
-                                        <h5>Top NEET Coaching</h5>
-                                        <div class="description">
-                                            <p>NEET is the most important exam for medical aspirants, as it is required for them to join the best medical college in the country.</p>
-                                        </div>
-                                        <div class="tag-link">
-                                            <div class="tag">NEET</div>
-                                            <a href="#" class="btn btn-sm">
-                                                <img src="../assets/imgs/icon-arrow-right.svg" alt="icon" />
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                                {/* <!-- article --> */}
-
-                                <div class="article">
-                                    <div class="thumbnail">
-                                        <img src="../assets/imgs/article3.png" alt="image" />
-                                    </div>
-
-                                    <div class="detail">
-                                        <h5>NTSE Coaching</h5>
-                                        <div class="description">
-                                            <p>National Talent Search Examination  is one of the most recognized examinations in India which is conducted by NCERT.</p>
-                                        </div>
-                                        <div class="tag-link">
-                                            <div class="tag">NTSE</div>
-                                            <a href="#" class="btn btn-sm">
-                                                <img src="../assets/imgs/icon-arrow-right.svg" alt="icon" />
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                                {/* <!-- article --> */}
-
-                                <div class="article">
-                                    <div class="thumbnail">
-                                        <img src="../assets/imgs/article1.png" alt="image" />
-                                    </div>
-
-                                    <div class="detail">
-                                        <h5>Best IIT JEE Coaching</h5>
-                                        <div class="description">
-                                            <p>Lakshya offers unparalleled IIT JEE coaching in India which results in producing top rankers in entrance exams who go on to become world-class engineers and technologists.</p>
-                                        </div>
-                                        <div class="tag-link">
-                                            <div class="tag">IIT JEE</div>
-                                            <a href="#" class="btn btn-sm">
-                                                <img src="../assets/imgs/icon-arrow-right.svg" alt="icon" />
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                                {/* <!-- article --> */}
-
-                                <div class="article">
-                                    <div class="thumbnail">
-                                        <img src="../assets/imgs/article2.png" alt="image" />
-                                    </div>
-
-                                    <div class="detail">
-                                        <h5>Top NEET Coaching</h5>
-                                        <div class="description">
-                                            <p>NEET is the most important exam for medical aspirants, as it is required for them to join the best medical college in the country.</p>
-                                        </div>
-                                        <div class="tag-link">
-                                            <div class="tag">NEET</div>
-                                            <a href="#" class="btn btn-sm">
-                                                <img src="../assets/imgs/icon-arrow-right.svg" alt="icon" />
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                                {/* <!-- article --> */}
-
-                                <div class="article">
-                                    <div class="thumbnail">
-                                        <img src="../assets/imgs/article3.png" alt="image" />
-                                    </div>
-
-                                    <div class="detail">
-                                        <h5>NTSE Coaching</h5>
-                                        <div class="description">
-                                            <p>National Talent Search Examination  is one of the most recognized examinations in India which is conducted by NCERT.</p>
-                                        </div>
-                                        <div class="tag-link">
-                                            <div class="tag">NTSE</div>
-                                            <a href="#" class="btn btn-sm">
-                                                <img src="../assets/imgs/icon-arrow-right.svg" alt="icon" />
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                                {/* <!-- article --> */}
 
                             </div>
-                            {/* <!-- articles --> */}
-
                         </div>
                     </div>
                 </div>
-
             </section>
 
             {/* TOPPER DETAILS */}
@@ -704,7 +393,7 @@ const Dashboard = ({ categoryListApi, demoVideoListApi, demoVideoDetailApi, demo
             <WhyMtEducare />
 
             {/* DEMO VIDEOS */}
-            <DemoVideos demoListData={demoListData} demoVideoDetailApi={demoVideoDetailApi} videoDetailData={videoDetailData} />
+            <DemoVideos />
 
             {/* OFFERINGS */}
             <Offerings />
@@ -719,31 +408,28 @@ const Dashboard = ({ categoryListApi, demoVideoListApi, demoVideoDetailApi, demo
 }
 const mapStateToProps = (state) => {
     const { DemoVideoReducer, HomeReducer, CategoryReducer } = state;
-    const { demoListData, videoDetailData } = DemoVideoReducer;
     const { toppersData, achivementsData, cityData, areaData } = HomeReducer;
-    const { categoryData } = CategoryReducer;
+    const { categoryData, categoryDetailsData } = CategoryReducer;
     return {
-        demoListData: DemoVideoReducer.demoListData,
-        videoDetailData: DemoVideoReducer.videoDetailData,
         toppersData: HomeReducer.toppersData,
         achivementsData: HomeReducer.achivementsData,
         boardStandardsData: HomeReducer.boardStandardsData,
         cityData: HomeReducer.cityData,
         areaData: HomeReducer.areaData,
         categoryData: CategoryReducer.categoryData,
+        categoryDetailsData: CategoryReducer.categoryDetailsData,
     };
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        demoVideoListApi: () => dispatch(demoVideoListApi()),
         topperListAPI: () => dispatch(topperListAPI()),
         achivementListAPI: () => dispatch(achivementListAPI()),
-        demoVideoDetailApi: (data) => dispatch(demoVideoDetailApi(data)),
         categoryBaodStandardsListAPI: (data) => dispatch(categoryBaodStandardsListAPI(data)),
         categoryListApi: () => dispatch(categoryListApi()),
         cityListAPI: () => dispatch(cityListAPI()),
         AreaListAPI: (data) => dispatch(AreaListAPI(data)),
+        categoryDetailsApi: (data) => dispatch(categoryDetailsApi(data)),
     };
 };
 

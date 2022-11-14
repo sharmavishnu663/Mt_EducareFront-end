@@ -79,7 +79,7 @@ const InvestorPresentations = ({ investorDataAPI, investorData }) => {
                                         </div>
 
                                         <div class="file-link">
-                                            <a href={item.file_name} download={item.file_name}>
+                                            <a href={item.file_name} download={item.file_name} target="_blank">
                                                 <img src="../assets/imgs/icon-download.svg" alt="icon" />
                                             </a>
                                         </div>

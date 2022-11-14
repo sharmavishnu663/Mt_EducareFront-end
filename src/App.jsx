@@ -30,12 +30,12 @@ import PrivacyPolicy from "./web/components/Term_Policies/Privacy-Policy";
 import Disclaimer from "./web/components/Term_Policies/Disclaimer";
 import Career from "./web/components/OtherPages/Career";
 import ResearchReport from "./web/components/Investor_Relations/ResearchReport";
-import { Provider } from "react-redux";
-import { store } from "./redux/store";
 import CareerDetails from "./web/components/OtherPages/CareerDetails";
 import Enquiry from "./web/components/modal/Enquiry";
 import AwardDetails from "./web/components/AboutUs/AwardDetails";
 import BaseDashboard from "./web/components";
+import "owl.carousel/dist/assets/owl.carousel.css";
+import "owl.carousel/dist/assets/owl.theme.default.css";
 
 
 

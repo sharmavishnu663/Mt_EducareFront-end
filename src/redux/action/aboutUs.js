@@ -1,6 +1,6 @@
 import axios from "axios";
 import { getCommonApiHeader } from "../../Utils/utils";
-import { CENTERS_LIST, INTRO_LIST, DIRECTOR_LIST, KEY_MANAGEMENT_LIST, AWARDS_LIST, AWARDS_DETAIL_LIST, CENTER_SERACH } from "../constants";
+import { CENTERS_LIST, COMMITTE_LIST, INTRO_LIST, DIRECTOR_LIST, KEY_MANAGEMENT_LIST, AWARDS_LIST, AWARDS_DETAIL_LIST, CENTER_SERACH } from "../constants";
 
 export const centerListAPI = (data) => {
     return (dispatch, getState) => {
@@ -58,7 +58,7 @@ export const boardCommitteeAPI = (data) => {
     return (dispatch, getState) => {
         dispatch(getAboutRequest());
         axios
-            .get(DIRECTOR_LIST, {
+            .get(COMMITTE_LIST, {
                 headers: {
                     ...getCommonApiHeader(),
                 },
@@ -123,7 +123,6 @@ export const awardsDetailAPI = (data) => {
 }
 
 export const centerSearchAPI = (data) => {
-    console.log(data)
     return (dispatch, getState) => {
         dispatch(getAboutRequest());
         axios

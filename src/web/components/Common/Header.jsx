@@ -7,6 +7,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { categoryListApi } from "../../../redux/action/category";
 import { connect } from "react-redux";
+import { WebRoutes } from "../../../routes";
 
 
 
@@ -27,6 +28,10 @@ const Header = ({ categoryListApi, categoryData }) => {
 
   const showToast = () => {
     toast.success(toastType);
+  }
+
+  const handleCategory = (id) => {
+    localStorage.setItem('categorySelectedId', id);
   }
 
   return (
@@ -70,24 +75,17 @@ const Header = ({ categoryListApi, categoryData }) => {
                   Category
                 </a>
                 <ul className="dropdown-menu">
-                  <li>
-                    <Link
-                      to="/courses/competativeExams"
-                      className="dropdown-item"
-                    >
-                      Competative Exams
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to="/courses/college" className="dropdown-item">
-                      Colleges
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to="/courses/school" className="dropdown-item">
-                      School
-                    </Link>
-                  </li>
+                  {categoryData && categoryData.data && categoryData.data.map((item) =>
+                    <li>
+                      <Link
+                        to={WebRoutes.COLLEGE}
+                        className="dropdown-item"
+                        onClick={(e) => handleCategory(item && item.id)}
+                      >
+                        {item && item.name}
+                      </Link>
+                    </li>
+                  )}
                 </ul>
               </li>
               <li className="nav-item dropdown">

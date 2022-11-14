@@ -5,6 +5,8 @@ import { awardsAPI } from "../../../redux/action/aboutUs";
 import { WebRoutes } from "../../../routes";
 import { parseHtml } from "../../../Utils/utils";
 import Awards from "../Cards/Awards";
+import OwlCarousel from "react-owl-carousel";
+
 
 const AwardsRecognition = ({ awardsAPI, awardsData }) => {
     useEffect(() => {
@@ -13,6 +15,24 @@ const AwardsRecognition = ({ awardsAPI, awardsData }) => {
     const hanldeAwardDetail = (id) => {
         localStorage.setItem('awardId', id);
     }
+    const toppersConfig = {
+        loop: true,
+        autoplay: false,
+        margin: 40,
+        dots: true,
+        autoplayTimeout: 4000,
+        responsive: {
+            0: {
+                items: 1,
+            },
+            600: {
+                items: 2,
+            },
+            1000: {
+                items: 2,
+            },
+        },
+    };
     return (
         <>
             {/* ======== Header =============== */}
@@ -45,29 +65,33 @@ const AwardsRecognition = ({ awardsAPI, awardsData }) => {
                         <div className="col-md-12 box-radius pt-0 awards">
 
                             <div className="articles our-offerings mt-0">
+                                <OwlCarousel className="owl-theme MT-OwlDots toppersCarousel" {...toppersConfig}>
 
-                                {awardsData.data && awardsData.data.map((item) =>
-                                    <div className="article">
-                                        <div className="thumbnail">
+                                    {awardsData.data && awardsData.data.map((item) =>
+                                        <div className="item">
+                                            <div className="article">
+                                                <div className="thumbnail">
 
-                                            <img src={item.image} alt="image" />
+                                                    <img src={item.image} alt="image" />
 
-                                        </div>
+                                                </div>
 
-                                        <div className="detail">
-                                            <h5>{item.title}</h5>
-                                            <div className="description">
-                                                <p>{parseHtml(item.description.substring(0, 100))}</p>
+                                                <div className="detail">
+                                                    <h5>{item.title}</h5>
+                                                    <div className="description">
+                                                        <p>{parseHtml(item.description.substring(0, 100))}</p>
+                                                    </div>
+                                                    <div className="tag-link justify-content-end">
+                                                        <Link to={WebRoutes.AWARD_DETAIL} onClick={(e) => hanldeAwardDetail(item.id)} className="btn btn-sm">
+                                                            <img src="../assets/imgs/icon-arrow-right.svg" alt="icon" />
+                                                        </Link>
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <div className="tag-link justify-content-end">
-                                                <Link to={WebRoutes.AWARD_DETAIL} onClick={(e) => hanldeAwardDetail(item.id)} className="btn btn-sm">
-                                                    <img src="../assets/imgs/icon-arrow-right.svg" alt="icon" />
-                                                </Link>
-                                            </div>
                                         </div>
-                                    </div>
-                                )
-                                }
+                                    )
+                                    }
+                                </OwlCarousel>
 
 
 

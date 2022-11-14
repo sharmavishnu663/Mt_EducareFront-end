@@ -1,16 +1,27 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
+import { Form, Input, Select } from "antd";
+import { categoryBaodStandardsListAPI, cityListAPI, AreaListAPI } from "../../../redux/action/home";
+import { categoryListApi } from "../../../redux/action/category";
 import { centerListAPI, centerSearchAPI } from "../../../redux/action/aboutUs";
 import { parseHtml } from "../../../Utils/utils";
+import { WebRoutes } from "../../../routes";
+import Connect from "../Dashboard/Connect";
 
-const Center = ({ centerListAPI, centersData, centerSearchAPI, centerSearchData }) => {
+const Center = ({ categoryListApi, categoryBaodStandardsListAPI, boardStandardsData, categoryData, cityListAPI, AreaListAPI, cityData, areaData, centerListAPI, centersData, centerSearchAPI, centerSearchData }) => {
 
     const searchData = localStorage.getItem('centersearch');
-    console.log(searchData)
-
+    const [category, setCategory] = useState();
+    const [boards, setBoards] = useState();
+    const [standards, setStandards] = useState();
+    const [city, setCity] = useState();
+    const [area, setArea] = useState();
+    console.log(centerSearchData);
     useEffect(() => {
-        centerListAPI()
+        centerListAPI();
+        categoryListApi();
+        cityListAPI();
     }, []);
 
     useEffect(() => {
@@ -18,7 +29,34 @@ const Center = ({ centerListAPI, centersData, centerSearchAPI, centerSearchData 
             centerSearchAPI(searchData);
             centersData = centerSearchData;
         }
-    }, [])
+    }, [searchData]);
+
+    useEffect(() => {
+        categoryBaodStandardsListAPI(category);
+    }, [category]);
+
+
+    useEffect(() => {
+        if (city) {
+            console.log(localStorage.getItem('cityId'))
+            AreaListAPI(localStorage.getItem('cityId'));
+        }
+    }, [city]);
+
+    const handleCityChange = (e) => {
+        setCity(e.target.value);
+        localStorage.setItem('cityId', city)
+    }
+
+    const onFinish = (event) => {
+        const data = {
+            city: city,
+            area: area
+        }
+        centerSearchAPI(data);
+    };
+
+
 
 
 
@@ -40,86 +78,175 @@ const Center = ({ centerListAPI, centersData, centerSearchAPI, centerSearchData 
                     <div className="row">
                         <div className="col-md-12">
 
-                            <form action="">
+                            <Form labelCol={{
+                                span: 8,
+                            }}
+                                wrapperCol={{
+                                    span: 16,
+                                }}
+                                onFinish={onFinish}
+                            >
                                 <div className="floating-form in-banner">
                                     <div className="form-controls">
-                                        <label for="course" className="text-blue">Course <img src="../assets/imgs/icon-down-arrow.svg" alt="icon" /></label>
-                                        <select name="course" id="course">
-                                            <option value="Program of UPSC">Program of UPSC</option>
-                                            <option value="Program of IPS">Program of IPS</option>
-                                        </select>
+                                        <Form.Item
+                                            label="Category"
+                                            name="category"
+                                            className="form-label"
+                                            rules={[{ required: true, message: 'Please select your category!' }]}>
+                                            <select name="course" className="form-controls" id="course" value={category} onChange={(e) => setCategory(e.target.value)} required>
+                                                <option disabled selected>Please select category</option>
+                                                {categoryData && categoryData.data && categoryData.data.map((item) =>
+                                                    <option value={item.id}>{item.name}</option>
+                                                )}
+                                            </select>
+                                        </Form.Item>
                                     </div>
 
                                     <div className="form-controls">
-                                        <label for="course">Board <img src="../assets/imgs/icon-down-arrow-grey.svg" alt="icon" /></label>
-                                        <select name="course" id="course">
-                                            <option value="10th CBSE">10th CBSE</option>
-                                            <option value="12th CBSE">12th CBSE</option>
-                                        </select>
+                                        <Form.Item
+                                            label="Baord"
+                                            name="board"
+                                            className="form-label"
+                                            rules={[{ required: true, message: 'Please select your board!' }]}>
+                                            <select name="boards" className="form-controls" id="boards" value={boards} onChange={(e) => setBoards(e.target.value)} required>
+                                                <option disabled selected>Please select board</option>
+                                                {boardStandardsData && boardStandardsData.data && boardStandardsData.data.map((item) =>
+                                                    <option value={item.board_name}>{item.board_name}</option>
+                                                )}
+                                            </select>
+                                        </Form.Item>
                                     </div>
 
                                     <div className="form-controls">
-                                        <label for="course">City <img src="../assets/imgs/icon-down-arrow-grey.svg" alt="icon" /></label>
-                                        <select name="course" id="course">
-                                            <option value="Delhi">Delhi</option>
-                                            <option value="Noida">Sector 2</option>
-                                        </select>
+                                        <Form.Item
+                                            label="Standards"
+                                            name="standards"
+                                            className="form-label"
+                                            rules={[{ required: true, message: 'Please select your standard!' }]}>
+                                            <select name="standards" id="standards" value={standards} onChange={(e) => setStandards(e.target.value)} required>
+                                                <option disabled selected>Please select Standards</option>
+                                                {boardStandardsData && boardStandardsData.data && boardStandardsData.data.map((item) =>
+                                                    <option value={item.id}>{item.name}</option>
+                                                )}
+                                            </select>
+                                        </Form.Item>
                                     </div>
 
                                     <div className="form-controls">
-                                        <label for="course">Area <img src="../assets/imgs/icon-down-arrow-grey.svg" alt="icon" /></label>
-                                        <select name="course" id="course">
-                                            <option value="Greater Kailash">Greater Kailash</option>
-                                            <option value="South Extn.">South Extn.</option>
-                                        </select>
+                                        <Form.Item
+                                            label="City"
+                                            name="city"
+                                            className="form-label"
+                                            rules={[{ required: true, message: 'Please select your city!' }]}>
+                                            <select name="standards" id="standards" value={city} onChange={(e) => handleCityChange(e)} className="form-controls" required>
+                                                <option disabled selected>Please select city</option>
+                                                {cityData && cityData.data && cityData.data.map((item) =>
+                                                    <option value={item.id}>{item.name}</option>
+                                                )}
+                                            </select>
+                                        </Form.Item>
+                                    </div>
+
+                                    <div className="form-controls">
+                                        <Form.Item
+                                            label="Area"
+                                            name="area"
+                                            className="form-label"
+                                            rules={[{ required: true, message: 'Please select your area!' }]}>
+                                            <select name="area" id="area" className="form-controls" value={area} onChange={(e) => setArea(e.target.value)} required>
+                                                <option disabled selected>Please select city</option>
+                                                {areaData && areaData.data && areaData.data.map((item) =>
+                                                    <option value={item.id}>{item.name}</option>
+                                                )}
+                                            </select>
+                                        </Form.Item>
                                     </div>
 
                                     <div className="form-controls">
                                         <button className="btn btn-primary btn-submit" type="submit">Submit</button>
                                     </div>
                                 </div>
+                                {/* -- floating-form -- */}
                                 <div className="shadow"></div>
 
-                            </form>
+                            </Form>
                         </div>
 
                     </div>
 
                     <div className="row">
-                        {centersData.data && centersData.data.map((item) =>
-                            <div className="col-md-4">
-                                <div className="card-address centres">
-                                    <h5>{item.name}</h5>
-                                    <div className="detail">
-                                        <ul>
-                                            <li>
-                                                <span>
-                                                    <img src="../assets/imgs/icon-phone.svg" alt="icon" />
-                                                </span>
-                                                <span>Ph: {item.mobile}</span>
-                                            </li>
-                                            <li>
-                                                <span>
-                                                    <img src="../assets/imgs/icon-email.svg" alt="icon" />
-                                                </span>
-                                                <span>
-                                                    <Link to="" href={`mailto: ${item.email}`}>{item.email}</Link>
-                                                </span>
-                                            </li>
-                                            <li>
-                                                <span>
-                                                    <img src="../assets/imgs/icon-location-pin.svg" alt="icon" />
-                                                </span>
-                                                <span>{item.address},{item.address1},{item.city ? item.city.name : ''},{item.state ? item.state.name : ''}</span>
-                                            </li>
-                                        </ul>
+                        {console.log(centerSearchData.length)}
+                        {centerSearchData.length > 0 ?
+                            <>
+                                {centerSearchData && centerSearchData.data && centerSearchData.data.map((item) =>
+                                    <div className="col-md-4">
+                                        <div className="card-address centres">
+                                            <h5>{item.name}</h5>
+                                            <div className="detail">
+                                                <ul>
+                                                    <li>
+                                                        <span>
+                                                            <img src="../assets/imgs/icon-phone.svg" alt="icon" />
+                                                        </span>
+                                                        <span>Ph12: {item.mobile}</span>
+                                                    </li>
+                                                    <li>
+                                                        <span>
+                                                            <img src="../assets/imgs/icon-email.svg" alt="icon" />
+                                                        </span>
+                                                        <span>
+                                                            <Link to="" href={`mailto: ${item.email}`}>{item.email}</Link>
+                                                        </span>
+                                                    </li>
+                                                    <li>
+                                                        <span>
+                                                            <img src="../assets/imgs/icon-location-pin.svg" alt="icon" />
+                                                        </span>
+                                                        <span>{item.address},{item.address1},{item.city ? item.city.name : ''},{item.state ? item.state.name : ''}</span>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                            </div>
-                        )
+                                )}
+                            </>
+                            :
+                            <>
+                                {centersData.data && centersData.data && centersData.data.map((item) =>
+                                    <div className="col-md-4">
+                                        <div className="card-address centres">
+                                            <h5>{item.name}</h5>
+                                            <div className="detail">
+                                                <ul>
+                                                    <li>
+                                                        <span>
+                                                            <img src="../assets/imgs/icon-phone.svg" alt="icon" />
+                                                        </span>
+                                                        <span>Ph: {item.mobile}</span>
+                                                    </li>
+                                                    <li>
+                                                        <span>
+                                                            <img src="../assets/imgs/icon-email.svg" alt="icon" />
+                                                        </span>
+                                                        <span>
+                                                            <Link to="" href={`mailto: ${item.email}`}>{item.email}</Link>
+                                                        </span>
+                                                    </li>
+                                                    <li>
+                                                        <span>
+                                                            <img src="../assets/imgs/icon-location-pin.svg" alt="icon" />
+                                                        </span>
+                                                        <span>{item.address},{item.address1},{item.city ? item.city.name : ''},{item.state ? item.state.name : ''}</span>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                )
 
+                                }
+                            </>
                         }
-
 
                     </div>
                 </div>
@@ -128,51 +255,7 @@ const Center = ({ centerListAPI, centersData, centerSearchAPI, centerSearchData 
             {/* =================== Management ends here ==================== */}
 
             {/* ================ CONNECT =========================*/}
-            <section className="connect">
-
-                <div className="container">
-                    <div className="row">
-                        <div className="col-md-12">
-
-                            <h3 className="text-center">Have any doubts? <span className="text-orange">let’s connect</span></h3>
-
-                            <form action="">
-                                <div className="floating-form">
-                                    <div className="form-controls">
-                                        <label for="name" className="text-blue">Name</label>
-                                        <input type="text" id="name" value="Ram Sharma" />
-                                    </div>
-
-                                    <div className="form-controls">
-                                        <label for="course">Select Course <img src="../assets/imgs/icon-down-arrow-grey.svg" alt="icon" /></label>
-                                        <select name="course" id="course">
-                                            <option value="10th CBSE">10th CBSE</option>
-                                            <option value="12th CBSE">12th CBSE</option>
-                                        </select>
-                                    </div>
-
-                                    <div className="form-controls">
-                                        <label for="email">Email</label>
-                                        <input type="email" id="email" value="ram@gmail.com" />
-                                    </div>
-
-                                    <div className="form-controls">
-                                        <label for="phone">Phone Number</label>
-                                        <input type="tel" id="phone" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" minlength="10" maxlength="11" value="+91 9047765634" />
-                                    </div>
-
-                                    <div className="form-controls">
-                                        <button className="btn btn-primary btn-submit" type="submit">Submit</button>
-                                    </div>
-                                </div>
-                                <div className="shadow"></div>
-                            </form>
-
-                        </div>
-                    </div>
-                </div>
-
-            </section>
+            <Connect />
             {/* ================ CONNECT ends here =====================*/}
 
 
@@ -183,11 +266,15 @@ const Center = ({ centerListAPI, centersData, centerSearchAPI, centerSearchData 
 
 
 const mapStateToProps = (state) => {
-    const { AboutReducer } = state;
-    const { centersData } = AboutReducer;
+    const { AboutReducer, HomeReducer, CategoryReducer } = state;
+    const { centersData, centerSearchData } = AboutReducer;
     return {
         centersData: AboutReducer.centersData,
         centerSearchData: AboutReducer.centerSearchData,
+        boardStandardsData: HomeReducer.boardStandardsData,
+        cityData: HomeReducer.cityData,
+        areaData: HomeReducer.areaData,
+        categoryData: CategoryReducer.categoryData,
     };
 };
 
@@ -195,6 +282,10 @@ const mapDispatchToProps = (dispatch) => {
     return {
         centerListAPI: () => dispatch(centerListAPI()),
         centerSearchAPI: (data) => dispatch(centerSearchAPI(data)),
+        categoryBaodStandardsListAPI: (data) => dispatch(categoryBaodStandardsListAPI(data)),
+        categoryListApi: () => dispatch(categoryListApi()),
+        cityListAPI: () => dispatch(cityListAPI()),
+        AreaListAPI: (data) => dispatch(AreaListAPI(data)),
     };
 };
 

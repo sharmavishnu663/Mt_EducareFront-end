@@ -6,6 +6,7 @@ import Header from "./Common/Header";
 import Footer from "./Common/Footer";
 import { resetToast } from "../../redux/action/common";
 import { emailSubscriptionApi } from "../../redux/action/enquiry";
+import { categoryListApi } from "../../redux/action/category";
 
 
 /*************** User Scripts *************/
@@ -13,8 +14,10 @@ import { emailSubscriptionApi } from "../../redux/action/enquiry";
 // import "../static/common/vendor/bootstrap/js/bootstrap.bundle.min.js";
 // import "../static/user/vendor/owlCarousel/js/owl.carousel.min.js";
 /*********************** */
-const BaseDashboard = ({ toastType, toastData, resetToast, emailSubscriptionApi }) => {
-
+const BaseDashboard = ({ toastType, toastData, resetToast, emailSubscriptionApi, categoryListApi, categoryData }) => {
+    useEffect(() => {
+        categoryListApi();
+    }, []);
     useEffect(() => {
         if (toastType) {
             showToast();
@@ -39,18 +42,22 @@ const BaseDashboard = ({ toastType, toastData, resetToast, emailSubscriptionApi 
     };
     return (
         <div>
-            <Header />
+            <Header categoryData={categoryData} />
             <Outlet />
-            <Footer emailSubscriptionApi={emailSubscriptionApi} />
+            <Footer emailSubscriptionApi={emailSubscriptionApi} categoryData={categoryData} />
         </div>
     );
 };
 
 const mapStateToProps = state => {
-    const { CommonReducer } = state;
+    const { CommonReducer, CategoryReducer } = state;
+    const { categoryData } = CategoryReducer;
+
     return {
         toastData: CommonReducer.toastData,
         toastType: CommonReducer.toastType,
+        categoryData: CategoryReducer.categoryData,
+
     };
 };
 
@@ -58,6 +65,8 @@ const mapDispatchToProps = dispatch => {
     return {
         resetToast: () => dispatch(resetToast()),
         emailSubscriptionApi: (data) => dispatch(emailSubscriptionApi(data)),
+        categoryListApi: () => dispatch(categoryListApi()),
+
     };
 };
 

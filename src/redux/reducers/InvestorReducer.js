@@ -3,6 +3,7 @@ const initState = {
     investorData: [],
     releaseData: [],
     reportData: [],
+    mediaData: [],
     error: null
 };
 const InvestorReducer = (state = initState, action) => {
@@ -31,6 +32,11 @@ const InvestorReducer = (state = initState, action) => {
             return {
                 ...state,
                 reportData: data,
+            };
+        case "MEDIA_DATA_RESPONSE":
+            return {
+                ...state,
+                mediaData: data,
             };
         case "INVESTOR_ERROR":
             return {

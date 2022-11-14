@@ -57,7 +57,7 @@ const CorporateGovernance = ({ CorporateDataAPI, corporateData }) => {
                                         </div>
 
                                         <div class="file-link">
-                                            <a href={item.filename} download={item.filename}>
+                                            <a href={item.filename} download={item.filename} target="_blank">
                                                 <img src="../assets/imgs/icon-download.svg" alt="icon" />
                                             </a>
                                         </div>

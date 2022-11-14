@@ -1,5 +1,6 @@
 const initState = {
     categoryData: [],
+    categoryDetailsData: [],
     error: null
 };
 const CategoryReducer = (state = initState, action) => {
@@ -13,6 +14,11 @@ const CategoryReducer = (state = initState, action) => {
             return {
                 ...state,
                 categoryData: data,
+            };
+        case "CATEGORY_DETAILS_DATA_RESPONSE":
+            return {
+                ...state,
+                categoryDetailsData: data,
             };
         case "CATEGORY_ERROR":
             return {

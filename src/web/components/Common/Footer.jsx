@@ -6,7 +6,7 @@ import ContactUs from "../modal/ContactUs";
 import { Form, Input } from "antd";
 
 
-const Footer = ({ emailSubscriptionApi }) => {
+const Footer = ({ emailSubscriptionApi, categoryData }) => {
   const [openContact, setOpenContact] = useState(false);
   const [email, setEmail] = useState();
 
@@ -14,6 +14,10 @@ const Footer = ({ emailSubscriptionApi }) => {
     const data = { email: email }
     emailSubscriptionApi(data);
 
+  }
+
+  const handleCategory = (id) => {
+    localStorage.setItem('categorySelectedId', id);
   }
 
 
@@ -48,18 +52,18 @@ const Footer = ({ emailSubscriptionApi }) => {
               <div className="footer-links">
                 <ul>
                   {/* =================== COURSES LINKS STARTS HERE =====================*/}
+
+
                   <li>
                     <h5 className="mb-3">Courses</h5>
                   </li>
-                  <li>
-                    <Link to="/courses/competativeExams" >Competative Exams</Link>
-                  </li>
-                  <li>
-                    <Link to="/courses/college" >College</Link>
-                  </li>
-                  <li>
-                    <Link to="/courses/school" >School</Link>
-                  </li>
+
+                  {categoryData && categoryData.data && categoryData.data.map((item) =>
+                    <li onClick={(e) => handleCategory(item && item.id)}>
+                      <Link to={WebRoutes.COLLEGE}>{item && item.name}</Link>
+                    </li>
+                  )}
+
                   {/* ==================== COURSES LINKS ENDS HERE ======================== */}
                 </ul>
 

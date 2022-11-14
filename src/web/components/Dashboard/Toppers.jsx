@@ -1,30 +1,61 @@
 import React from "react";
+import OwlCarousel from "react-owl-carousel";
+
 const TopperDetails = ({ toppersData }) => {
+  const toppersConfig = {
+    loop: true,
+    autoplay: false,
+    margin: 40,
+    dots: true,
+    autoplayTimeout: 4000,
+    responsive: {
+      0: {
+        items: 1,
+      },
+      600: {
+        items: 2,
+      },
+      1000: {
+        items: 2,
+      },
+    },
+  };
   return (
     <>
       <section class="our-toppers">
 
         <div class="container">
-          <div class="row">
-            <div class="col-md-12">
-
-              <h3>Meet our <span class="text-blue">toppers</span></h3>
+          <div className="row">
+            <div className="col-md-12">
+              <h3>
+                Meet our <span>toppers</span>
+              </h3>
               <p>Meet these shining stars who made it at the top and are proud to be called toppers of there exams.</p>
+            </div>
+          </div>
 
-              <div class="toppers">
+          <div className="row">
+            <div className="col-md-9 mx-auto">
+              <OwlCarousel className="owl-theme MT-OwlDots toppersCarousel" {...toppersConfig}>
                 {toppersData && toppersData.data && toppersData.data.map((item) =>
-                  <div class="student-card bg-light-orange">
-                    <div class="detail">
-                      <h4 class="text-orange">{item.percentage}</h4>
-                      <p class="name">{item.name}</p>
-                      <p class="rank">{item.description}</p>
-                    </div>
+                  <div className="item">
+                    <div class="toppers">
 
-                    <img src={item.image} alt="topper" />
+                      <div class="student-card bg-light-orange">
+                        <div class="detail">
+                          <h4 class="text-orange">{item.percentage}</h4>
+                          <p class="name">{item.name}</p>
+                          <p class="rank">{item.description}</p>
+                        </div>
+
+                        <img src={item.image} alt="topper" />
+                      </div>
+
+
+                    </div>
                   </div>
                 )}
-
-              </div>
+              </OwlCarousel>
             </div>
           </div>
         </div>

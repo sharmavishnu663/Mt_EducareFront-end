@@ -1,6 +1,6 @@
 import axios from "axios";
 import { getCommonApiHeader } from "../../Utils/utils";
-import { CORPORATE_LIST, INVESTOR_LIST, RELEASE_DATA, REPORT_DATA } from "../constants";
+import { CORPORATE_LIST, INVESTOR_LIST, RELEASE_DATA, REPORT_DATA, MEDIA_LIST } from "../constants";
 
 export const CorporateDataAPI = (data) => {
     return (dispatch, getState) => {
@@ -70,6 +70,23 @@ export const reportDataAPI = (data) => {
     };
 }
 
+export const mediaListApi = (data) => {
+    return (dispatch, getState) => {
+        dispatch(getInvestorRequest());
+        axios
+            .get(MEDIA_LIST, {
+                headers: {
+                    ...getCommonApiHeader(),
+                },
+            })
+            .then((response) => {
+                dispatch(getMediaDataRespond(response?.data));
+            }).catch(err => {
+                dispatch(handleError(err));
+            });
+    };
+}
+
 export const getInvestorRequest = data => {
     return {
         type: "INVESTOR_Data_REQUESTED",
@@ -79,6 +96,13 @@ export const getInvestorRequest = data => {
 export const getInvestorDataRespond = data => {
     return {
         type: "INVESTOR_DATA_RESPONSE",
+        data: data,
+    };
+};
+
+export const getMediaDataRespond = data => {
+    return {
+        type: "MEDIA_DATA_RESPONSE",
         data: data,
     };
 };

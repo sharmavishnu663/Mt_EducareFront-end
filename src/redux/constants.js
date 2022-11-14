@@ -1,6 +1,7 @@
 export const BASE_URL = 'http://staging.mteducare.com/mteducare_admin/public/api';
+// export const BASE_URL = 'http://127.0.0.1:8000/api';
 
-export const IMAGE_BASE_URL = 'https://s3.ap-south-1.amazonaws.com/static.idpl.io/static/img';
+export const IMAGE_BASE_URL = 'http://staging.mteducare.com/mteducare_admin/public/storage/';
 
 
 // Gallery List api
@@ -113,3 +114,9 @@ export const AREA_LIST = `${BASE_URL}/area-data/`;
 
 //Centers api
 export const CENTER_SERACH = `${BASE_URL}/center-search`;
+
+//User query api
+export const USER_QUERY = `${BASE_URL}/users-query`;
+
+//Media List api
+export const MEDIA_LIST = `${BASE_URL}/media-list`;

@@ -4,11 +4,25 @@ import { connect } from "react-redux";
 import { CSRAPI } from "../../../redux/action/gallery";
 import { WebRoutes } from "../../../routes";
 import { parseHtml } from "../../../Utils/utils";
+import OwlCarousel from "react-owl-carousel";
+
 
 const Csr = ({ CSRAPI, CSRData }) => {
     useEffect(() => {
         CSRAPI();
     }, []);
+    const toppersConfig = {
+        loop: true,
+        autoplay: true,
+        margin: 40,
+        dots: true,
+        autoplayTimeout: 4000,
+        responsive: {
+            0: {
+                items: 1,
+            }
+        },
+    };
     return (
         <>
             {/* Header  */}
@@ -19,7 +33,7 @@ const Csr = ({ CSRAPI, CSRData }) => {
                         <div class="col-md-12">
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="index.html"><img src="../assets/imgs/icon-back.svg" alt="icon" /> Home</a></li>
+                                    <li class="breadcrumb-item"><Link to="/"><img src="../assets/imgs/icon-back.svg" alt="icon" /> Home</Link></li>
                                     <li class="breadcrumb-item active" aria-current="page">CSR</li>
                                 </ol>
                             </nav>
@@ -40,25 +54,30 @@ const Csr = ({ CSRAPI, CSRData }) => {
                         <div class="col-md-12">
 
                             <div class="csr-wrapper">
+                                <OwlCarousel {...toppersConfig}>
 
-                                {CSRData && CSRData.data && CSRData.data.map((item) =>
-                                    <div class="timeline-card csr-card">
 
-                                        <div class="content">
+                                    {CSRData && CSRData.data && CSRData.data.map((item) =>
+                                        <div className="item">
+                                            <div class="timeline-card csr-card">
 
-                                            <div class="row">
-                                                <div class="col-md-12">
-                                                    <img src={item.image} alt="illustration" />
+                                                <div class="content">
 
-                                                    {parseHtml(item.title)}
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <img src={item.image} alt="illustration" />
 
-                                                    {parseHtml(item.description)}
+                                                            {parseHtml(item.title)}
+
+                                                            {parseHtml(item.description)}
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
 
-                                )}
+                                    )}
+                                </OwlCarousel>
 
                             </div>
 
