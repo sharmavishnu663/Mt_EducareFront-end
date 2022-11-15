@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { investorDataAPI } from "../../../redux/action/investor";
+import { IMAGE_BASE_URL } from "../../../redux/constants";
 import { parseHtml } from "../../../Utils/utils";
 
 const InvestorPresentations = ({ investorDataAPI, investorData }) => {
@@ -79,7 +80,7 @@ const InvestorPresentations = ({ investorDataAPI, investorData }) => {
                                         </div>
 
                                         <div class="file-link">
-                                            <a href={item.file_name} download={item.file_name} target="_blank">
+                                            <a href={IMAGE_BASE_URL + '/' + item.file_name} download={IMAGE_BASE_URL + '/' + item.file_name} target="_blank">
                                                 <img src="../assets/imgs/icon-download.svg" alt="icon" />
                                             </a>
                                         </div>

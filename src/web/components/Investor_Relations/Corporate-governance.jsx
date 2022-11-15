@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { CorporateDataAPI } from "../../../redux/action/investor";
+import { IMAGE_BASE_URL } from "../../../redux/constants";
 import { parseHtml } from "../../../Utils/utils";
 
 const CorporateGovernance = ({ CorporateDataAPI, corporateData }) => {
@@ -57,7 +58,7 @@ const CorporateGovernance = ({ CorporateDataAPI, corporateData }) => {
                                         </div>
 
                                         <div class="file-link">
-                                            <a href={item.filename} download={item.filename} target="_blank">
+                                            <a href={IMAGE_BASE_URL + '/' + item.filename} download={IMAGE_BASE_URL + '/' + item.filename} target="_blank">
                                                 <img src="../assets/imgs/icon-download.svg" alt="icon" />
                                             </a>
                                         </div>

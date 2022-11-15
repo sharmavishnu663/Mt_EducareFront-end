@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { releaseDataAPI } from "../../../redux/action/investor";
+import { IMAGE_BASE_URL } from "../../../redux/constants";
 import { WebRoutes } from "../../../routes";
 
 const StatuoryCommunication = ({ releaseDataAPI, releaseData }) => {
@@ -45,7 +46,7 @@ const StatuoryCommunication = ({ releaseDataAPI, releaseData }) => {
                                         </div>
 
                                         <div className="file-link">
-                                            <a href={item.file_name} download={item.file_name} target="_blank">
+                                            <a href={IMAGE_BASE_URL + '/' + item.file_name} download={IMAGE_BASE_URL + '/' + item.file_name} target="_blank">
                                                 <img src="../assets/imgs/icon-download.svg" alt="icon" />
                                             </a>
                                         </div>
