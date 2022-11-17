@@ -1,12 +1,13 @@
 import React, { useEffect } from "react";
 import { Outlet } from "react-router-dom";
-import { message } from "antd";
 import { connect } from "react-redux";
 import Header from "./Common/Header";
 import Footer from "./Common/Footer";
 import { resetToast } from "../../redux/action/common";
 import { emailSubscriptionApi } from "../../redux/action/enquiry";
 import { categoryListApi } from "../../redux/action/category";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 
 /*************** User Scripts *************/
@@ -28,13 +29,13 @@ const BaseDashboard = ({ toastType, toastData, resetToast, emailSubscriptionApi,
     const showToast = () => {
         switch (toastType) {
             case "success":
-                message.success(toastData.message);
+                toast.success(toastData.message);
                 break;
             case "error":
-                message.error(toastData.message);
+                toast.error(toastData.message);
                 break;
             case "warning":
-                message.warning(toastData.message);
+                toast.warning(toastData.message);
                 break;
             default:
                 break;
@@ -42,7 +43,8 @@ const BaseDashboard = ({ toastType, toastData, resetToast, emailSubscriptionApi,
     };
     return (
         <div>
-            <Header categoryData={categoryData} />
+            <ToastContainer />
+            <Header categoryListApi={categoryListApi} categoryData={categoryData} />
             <Outlet />
             <Footer emailSubscriptionApi={emailSubscriptionApi} categoryData={categoryData} />
         </div>

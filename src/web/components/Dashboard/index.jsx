@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Connect from "./Connect";
-import Courses from "./Courses";
+// import Courses from "./Courses";
 import DemoVideos from "./Demo-vedios";
 import Feedback from "./Feedback";
 import Offerings from "./Offerings";
@@ -19,10 +19,31 @@ import { parseHtml } from "../../../Utils/utils";
 import { IMAGE_BASE_URL } from "../../../redux/constants";
 
 const Dashboard = ({ categoryListApi, categoryDetailsApi, topperListAPI, toppersData, achivementListAPI, achivementsData, categoryBaodStandardsListAPI, boardStandardsData, categoryData, cityListAPI, AreaListAPI, cityData, areaData, categoryDetailsData }) => {
-  const [categoryActive, setCategoryActive] = useState(categoryData && categoryData.data && categoryData.data[0].id);
+  // console.log(categoryData && categoryData.data && categoryData.data[0].id);
+  const [categoryActive, setCategoryActive] = useState(categoryData && categoryData.data && categoryData.data[0] && categoryData.data[0].id);
 
   const heroToppersConfig = {
-    loop: false,
+    loop: true,
+    autoplay: true,
+    autoplayTimeout: 2000,
+    // autoplaySpeed: 2000,
+    margin: 0,
+    dots: true,
+    responsive: {
+      0: {
+        items: 1,
+      },
+      600: {
+        items: 2,
+      },
+      1000: {
+        items: 2,
+      },
+    },
+  };
+
+  const CoursesWeOfferConfig = {
+    loop: true,
     autoplay: false,
     margin: 0,
     dots: true,
@@ -35,7 +56,7 @@ const Dashboard = ({ categoryListApi, categoryDetailsApi, topperListAPI, toppers
         items: 2,
       },
       1000: {
-        items: 2,
+        items: 3,
       },
     },
   };
@@ -77,9 +98,9 @@ const Dashboard = ({ categoryListApi, categoryDetailsApi, topperListAPI, toppers
   useEffect(() => {
     topperListAPI();
     achivementListAPI();
-    categoryListApi();
+    // categoryListApi();
     cityListAPI();
-    categoryDetailsApi(categoryData && categoryData.data && categoryData.data[0].id);
+    categoryDetailsApi(categoryData && categoryData.data && categoryData.data[0] && categoryData.data[0].id);
   }, []);
 
   useEffect(() => {
@@ -122,11 +143,11 @@ const Dashboard = ({ categoryListApi, categoryDetailsApi, topperListAPI, toppers
           <div className="row">
             <div className="col-md-12">
               <div id="banner-main" className="carousel carousel-dark slide carousel-fade" data-bs-ride="carousel">
-                <div className="carousel-indicators">
+                {/* <div className="carousel-indicators">
                   <button type="button" data-bs-target="#banner-main" data-bs-slide-to="0" className="active" aria-current="true" aria-label="Slide 1"></button>
                   <button type="button" data-bs-target="#banner-main" data-bs-slide-to="1" aria-label="Slide 2"></button>
                   <button type="button" data-bs-target="#banner-main" data-bs-slide-to="2" aria-label="Slide 3"></button>
-                </div>
+                </div> */}
 
                 <div className="carousel-inner">
                   {toppersData &&
@@ -147,7 +168,7 @@ const Dashboard = ({ categoryListApi, categoryDetailsApi, topperListAPI, toppers
                             <OwlCarousel className="owl-theme top-students top-students-a MT-OwlDots" {...heroToppersConfig}>
                               {toppersData &&
                                 toppersData.data &&
-                                toppersData.data.map((item1) => (
+                                toppersData.data.slice(0, 5).map((item1) => (
                                   <div className="item">
                                     <div className="students">
                                       <div className="detail">
@@ -182,9 +203,9 @@ const Dashboard = ({ categoryListApi, categoryDetailsApi, topperListAPI, toppers
                 <div className="floating-form in-banner">
                   <div className="form-controls">
                     <Form.Item label="Category" name="category" className="form-label" rules={[{ required: true, message: "Please select your category!" }]}>
-                      <select name="course" className="form-controls" id="course" value={category} onChange={(e) => setCategory(e.target.value)} required>
-                        <option disabled selected>
-                          Please select category
+                      <select name="course" className="form-controls w-100" id="course" value={category} onChange={(e) => setCategory(e.target.value)} required>
+                        <option disabled selected hidden>
+                          Select category
                         </option>
                         {categoryData && categoryData.data && categoryData.data.map((item) => <option value={item.id}>{item.name}</option>)}
                       </select>
@@ -193,9 +214,9 @@ const Dashboard = ({ categoryListApi, categoryDetailsApi, topperListAPI, toppers
 
                   <div className="form-controls">
                     <Form.Item label="Baord" name="board" className="form-label" rules={[{ required: true, message: "Please select your board!" }]}>
-                      <select name="boards" className="form-controls" id="boards" value={boards} onChange={(e) => setBoards(e.target.value)} required>
-                        <option disabled selected>
-                          Please select board
+                      <select name="boards" className="form-controls w-100" id="boards" value={boards} onChange={(e) => setBoards(e.target.value)} required>
+                        <option disabled selected hidden>
+                          Select board
                         </option>
                         {boardStandardsData && boardStandardsData.data && boardStandardsData.data.map((item) => <option value={item.board_name}>{item.board_name}</option>)}
                       </select>
@@ -204,9 +225,9 @@ const Dashboard = ({ categoryListApi, categoryDetailsApi, topperListAPI, toppers
 
                   <div className="form-controls">
                     <Form.Item label="Standards" name="standards" className="form-label" rules={[{ required: true, message: "Please select your standard!" }]}>
-                      <select name="standards" id="standards" value={standards} onChange={(e) => setStandards(e.target.value)} required>
-                        <option disabled selected>
-                          Please select Standards
+                      <select name="standards" id="standards" className="form-controls w-100" value={standards} onChange={(e) => setStandards(e.target.value)} required>
+                        <option disabled selected hidden>
+                          Select Standards
                         </option>
                         {boardStandardsData && boardStandardsData.data && boardStandardsData.data.map((item) => <option value={item.id}>{item.name}</option>)}
                       </select>
@@ -215,9 +236,9 @@ const Dashboard = ({ categoryListApi, categoryDetailsApi, topperListAPI, toppers
 
                   <div className="form-controls">
                     <Form.Item label="City" name="city" className="form-label" rules={[{ required: true, message: "Please select your city!" }]}>
-                      <select name="standards" id="standards" value={city} onChange={(e) => handleCityChange(e)} className="form-controls" required>
-                        <option disabled selected>
-                          Please select city
+                      <select name="standards" id="standards" value={city} onChange={(e) => handleCityChange(e)} className="form-controls w-100" required>
+                        <option disabled selected hidden>
+                          Select city
                         </option>
                         {cityData && cityData.data && cityData.data.map((item) => <option value={item.id}>{item.name}</option>)}
                       </select>
@@ -226,9 +247,9 @@ const Dashboard = ({ categoryListApi, categoryDetailsApi, topperListAPI, toppers
 
                   <div className="form-controls">
                     <Form.Item label="Area" name="area" className="form-label" rules={[{ required: true, message: "Please select your area!" }]}>
-                      <select name="area" id="area" className="form-controls" value={area} onChange={(e) => setArea(e.target.value)} required>
-                        <option disabled selected>
-                          Please select city
+                      <select name="area" id="area" className="form-controls w-100" value={area} onChange={(e) => setArea(e.target.value)} required>
+                        <option disabled selected hidden>
+                          Select city
                         </option>
                         {areaData && areaData.data && areaData.data.map((item) => <option value={item.id}>{item.name}</option>)}
                       </select>
@@ -237,7 +258,6 @@ const Dashboard = ({ categoryListApi, categoryDetailsApi, topperListAPI, toppers
 
                   <div className="form-controls">
                     <Link to={WebRoutes.CENTERS}>
-                      {" "}
                       <button className="btn btn-primary btn-submit" type="button" onClick={(e) => onFinish()}>
                         Submit
                       </button>
@@ -325,9 +345,10 @@ const Dashboard = ({ categoryListApi, categoryDetailsApi, topperListAPI, toppers
                 <ul className="nav nav-tabs MT_Tab" id="MT_Tab" role="tablist">
                   {categoryData &&
                     categoryData.data &&
-                    categoryData.data.map((item) => (
+                    categoryData.data.map((item, index) => (
                       <li className="nav-item" role="presentation">
                         <button
+                          key={index}
                           className={`${item && item.id == categoryActive ? "nav-link active" : "nav-link"}`}
                           id={`Edu-tab-${categoryActive}`}
                           data-bs-toggle="tab"
@@ -364,7 +385,7 @@ const Dashboard = ({ categoryListApi, categoryDetailsApi, topperListAPI, toppers
                   </div>
                   {/* <!-- explore-lakshya --> */}
 
-                  <OwlCarousel>
+                  <OwlCarousel {...CoursesWeOfferConfig}>
                     {categoryDetailsData &&
                       categoryDetailsData.data &&
                       categoryDetailsData.data.map((item) => (

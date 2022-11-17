@@ -2,12 +2,12 @@ import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { Modal } from "react-bootstrap";
 import { Form, Input } from "antd";
-import axios from "axios";
-import { ENQUIRY_POST_DATA } from "../../../redux/constants";
+
 import { categoryBaodStandardsListAPI, cityListAPI, AreaListAPI } from "../../../redux/action/home";
 import { categoryListApi } from "../../../redux/action/category";
+import { enquiryForm } from "../../../redux/action/enquiry";
 
-const Enquiry = ({ openEnquiry, handleCancel, categoryListApi, userQueryApi, categoryBaodStandardsListAPI, cityListAPI, AreaListAPI, categoryData, boardStandardsData, cityData }) => {
+const Enquiry = ({ openEnquiry, handleCancel, enquiryForm, userQueryApi, categoryBaodStandardsListAPI, cityListAPI, AreaListAPI, categoryData, boardStandardsData, cityData }) => {
   const [validated, setValidated] = useState(false);
   const [name, setName] = useState('');
   const [mobile, setMobile] = useState('');
@@ -19,7 +19,7 @@ const Enquiry = ({ openEnquiry, handleCancel, categoryListApi, userQueryApi, cat
   const [demoTime, setDemoTime] = useState('');
 
   useEffect(() => {
-    categoryListApi();
+    // categoryListApi();
     cityListAPI();
   }, []);
   useEffect(() => {
@@ -37,17 +37,10 @@ const Enquiry = ({ openEnquiry, handleCancel, categoryListApi, userQueryApi, cat
       standard: standard,
       demo_time: demoTime
     };
-    axios
-      .post(ENQUIRY_POST_DATA, data)
-      .then((response) => {
-        if (response) {
-          localStorage.setItem('postData', 'Successfully Save')
-          handleCancel()
-        }
-      }).catch(err => {
-        localStorage.setItem('error', 'Enquiry something wrong');
-      });
-    return false;
+    enquiryForm(data);
+    window.location.reload(false);
+
+
   };
 
   return (
@@ -124,7 +117,7 @@ const Enquiry = ({ openEnquiry, handleCancel, categoryListApi, userQueryApi, cat
                     name="mobile"
                     className="form-label"
                     rules={[{ required: true, message: 'Please input your Mobile number!' }]}>
-                    <Input type="text" className="form-control" placeholder="+91" value={mobile} onChange={(e) => setMobile(e.target.value)} required />
+                    <Input type="text" className="form-control" maxLength={10} placeholder="+91" value={mobile} onChange={(e) => setMobile(e.target.value)} required />
                   </Form.Item>
                 </div>
 
@@ -280,7 +273,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     categoryBaodStandardsListAPI: (data) => dispatch(categoryBaodStandardsListAPI(data)),
-    categoryListApi: () => dispatch(categoryListApi()),
+    enquiryForm: (data) => dispatch(enquiryForm(data)),
     cityListAPI: () => dispatch(cityListAPI()),
     AreaListAPI: (data) => dispatch(AreaListAPI(data)),
   };

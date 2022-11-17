@@ -5,6 +5,7 @@ import { CSRAPI } from "../../../redux/action/gallery";
 import { WebRoutes } from "../../../routes";
 import { parseHtml } from "../../../Utils/utils";
 import OwlCarousel from "react-owl-carousel";
+import { IMAGE_BASE_URL } from "../../../redux/constants";
 
 
 const Csr = ({ CSRAPI, CSRData }) => {
@@ -65,7 +66,7 @@ const Csr = ({ CSRAPI, CSRData }) => {
 
                                                     <div class="row">
                                                         <div class="col-md-12">
-                                                            <img src={item.image} alt="illustration" />
+                                                            <img src={IMAGE_BASE_URL + '/' + item.image} alt="illustration" />
 
                                                             {parseHtml(item.title)}
 

@@ -17,7 +17,7 @@ const Header = ({ categoryListApi, categoryData }) => {
   const [toastType, setToastType] = useState(localStorage.getItem('postData'));
 
   useEffect(() => {
-    categoryListApi()
+    // categoryListApi()
   }, [])
 
   useEffect(() => {
@@ -211,6 +211,8 @@ const Header = ({ categoryListApi, categoryData }) => {
           <Enquiry
             openEnquiry={openEnquiry}
             handleCancel={(e) => setOpenEnquiry(false)}
+            categoryData={categoryData}
+
           />
         ) : null}
 

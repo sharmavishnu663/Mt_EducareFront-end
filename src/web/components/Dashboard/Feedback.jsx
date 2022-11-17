@@ -1,13 +1,13 @@
-import FeedbackCard from "../Cards/FeedbackCard";
+// import FeedbackCard from "../Cards/FeedbackCard";
 import OwlCarousel from "react-owl-carousel";
 
 function Feedback() {
   const OfferingsConfig = {
-    loop: false,
-    autoplay: false,
+    loop: true,
+    autoplay: true,
+    autoplayTimeout: 2000,
     margin: 0,
     dots: true,
-    autoplayTimeout: 4000,
     responsive: {
       0: {
         items: 1,
@@ -30,13 +30,13 @@ function Feedback() {
                 Hear it from our <span className="text-blue">students & parents</span>
               </h3>
               <p className="sub-headline text-center">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Volutpat montes, pharetra cras odio nec scelerisque viverra.</p>
-              <OwlCarousel {...OfferingsConfig}>
+              <OwlCarousel className="owl-theme MT-OwlDots" {...OfferingsConfig}>
                 <div className="item">
                   <div className="articles">
                     <div className="article">
                       <div className="detail">
                         <div className="description">
-                          <p>"This Course is amazing with the current version, I can’t imagine it, how cool will it be when you finish the all."</p>
+                          <p>"This Course is amazing with the current version, I can't imagine it, how cool will it be when you finish the all."</p>
                         </div>
 
                         <div className="profile">
@@ -92,7 +92,7 @@ function Feedback() {
                   </div>
                 </div>
                 <div className="item">
-                  <div className="articles parents-feedbacks">
+                  <div className="articles">
                     <div className="article">
                       <div className="detail">
                         <div className="description">
@@ -112,7 +112,7 @@ function Feedback() {
                   </div>
                 </div>
                 <div className="item">
-                  <div className="articles parents-feedbacks">
+                  <div className="articles">
                     <div className="article">
                       <div className="detail">
                         <div className="description">
@@ -132,7 +132,7 @@ function Feedback() {
                   </div>
                 </div>
                 <div className="item">
-                  <div className="articles parents-feedbacks">
+                  <div className="articles">
                     <div className="article">
                       <div className="detail">
                         <div className="description">

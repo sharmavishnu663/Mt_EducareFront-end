@@ -33,8 +33,9 @@ const ContactUs = ({ openContact, handleCancel, categoryListApi, userQueryApi, c
       board: queryboards,
       standards: queryStandards
     }
-    userQueryApi(data);
 
+    userQueryApi(data);
+    window.location.reload(false);
   }
   return (
     <>
@@ -139,7 +140,7 @@ const ContactUs = ({ openContact, handleCancel, categoryListApi, userQueryApi, c
                   name="mobile"
                   className="form-label text-blue"
                   rules={[{ required: true, message: 'Please select your mobile!' }]}>
-                  <input type="text" id="phone" minlength="10" maxlength="11" placeholder="Mobile" value={queryMobile} onChange={(e) => setQueryMobile(e.target.value)} required />
+                  <input type="text" id="phone" minlength="10" maxlength="10" placeholder="Mobile" value={queryMobile} onChange={(e) => setQueryMobile(e.target.value)} required />
                 </Form.Item>
               </div>
 

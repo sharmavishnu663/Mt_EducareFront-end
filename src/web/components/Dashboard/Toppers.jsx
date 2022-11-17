@@ -42,7 +42,7 @@ const TopperDetails = ({ toppersData }) => {
                   toppersData.data.map((item) => (
                     <div className="item">
                       <div class="toppers">
-                        <div class="student-card bg-light-orange">
+                        <div class="student-card">
                           <div class="detail">
                             <h4 class="text-orange">{item.percentage}</h4>
                             <p class="name">{item.name}</p>

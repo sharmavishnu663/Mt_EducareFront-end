@@ -20,6 +20,10 @@ const Footer = ({ emailSubscriptionApi, categoryData }) => {
     localStorage.setItem('categorySelectedId', id);
   }
 
+  const handleVision = (vision) => {
+    localStorage.setItem('vision', vision);
+  }
+
 
   return (
     <>
@@ -79,13 +83,13 @@ const Footer = ({ emailSubscriptionApi, categoryData }) => {
                     <Link to={WebRoutes.ABOUT_US} >Vision and Mission</Link>
                   </li>
                   <li>
-                    <Link to={WebRoutes.BOARD_DIRECTORS} >Board of Directors</Link>
+                    <Link to={WebRoutes.ABOUT_US} onClick={(e) => handleVision('Directors')}>Board of Directors</Link>
                   </li>
                   <li>
-                    <Link to={WebRoutes.KEY_MANAGEMENT} >Key Management</Link>
+                    <Link to={WebRoutes.ABOUT_US} onClick={(e) => handleVision('Directors')}>Key Management</Link>
                   </li>
                   <li>
-                    <Link to={WebRoutes.BOARD_COMMITTEE} >Board Committees</Link>
+                    <Link to={WebRoutes.ABOUT_US} onClick={(e) => handleVision('Directors')}>Board Committees</Link>
                   </li>
                   <li>
                     <Link to={WebRoutes.AWARD_RECOGNITION}>Awards & Recognition</Link>

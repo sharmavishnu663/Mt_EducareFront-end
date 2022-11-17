@@ -5,10 +5,7 @@ import { categoryBaodStandardsListAPI, cityListAPI, AreaListAPI } from "../../..
 import { categoryListApi } from "../../../redux/action/category";
 import { userQueryApi } from "../../../redux/action/enquiry";
 
-
 const Connect = ({ categoryListApi, userQueryApi, categoryBaodStandardsListAPI, cityListAPI, AreaListAPI, categoryData, boardStandardsData }) => {
-
-
   const [queryname, setQueryName] = useState();
   const [queryEmail, setQueryEmail] = useState();
   const [queryMobile, setQueryMobile] = useState();
@@ -23,34 +20,31 @@ const Connect = ({ categoryListApi, userQueryApi, categoryBaodStandardsListAPI, 
     categoryBaodStandardsListAPI(querycategory);
   }, [querycategory]);
 
-
   const handleConnectSubmint = () => {
-
     const data = {
       name: queryname,
       email: queryEmail,
       mobile: queryMobile,
       category: querycategory,
       board: queryboards,
-      standards: queryStandards
-    }
+      standards: queryStandards,
+    };
     userQueryApi(data);
-
-  }
+  };
   return (
     <>
-
       <section className="connect">
-
         <div className="container">
           <div className="row">
             <div className="col-md-12">
+              <h3 className="text-center">
+                Have any doubts? <span className="text-orange">let’s connect</span>
+              </h3>
 
-              <h3 className="text-center">Have any doubts? <span className="text-orange">let’s connect</span></h3>
-
-              <Form labelCol={{
-                span: 8,
-              }}
+              <Form
+                labelCol={{
+                  span: 8,
+                }}
                 wrapperCol={{
                   span: 16,
                 }}
@@ -58,96 +52,71 @@ const Connect = ({ categoryListApi, userQueryApi, categoryBaodStandardsListAPI, 
               >
                 <div className="floating-form">
                   <div className="form-controls">
-                    <Form.Item
-                      label="Name"
-                      name="name"
-                      className="form-label text-blue"
-                      rules={[{ required: true, message: 'Please enter your name!' }]}>
-                      <input type="text" id="name" placeholder="name" value={queryname} onChange={(e) => setQueryName(e.target.value)} required />
+                    <Form.Item label="Name" name="name" className="form-label text-blue" rules={[{ required: true, message: "Please enter your name!" }]}>
+                      <input type="text" id="name" placeholder="Name" value={queryname} onChange={(e) => setQueryName(e.target.value)} required />
                     </Form.Item>
                   </div>
 
                   <div className="form-controls">
-                    <Form.Item
-                      label="Email"
-                      name="Email"
-                      className="form-label text-blue"
-                      rules={[{ required: true, message: 'Please enter your email address!' }]}>
-                      <input type="email" id="email" placeholder="email" value={queryEmail} onChange={(e) => setQueryEmail(e.target.value)} required />
+                    <Form.Item label="Email" name="Email" className="form-label text-blue" rules={[{ required: true, message: "Please enter your email address!" }]}>
+                      <input type="email" id="email" placeholder="Email" value={queryEmail} onChange={(e) => setQueryEmail(e.target.value)} required />
                     </Form.Item>
                   </div>
 
                   <div className="form-controls">
-                    <Form.Item
-                      label="Phone Number"
-                      name="mobile"
-                      className="form-label text-blue"
-                      rules={[{ required: true, message: 'Please select your mobile!' }]}>
+                    <Form.Item label="Phone Number" name="mobile" className="form-label text-blue" rules={[{ required: true, message: "Please select your mobile!" }]}>
                       <input type="text" id="phone" minlength="10" maxlength="11" placeholder="Mobile" value={queryMobile} onChange={(e) => setQueryMobile(e.target.value)} required />
                     </Form.Item>
                   </div>
 
                   <div className="form-controls">
-                    <Form.Item
-                      label="Category"
-                      name="category"
-                      className="form-label"
-                      rules={[{ required: true, message: 'Please select your category!' }]}>
-                      <select name="course" className="form-controls" id="course" value={querycategory} onChange={(e) => setQueryCategory(e.target.value)} required>
-                        <option disabled selected>Please select category</option>
-                        {categoryData && categoryData.data && categoryData.data.map((item) =>
-                          <option value={item.id}>{item.name}</option>
-                        )}
+                    <Form.Item label="Category" name="category" className="form-label" rules={[{ required: true, message: "Please select your category!" }]}>
+                      <select name="course" className="form-controls w-100" id="course" value={querycategory} onChange={(e) => setQueryCategory(e.target.value)} required>
+                        <option disabled selected hidden>
+                          Select category
+                        </option>
+                        {categoryData && categoryData.data && categoryData.data.map((item) => <option value={item.id}>{item.name}</option>)}
                       </select>
                     </Form.Item>
                   </div>
 
                   <div className="form-controls">
-                    <Form.Item
-                      label="Baord"
-                      name="board"
-                      className="form-label"
-                      rules={[{ required: true, message: 'Please select your board!' }]}>
-                      <select name="boards" className="form-controls" id="boards" value={queryboards} onChange={(e) => setQueryBoards(e.target.value)} required>
-                        <option disabled selected>Please select board</option>
-                        {boardStandardsData && boardStandardsData.data && boardStandardsData.data.map((item) =>
-                          <option value={item.board_name}>{item.board_name}</option>
-                        )}
+                    <Form.Item label="Baord" name="board" className="form-label" rules={[{ required: true, message: "Please select your board!" }]}>
+                      <select name="boards" className="form-controls w-100" id="boards" value={queryboards} onChange={(e) => setQueryBoards(e.target.value)} required>
+                        <option disabled selected hidden>
+                          Select board
+                        </option>
+                        {boardStandardsData && boardStandardsData.data && boardStandardsData.data.map((item) => <option value={item.board_name}>{item.board_name}</option>)}
                       </select>
                     </Form.Item>
                   </div>
 
                   <div className="form-controls">
-                    <Form.Item
-                      label="Standards"
-                      name="standards"
-                      className="form-label"
-                      rules={[{ required: true, message: 'Please select your standard!' }]}>
-                      <select name="standards" id="standards" value={queryStandards} onChange={(e) => setQueryStandards(e.target.value)} required>
-                        <option disabled selected>Please select Standards</option>
-                        {boardStandardsData && boardStandardsData.data && boardStandardsData.data.map((item) =>
-                          <option value={item.name}>{item.name}</option>
-                        )}
+                    <Form.Item label="Standards" name="standards" className="form-label" rules={[{ required: true, message: "Please select your standard!" }]}>
+                      <select name="standards" id="standards" className="form-controls w-100" value={queryStandards} onChange={(e) => setQueryStandards(e.target.value)} required>
+                        <option disabled selected hidden>
+                          Select Standards
+                        </option>
+                        {boardStandardsData && boardStandardsData.data && boardStandardsData.data.map((item) => <option value={item.name}>{item.name}</option>)}
                       </select>
                     </Form.Item>
                   </div>
 
                   <div className="form-controls">
-                    <button className="btn btn-primary btn-submit" type="submit">Submit</button>
+                    <button className="btn btn-primary btn-submit" type="submit">
+                      Submit
+                    </button>
                   </div>
                 </div>
                 <div className="shadow"></div>
               </Form>
-
             </div>
           </div>
         </div>
-
       </section>
     </>
   );
-}
-
+};
 
 const mapStateToProps = (state) => {
   const { AboutReducer, HomeReducer, CategoryReducer } = state;
