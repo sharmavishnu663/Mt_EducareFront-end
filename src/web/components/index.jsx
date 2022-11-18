@@ -19,6 +19,7 @@ const BaseDashboard = ({ toastType, toastData, resetToast, emailSubscriptionApi,
     useEffect(() => {
         categoryListApi();
     }, []);
+
     useEffect(() => {
         if (toastType) {
             showToast();
@@ -50,6 +51,8 @@ const BaseDashboard = ({ toastType, toastData, resetToast, emailSubscriptionApi,
         </div>
     );
 };
+
+
 
 const mapStateToProps = state => {
     const { CommonReducer, CategoryReducer } = state;

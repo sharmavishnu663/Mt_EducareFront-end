@@ -38,8 +38,9 @@ const Enquiry = ({ openEnquiry, handleCancel, enquiryForm, userQueryApi, categor
       demo_time: demoTime
     };
     enquiryForm(data);
-    window.location.reload(false);
-
+    setInterval(() => {
+      window.location.reload(false);
+    }, 1000 * 5);
 
   };
 
@@ -126,7 +127,7 @@ const Enquiry = ({ openEnquiry, handleCancel, enquiryForm, userQueryApi, categor
                     label="Category"
                     name="category"
                     className="form-label"
-                    rules={[{ required: true, message: 'Please select your Category!' }]}>
+                    rules={[{ required: true, message: 'Category!' }]}>
 
                     <select name="course" className="custom-select form-select" id="course" value={category} onChange={(e) => setCategory(e.target.value)} required>
                       <option disabled selected>Please select category</option>
@@ -142,7 +143,7 @@ const Enquiry = ({ openEnquiry, handleCancel, enquiryForm, userQueryApi, categor
                     label="Board"
                     name="board"
                     className="form-label"
-                    rules={[{ required: true, message: 'Please select your board!' }]}>
+                    rules={[{ required: true, message: 'Board!' }]}>
 
                     <select name="boards" className="custom-select form-select" id="boards" value={board} onChange={(e) => setBoard(e.target.value)} required>
                       <option disabled selected>Please select board</option>
@@ -158,7 +159,7 @@ const Enquiry = ({ openEnquiry, handleCancel, enquiryForm, userQueryApi, categor
                     label="Standard"
                     name="standard"
                     className="form-label"
-                    rules={[{ required: true, message: 'Please select your standrd!' }]}>
+                    rules={[{ required: true, message: 'Standrd!' }]}>
 
 
                     <select className="custom-select form-select" name="standards" id="standards" value={standard} onChange={(e) => setStandard(e.target.value)} required>
@@ -175,7 +176,7 @@ const Enquiry = ({ openEnquiry, handleCancel, enquiryForm, userQueryApi, categor
                     label=" Preferred Time for Demo"
                     name="demo_time"
                     className="form-label"
-                    rules={[{ required: true, message: 'Please select your demo time!' }]}>
+                    rules={[{ required: true, message: 'Demo time!' }]}>
                     <select id="" className="custom-select form-select" value={demoTime} onChange={(e) => setDemoTime(e.target.value)} required>
                       <option value="">Select demo time</option>
                       <option value="11:00">11:00</option>
@@ -195,7 +196,7 @@ const Enquiry = ({ openEnquiry, handleCancel, enquiryForm, userQueryApi, categor
                     label="City"
                     name="city"
                     className="form-label"
-                    rules={[{ required: true, message: 'Please select your city!' }]}>
+                    rules={[{ required: true, message: 'City!' }]}>
                     <select name="standards" id="standards" value={city} onChange={(e) => setCity(e.target.value)} className="custom-select form-select" required>
                       <option disabled selected>Please select city</option>
                       {cityData && cityData.data && cityData.data.map((item) =>

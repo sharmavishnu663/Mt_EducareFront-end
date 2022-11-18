@@ -32,7 +32,9 @@ const ContactUs = ({ openContact, handleCancel, categoryListApi, userQueryApi, c
     };
 
     userQueryApi(data);
-    window.location.reload(false);
+    setInterval(() => {
+      window.location.reload(false);
+    }, 1000 * 5);
   };
   return (
     <>
@@ -108,7 +110,7 @@ const ContactUs = ({ openContact, handleCancel, categoryListApi, userQueryApi, c
               </div>
 
               <div className="form-controls">
-                <Form.Item label="Category" name="category" className="form-label" rules={[{ required: true, message: "Please select your category!" }]}>
+                <Form.Item label="Category" name="category" className="form-label" rules={[{ required: true, message: "category!" }]}>
                   <select name="course" className="form-controls w-100" id="course" value={querycategory} onChange={(e) => setQueryCategory(e.target.value)} required>
                     <option disabled selected>
                       Select Category
@@ -119,7 +121,7 @@ const ContactUs = ({ openContact, handleCancel, categoryListApi, userQueryApi, c
               </div>
 
               <div className="form-controls">
-                <Form.Item label="Baord" name="board" className="form-label" rules={[{ required: true, message: "Please select your board!" }]}>
+                <Form.Item label="Baord" name="board" className="form-label" rules={[{ required: true, message: "board!" }]}>
                   <select name="boards" className="form-controls w-100" id="boards" value={queryboards} onChange={(e) => setQueryBoards(e.target.value)} required>
                     <option disabled selected>
                       Select Board
@@ -130,7 +132,7 @@ const ContactUs = ({ openContact, handleCancel, categoryListApi, userQueryApi, c
               </div>
 
               <div className="form-controls">
-                <Form.Item label="Standards" name="standards" className="form-label" rules={[{ required: true, message: "Please select your standard!" }]}>
+                <Form.Item label="Standards" name="standards" className="form-label" rules={[{ required: true, message: "standard!" }]}>
                   <select name="standards" className="form-controls w-100" id="standards" value={queryStandards} onChange={(e) => setQueryStandards(e.target.value)} required>
                     <option disabled selected>
                       Select Standards

@@ -16,6 +16,7 @@ import { IMAGE_BASE_URL } from "../../../redux/constants";
 
 const College = ({ categoryListApi, categoryDetailsApi, categoryDetailsData, demoVideoListApi, demoVideoDetailApi, demoListData, videoDetailData, topperListAPI, toppersData, achivementListAPI, achivementsData, categoryBaodStandardsListAPI, boardStandardsData, categoryData, cityListAPI, AreaListAPI, cityData, areaData }) => {
   const [categoryActive, setCategoryActive] = useState(localStorage.getItem("categorySelectedId"));
+  const [indexData, setIndexData] = useState(0);
 
   useEffect(() => {
     demoVideoListApi();
@@ -47,7 +48,7 @@ const College = ({ categoryListApi, categoryDetailsApi, categoryDetailsData, dem
                 <ul className="nav nav-tabs MT_Tab" id="MT_Tab" role="tablist">
                   {categoryData &&
                     categoryData.data &&
-                    categoryData.data.map((item) => (
+                    categoryData.data.map((item, index) => (
                       <li className="nav-item" role="presentation">
                         <button
                           className={`${item && item.id == categoryActive ? "nav-link active" : "nav-link"}`}
@@ -61,6 +62,7 @@ const College = ({ categoryListApi, categoryDetailsApi, categoryDetailsData, dem
                           onClick={(e) => {
                             setCategoryActive(item && item.id);
                             handleCategoryId(item && item.id);
+                            setIndexData(index);
                           }}
                         >
                           {item && item.name}
@@ -75,15 +77,46 @@ const College = ({ categoryListApi, categoryDetailsApi, categoryDetailsData, dem
 
               <div className="tab-content MT_TabContent" id="MT_TabContent">
                 <div className="tab-pane fade show active" id="MT-tabPane-1" role="tabpanel" aria-labelledby="Edu-tab-1" tabindex="0">
-                  <div className="explore-lakshya bg-light-orange">
-                    <div>
-                      <img src="../assets/imgs/lakshya-logo.png" alt="lakshya-logo" />
-                      <p>Lakshay is our partner which provides the higher secondary education science courses for competitive exams.</p>
+                  {console.log(indexData)}   {indexData == 0 || indexData === 'undefined' ?
+                    <div className="explore-lakshya bg-light-orange">
+                      <div>
+                        <img src="../assets/imgs/lakshya-logo.png" alt="lakshya-logo" />
+                        <p>Lakshay is our partner which provides the higher secondary education science courses for competitive exams.</p>
+                      </div>
+                      <a href="https://www.lakshyainstitute.com/" className="btn btn-lg" target="_blank">
+                        Explore Lakshya
+                      </a>
                     </div>
-                    <a href="#" className="btn btn-lg">
-                      Explore Lakshya
-                    </a>
-                  </div>
+                    :
+                    null
+                  }
+
+                  {indexData && indexData == 1 ?
+                    <div class="explore-lakshya bg-light-orange">
+                      <div>
+                        <img src="../assets/imgs/mahesh-tutorials-school.png" alt="lakshya-logo" />
+                        <p>For over three decades, Mahesh tutorials has been mentoring students for success, in academics and in life. </p>
+                      </div>
+                      <a href="https://www.lakshyainstitute.com/" class="btn btn-lg" target="_blank">Explore School</a>
+                    </div>
+                    :
+                    null
+                  }
+
+                  {indexData && indexData == 2 ?
+                    <div class="explore-lakshya bg-light-orange">
+                      <div>
+                        <img src="../assets/imgs/mahesh-tutorials.png" alt="lakshya-logo" />
+                      </div>
+                      <div>
+                        <a href="#" class="btn btn-lg mr-3" style={{ marginRight: "22px" }}>Explore Commerce</a>
+
+                        <a href="#" class="btn btn-lg">Explore Science</a>
+                      </div>
+                    </div>
+                    :
+                    null
+                  }
                   {/* <!-- explore-lakshya --> */}
 
                   <OwlCarousel>

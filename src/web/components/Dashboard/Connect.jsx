@@ -29,8 +29,15 @@ const Connect = ({ categoryListApi, userQueryApi, categoryBaodStandardsListAPI, 
       board: queryboards,
       standards: queryStandards,
     };
+
     userQueryApi(data);
+    setInterval(() => {
+      window.location.reload();
+    }, 1000 * 5);
   };
+  const handleContact = (e) => {
+    if (e.target.value >= '0' && e.target.value <= '9') setQueryMobile(e.target.value);
+  }
   return (
     <>
       <section className="connect">
@@ -52,25 +59,25 @@ const Connect = ({ categoryListApi, userQueryApi, categoryBaodStandardsListAPI, 
               >
                 <div className="floating-form">
                   <div className="form-controls">
-                    <Form.Item label="Name" name="name" className="form-label text-blue" rules={[{ required: true, message: "Please enter your name!" }]}>
+                    <Form.Item label="Name" name="name" className="form-label text-blue" rules={[{ required: true, message: " name!" }]}>
                       <input type="text" id="name" placeholder="Name" value={queryname} onChange={(e) => setQueryName(e.target.value)} required />
                     </Form.Item>
                   </div>
 
                   <div className="form-controls">
-                    <Form.Item label="Email" name="Email" className="form-label text-blue" rules={[{ required: true, message: "Please enter your email address!" }]}>
+                    <Form.Item label="Email" name="Email" className="form-label text-blue" rules={[{ required: true, message: "email address!" }]}>
                       <input type="email" id="email" placeholder="Email" value={queryEmail} onChange={(e) => setQueryEmail(e.target.value)} required />
                     </Form.Item>
                   </div>
 
                   <div className="form-controls">
-                    <Form.Item label="Phone Number" name="mobile" className="form-label text-blue" rules={[{ required: true, message: "Please select your mobile!" }]}>
-                      <input type="text" id="phone" minlength="10" maxlength="11" placeholder="Mobile" value={queryMobile} onChange={(e) => setQueryMobile(e.target.value)} required />
+                    <Form.Item label="Phone Number" name="mobile" className="form-label text-blue" rules={[{ required: true, message: " mobile!" }]}>
+                      <input type="text" id="phone" minlength="10" maxlength="11" placeholder="Mobile" value={queryMobile} onChange={(e) => handleContact(e)} required />
                     </Form.Item>
                   </div>
 
                   <div className="form-controls">
-                    <Form.Item label="Category" name="category" className="form-label" rules={[{ required: true, message: "Please select your category!" }]}>
+                    <Form.Item label="Category" name="category" className="form-label" rules={[{ required: true, message: "category!" }]}>
                       <select name="course" className="form-controls w-100" id="course" value={querycategory} onChange={(e) => setQueryCategory(e.target.value)} required>
                         <option disabled selected hidden>
                           Select category
@@ -81,7 +88,7 @@ const Connect = ({ categoryListApi, userQueryApi, categoryBaodStandardsListAPI, 
                   </div>
 
                   <div className="form-controls">
-                    <Form.Item label="Baord" name="board" className="form-label" rules={[{ required: true, message: "Please select your board!" }]}>
+                    <Form.Item label="Baord" name="board" className="form-label" rules={[{ required: true, message: "board!" }]}>
                       <select name="boards" className="form-controls w-100" id="boards" value={queryboards} onChange={(e) => setQueryBoards(e.target.value)} required>
                         <option disabled selected hidden>
                           Select board
@@ -92,7 +99,7 @@ const Connect = ({ categoryListApi, userQueryApi, categoryBaodStandardsListAPI, 
                   </div>
 
                   <div className="form-controls">
-                    <Form.Item label="Standards" name="standards" className="form-label" rules={[{ required: true, message: "Please select your standard!" }]}>
+                    <Form.Item label="Standards" name="standards" className="form-label" rules={[{ required: true, message: "standard!" }]}>
                       <select name="standards" id="standards" className="form-controls w-100" value={queryStandards} onChange={(e) => setQueryStandards(e.target.value)} required>
                         <option disabled selected hidden>
                           Select Standards

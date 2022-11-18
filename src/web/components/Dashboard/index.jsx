@@ -94,6 +94,7 @@ const Dashboard = ({ categoryListApi, defaultCategoryListApi, categoryDetailsApi
   const [standards, setStandards] = useState();
   const [city, setCity] = useState();
   const [area, setArea] = useState();
+  const [indexData, setIndexData] = useState();
 
   useEffect(() => {
     topperListAPI();
@@ -360,6 +361,7 @@ const Dashboard = ({ categoryListApi, defaultCategoryListApi, categoryDetailsApi
                           onClick={(e) => {
                             setCategoryActive(item && item.id);
                             handleCategoryId(item && item.id);
+                            setIndexData(index);
                           }}
                         >
                           {item && item.name}
@@ -376,15 +378,45 @@ const Dashboard = ({ categoryListApi, defaultCategoryListApi, categoryDetailsApi
                 {categoryActive ?
 
                   <div className="tab-pane fade show active" id={`MT-tabPane-${categoryActive}`} role="tabpanel" aria-labelledby={`Edu-tab-${categoryActive}`} tabindex="0">
-                    <div className="explore-lakshya bg-light-orange">
-                      <div>
-                        <img src="../assets/imgs/lakshya-logo.png" alt="lakshya-logo" />
-                        <p>Lakshay is our partner which provides the higher secondary education science courses for competitive exams.</p>
+                    {indexData == 0 ?
+                      <div className="explore-lakshya bg-light-orange">
+                        <div>
+                          <img src="../assets/imgs/lakshya-logo.png" alt="lakshya-logo" />
+                          <p>Lakshay is our partner which provides the higher secondary education science courses for competitive exams.</p>
+                        </div>
+                        <a href="https://www.lakshyainstitute.com/" className="btn btn-lg" target="_blank">
+                          Explore Lakshya
+                        </a>
                       </div>
-                      <a href="#" className="btn btn-lg">
-                        Explore Lakshya
-                      </a>
-                    </div>
+                      :
+                      null
+                    }
+
+                    {indexData && indexData == 1 ?
+                      <div class="explore-lakshya bg-light-orange">
+                        <div>
+                          <img src="../assets/imgs/mahesh-tutorials-school.png" alt="lakshya-logo" />
+                          <p>For over three decades, Mahesh tutorials has been mentoring students for success, in academics and in life. </p>
+                        </div>
+                        <a href="https://www.lakshyainstitute.com/" class="btn btn-lg" target="_blank">Explore School</a>
+                      </div>
+                      :
+                      null
+                    }
+
+                    {indexData && indexData == 2 ?
+                      <div class="explore-lakshya bg-light-orange">
+                        <div>
+                          <img src="../assets/imgs/mahesh-tutorials.png" alt="lakshya-logo" />
+                        </div>
+                        <div>
+                          <a href="#" class="btn btn-lg mr-3" style={{ marginRight: "22px" }}>Explore Commerce</a>
+                          <a href="#" class="btn btn-lg">Explore Science</a>
+                        </div>
+                      </div>
+                      :
+                      null
+                    }
                     {/* <!-- explore-lakshya --> */}
 
                     <OwlCarousel {...CoursesWeOfferConfig}>
