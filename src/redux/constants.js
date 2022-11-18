@@ -120,3 +120,9 @@ export const USER_QUERY = `${BASE_URL}/users-query`;
 
 //Media List api
 export const MEDIA_LIST = `${BASE_URL}/media-list`;
+
+//Default course detail List api
+export const DEFAULT_COURSE = `${BASE_URL}/default-category-list`;
+
+//Default demo detail List api
+export const DEFAULT_DEMO_VIDEO = `${BASE_URL}/default-demo-list`;

@@ -1,6 +1,7 @@
 const initState = {
     categoryData: [],
     categoryDetailsData: [],
+    defaultCategoryDetailsData: [],
     error: null
 };
 const CategoryReducer = (state = initState, action) => {
@@ -19,6 +20,11 @@ const CategoryReducer = (state = initState, action) => {
             return {
                 ...state,
                 categoryDetailsData: data,
+            };
+        case "DEFAULT_CATEGORY_DETAILS_DATA_RESPONSE":
+            return {
+                ...state,
+                defaultCategoryDetailsData: data,
             };
         case "CATEGORY_ERROR":
             return {

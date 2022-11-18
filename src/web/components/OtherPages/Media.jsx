@@ -3,64 +3,69 @@ import { useEffect } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { mediaListApi } from "../../../redux/action/investor";
+import { parseHtml } from "../../../Utils/utils";
 
 const Media = ({ mediaListApi, mediaData }) => {
-    useEffect(() => {
-        mediaListApi();
-    }, [])
-    return (
-        <>
+  useEffect(() => {
+    mediaListApi();
+  }, []);
 
-            <section class="cards terms" id="privacy-policy">
+  const colSize = [4, 8, 4, 4, 4, 8, 4];
 
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <nav aria-label="breadcrumb">
-                                <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><Link to="/"><img src="../assets/imgs/icon-back.svg" alt="icon" /> Home</Link></li>
-                                    <li class="breadcrumb-item active" aria-current="page">Media</li>
-                                </ol>
-                            </nav>
+  return (
+    <>
+      <section class="cards terms" id="privacy-policy">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-12">
+              <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                  <li class="breadcrumb-item">
+                    <Link to="/">
+                      <img src="../assets/imgs/icon-back.svg" alt="icon" /> Home
+                    </Link>
+                  </li>
+                  <li class="breadcrumb-item active" aria-current="page">
+                    Media
+                  </li>
+                </ol>
+              </nav>
 
-                            <h4>Media</h4>
-                        </div>
-                    </div>
+              <h4>Media</h4>
+            </div>
+          </div>
 
-                    <div class="row media-coverage">
-                        {mediaData && mediaData.data && mediaData.data.map((item) =>
-                            <div class="col-md-4 coverage">
-                                <div class="media bg-light-orange">
-                                    <h5>Special Coverage for Robomate+</h5>
-                                    <p>21 Dec 2021</p>
-                                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry.</p>
-                                </div>
-                            </div>
-                        )}
-
-
-                    </div>
+          <div class="row media-coverage">
+            {mediaData &&
+              mediaData.data &&
+              mediaData.data.map((item, index) => (
+                <div class={`col-md-${colSize[index]} coverage`} key={index}>
+                  <div class={index % 2 === 0 ? "media bg-light-orange" : "media bg-light-blue"}>
+                    <h5>{item && item.title}</h5>
+                    <p>{new Date(item && item.created_at).toLocaleDateString("en-us", { weekday: "long", year: "numeric", month: "short", day: "numeric" })}</p>
+                    <p>{item && parseHtml(item.description)}</p>
+                  </div>
                 </div>
-
-            </section>
-
-        </>
-    );
-}
-
+              ))}
+          </div>
+        </div>
+      </section>
+    </>
+  );
+};
 
 const mapStateToProps = (state) => {
-    const { InvestorReducer } = state;
-    const { mediaData } = InvestorReducer;
-    return {
-        mediaData: InvestorReducer.mediaData,
-    };
+  const { InvestorReducer } = state;
+  const { mediaData } = InvestorReducer;
+  return {
+    mediaData: InvestorReducer.mediaData,
+  };
 };
 
 const mapDispatchToProps = (dispatch) => {
-    return {
-        mediaListApi: () => dispatch(mediaListApi()),
-    };
+  return {
+    mediaListApi: () => dispatch(mediaListApi()),
+  };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Media);

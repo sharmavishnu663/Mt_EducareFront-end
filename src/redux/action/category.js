@@ -1,5 +1,5 @@
 import axios from "axios";
-import { Category_LIST, Category_Details } from "../constants";
+import { Category_LIST, Category_Details, DEFAULT_COURSE } from "../constants";
 import { getCommonApiHeader } from "../../Utils/utils";
 
 
@@ -15,6 +15,25 @@ export const categoryListApi = (data) => {
             .then((response) => {
                 if (response) {
                     dispatch(getCategoryDataRespond(response?.data));
+                }
+            }).catch(err => {
+                dispatch(handleError(err));
+            });
+    };
+}
+
+export const defaultCategoryListApi = (data) => {
+    return (dispatch, getState) => {
+        dispatch(getCategoryDataRequest());
+        axios
+            .get(DEFAULT_COURSE, {
+                headers: {
+                    ...getCommonApiHeader(),
+                },
+            })
+            .then((response) => {
+                if (response) {
+                    dispatch(getDefaultCategoryDetailDataRespond(response?.data));
                 }
             }).catch(err => {
                 dispatch(handleError(err));
@@ -57,6 +76,12 @@ export const getCategoryDataRespond = data => {
 export const getCategoryDetailsDataRespond = data => {
     return {
         type: "CATEGORY_DETAILS_DATA_RESPONSE",
+        data: data,
+    };
+};
+export const getDefaultCategoryDetailDataRespond = data => {
+    return {
+        type: "DEFAULT_CATEGORY_DETAILS_DATA_RESPONSE",
         data: data,
     };
 };

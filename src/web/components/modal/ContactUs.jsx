@@ -7,7 +7,6 @@ import { userQueryApi } from "../../../redux/action/enquiry";
 
 import { Modal } from "react-bootstrap";
 const ContactUs = ({ openContact, handleCancel, categoryListApi, userQueryApi, categoryBaodStandardsListAPI, cityListAPI, AreaListAPI, categoryData, boardStandardsData }) => {
-
   const [queryname, setQueryName] = useState();
   const [queryEmail, setQueryEmail] = useState();
   const [queryMobile, setQueryMobile] = useState();
@@ -22,42 +21,27 @@ const ContactUs = ({ openContact, handleCancel, categoryListApi, userQueryApi, c
     categoryBaodStandardsListAPI(querycategory);
   }, [querycategory]);
 
-
   const handleConnectSubmint = () => {
-
     const data = {
       name: queryname,
       email: queryEmail,
       mobile: queryMobile,
       category: querycategory,
       board: queryboards,
-      standards: queryStandards
-    }
+      standards: queryStandards,
+    };
 
     userQueryApi(data);
     window.location.reload(false);
-  }
+  };
   return (
     <>
-      <Modal
-        show={openContact}
-        onHide={handleCancel}
-        className="modal fade modal-xl contact-us"
-        id="contactUs"
-        tabindex="-1"
-        aria-labelledby="contactUsLabel"
-        aria-hidden="true"
-      >
+      <Modal show={openContact} onHide={handleCancel} className="modal fade modal-xl contact-us" id="contactUs" tabindex="-1" aria-labelledby="contactUsLabel" aria-hidden="true">
         <Modal.Header closeButton></Modal.Header>
 
         <div className="modal-body">
           <h2 className="text-center mb-4">Contact Us</h2>
-          <p className="text-center">
-            MT Educare has its presence across 270+ coaching centres at 174
-            locations in Maharashtra, Gujarat, Tamil Nadu, Karnataka, Uttar
-            Pradesh, Punjab, Haryana, Chandigarh,Assam, Odisha, Andhra Pradesh,
-            Kerala,Telangana and internationally - Dubai
-          </p>
+          <p className="text-center">MT Educare has its presence across 270+ coaching centres at 174 locations in Maharashtra, Gujarat, Tamil Nadu, Karnataka, Uttar Pradesh, Punjab, Haryana, Chandigarh,Assam, Odisha, Andhra Pradesh, Kerala,Telangana and internationally - Dubai</p>
 
           <div className="container card-wrapper">
             <div className="row">
@@ -67,25 +51,17 @@ const ContactUs = ({ openContact, handleCancel, categoryListApi, userQueryApi, c
                     <img src="../assets/imgs/icon-robomate.svg" alt="icon" />
                   </div>
 
-                  <p className="text-medium">
-                    To Install Robomate+ at your Institution call 9987686444
-                  </p>
+                  <p className="text-medium">To Install Robomate+ at your Institution call 9987686444</p>
                 </div>
               </div>
 
               <div className="col">
                 <div className="info-card bg-light-orange">
                   <div className="img-wrapper">
-                    <img
-                      src="../assets/imgs/icon-product-call.svg"
-                      alt="icon"
-                    />
+                    <img src="../assets/imgs/icon-product-call.svg" alt="icon" />
                   </div>
 
-                  <p className="text-medium">
-                    For Product Enquiries, call on our Toll-free Number 1800
-                    2100 009
-                  </p>
+                  <p className="text-medium">For Product Enquiries, call on our Toll-free Number 1800 2100 009</p>
                 </div>
               </div>
 
@@ -95,9 +71,7 @@ const ContactUs = ({ openContact, handleCancel, categoryListApi, userQueryApi, c
                     <img src="../assets/imgs/icon-franchise.svg" alt="icon" />
                   </div>
 
-                  <p className="text-medium">
-                    For Franchise enquiry contact 9987686444
-                  </p>
+                  <p className="text-medium">For Franchise enquiry contact 9987686444</p>
                 </div>
               </div>
             </div>
@@ -105,9 +79,10 @@ const ContactUs = ({ openContact, handleCancel, categoryListApi, userQueryApi, c
 
           <h4 className="text-center text-blue">Request a Call Back</h4>
 
-          <Form labelCol={{
-            span: 8,
-          }}
+          <Form
+            labelCol={{
+              span: 8,
+            }}
             wrapperCol={{
               span: 16,
             }}
@@ -115,82 +90,60 @@ const ContactUs = ({ openContact, handleCancel, categoryListApi, userQueryApi, c
           >
             <div className="floating-form">
               <div className="form-controls">
-                <Form.Item
-                  label="Name"
-                  name="name"
-                  className="form-label text-blue"
-                  rules={[{ required: true, message: 'Please enter your name!' }]}>
-                  <input type="text" id="name" placeholder="name" value={queryname} onChange={(e) => setQueryName(e.target.value)} required />
+                <Form.Item label="Name" name="name" className="form-label text-blue" rules={[{ required: true, message: "Please enter your name!" }]}>
+                  <input type="text" id="name" placeholder="Name" value={queryname} onChange={(e) => setQueryName(e.target.value)} required />
                 </Form.Item>
               </div>
 
               <div className="form-controls">
-                <Form.Item
-                  label="Email"
-                  name="Email"
-                  className="form-label text-blue"
-                  rules={[{ required: true, message: 'Please enter your email address!' }]}>
-                  <input type="email" id="email" placeholder="email" value={queryEmail} onChange={(e) => setQueryEmail(e.target.value)} required />
+                <Form.Item label="Email" name="Email" className="form-label text-blue" rules={[{ required: true, message: "Please enter your email address!" }]}>
+                  <input type="email" id="email" placeholder="Email" value={queryEmail} onChange={(e) => setQueryEmail(e.target.value)} required />
                 </Form.Item>
               </div>
 
               <div className="form-controls">
-                <Form.Item
-                  label="Phone Number"
-                  name="mobile"
-                  className="form-label text-blue"
-                  rules={[{ required: true, message: 'Please select your mobile!' }]}>
+                <Form.Item label="Phone Number" name="mobile" className="form-label text-blue" rules={[{ required: true, message: "Please select your mobile!" }]}>
                   <input type="text" id="phone" minlength="10" maxlength="10" placeholder="Mobile" value={queryMobile} onChange={(e) => setQueryMobile(e.target.value)} required />
                 </Form.Item>
               </div>
 
               <div className="form-controls">
-                <Form.Item
-                  label="Category"
-                  name="category"
-                  className="form-label"
-                  rules={[{ required: true, message: 'Please select your category!' }]}>
-                  <select name="course" className="form-controls" id="course" value={querycategory} onChange={(e) => setQueryCategory(e.target.value)} required>
-                    <option disabled selected>Please select category</option>
-                    {categoryData && categoryData.data && categoryData.data.map((item) =>
-                      <option value={item.id}>{item.name}</option>
-                    )}
+                <Form.Item label="Category" name="category" className="form-label" rules={[{ required: true, message: "Please select your category!" }]}>
+                  <select name="course" className="form-controls w-100" id="course" value={querycategory} onChange={(e) => setQueryCategory(e.target.value)} required>
+                    <option disabled selected>
+                      Select Category
+                    </option>
+                    {categoryData && categoryData.data && categoryData.data.map((item) => <option value={item.id}>{item.name}</option>)}
                   </select>
                 </Form.Item>
               </div>
 
               <div className="form-controls">
-                <Form.Item
-                  label="Baord"
-                  name="board"
-                  className="form-label"
-                  rules={[{ required: true, message: 'Please select your board!' }]}>
-                  <select name="boards" className="form-controls" id="boards" value={queryboards} onChange={(e) => setQueryBoards(e.target.value)} required>
-                    <option disabled selected>Please select board</option>
-                    {boardStandardsData && boardStandardsData.data && boardStandardsData.data.map((item) =>
-                      <option value={item.board_name}>{item.board_name}</option>
-                    )}
+                <Form.Item label="Baord" name="board" className="form-label" rules={[{ required: true, message: "Please select your board!" }]}>
+                  <select name="boards" className="form-controls w-100" id="boards" value={queryboards} onChange={(e) => setQueryBoards(e.target.value)} required>
+                    <option disabled selected>
+                      Select Board
+                    </option>
+                    {boardStandardsData && boardStandardsData.data && boardStandardsData.data.map((item) => <option value={item.board_name}>{item.board_name}</option>)}
                   </select>
                 </Form.Item>
               </div>
 
               <div className="form-controls">
-                <Form.Item
-                  label="Standards"
-                  name="standards"
-                  className="form-label"
-                  rules={[{ required: true, message: 'Please select your standard!' }]}>
-                  <select name="standards" id="standards" value={queryStandards} onChange={(e) => setQueryStandards(e.target.value)} required>
-                    <option disabled selected>Please select Standards</option>
-                    {boardStandardsData && boardStandardsData.data && boardStandardsData.data.map((item) =>
-                      <option value={item.name}>{item.name}</option>
-                    )}
+                <Form.Item label="Standards" name="standards" className="form-label" rules={[{ required: true, message: "Please select your standard!" }]}>
+                  <select name="standards" className="form-controls w-100" id="standards" value={queryStandards} onChange={(e) => setQueryStandards(e.target.value)} required>
+                    <option disabled selected>
+                      Select Standards
+                    </option>
+                    {boardStandardsData && boardStandardsData.data && boardStandardsData.data.map((item) => <option value={item.name}>{item.name}</option>)}
                   </select>
                 </Form.Item>
               </div>
 
               <div className="form-controls">
-                <button className="btn btn-primary btn-submit" type="submit">Submit</button>
+                <button className="btn btn-primary btn-submit" type="submit">
+                  Submit
+                </button>
               </div>
             </div>
             <div className="shadow"></div>
@@ -199,8 +152,7 @@ const ContactUs = ({ openContact, handleCancel, categoryListApi, userQueryApi, c
       </Modal>
     </>
   );
-}
-
+};
 
 const mapStateToProps = (state) => {
   const { AboutReducer, HomeReducer, CategoryReducer } = state;

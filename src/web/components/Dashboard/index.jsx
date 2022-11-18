@@ -13,14 +13,14 @@ import { Form, Input, Select } from "antd";
 import { connect } from "react-redux";
 import { useEffect } from "react";
 import { topperListAPI, achivementListAPI, categoryBaodStandardsListAPI, cityListAPI, AreaListAPI } from "../../../redux/action/home";
-import { categoryListApi, categoryDetailsApi } from "../../../redux/action/category";
+import { categoryListApi, categoryDetailsApi, defaultCategoryListApi } from "../../../redux/action/category";
 import { WebRoutes } from "../../../routes";
 import { parseHtml } from "../../../Utils/utils";
 import { IMAGE_BASE_URL } from "../../../redux/constants";
 
-const Dashboard = ({ categoryListApi, categoryDetailsApi, topperListAPI, toppersData, achivementListAPI, achivementsData, categoryBaodStandardsListAPI, boardStandardsData, categoryData, cityListAPI, AreaListAPI, cityData, areaData, categoryDetailsData }) => {
+const Dashboard = ({ categoryListApi, defaultCategoryListApi, categoryDetailsApi, topperListAPI, toppersData, achivementListAPI, achivementsData, categoryBaodStandardsListAPI, boardStandardsData, categoryData, cityListAPI, AreaListAPI, cityData, areaData, categoryDetailsData, defaultCategoryDetailsData }) => {
   // console.log(categoryData && categoryData.data && categoryData.data[0].id);
-  const [categoryActive, setCategoryActive] = useState(categoryData && categoryData.data && categoryData.data[0] && categoryData.data[0].id);
+  const [categoryActive, setCategoryActive] = useState(0);
 
   const heroToppersConfig = {
     loop: true,
@@ -98,9 +98,9 @@ const Dashboard = ({ categoryListApi, categoryDetailsApi, topperListAPI, toppers
   useEffect(() => {
     topperListAPI();
     achivementListAPI();
+    defaultCategoryListApi();
     // categoryListApi();
     cityListAPI();
-    categoryDetailsApi(categoryData && categoryData.data && categoryData.data[0] && categoryData.data[0].id);
   }, []);
 
   useEffect(() => {
@@ -109,7 +109,6 @@ const Dashboard = ({ categoryListApi, categoryDetailsApi, topperListAPI, toppers
 
   useEffect(() => {
     if (city) {
-      console.log(localStorage.getItem("cityId"));
       AreaListAPI(localStorage.getItem("cityId"));
     }
   }, [city]);
@@ -134,6 +133,7 @@ const Dashboard = ({ categoryListApi, categoryDetailsApi, topperListAPI, toppers
   useEffect(() => {
     categoryDetailsApi(categoryActive);
   }, [categoryActive]);
+
 
   return (
     <>
@@ -349,7 +349,7 @@ const Dashboard = ({ categoryListApi, categoryDetailsApi, topperListAPI, toppers
                       <li className="nav-item" role="presentation">
                         <button
                           key={index}
-                          className={`${item && item.id == categoryActive ? "nav-link active" : "nav-link"}`}
+                          className={`${(item && item.id == categoryActive) || index === 0 ? "nav-link active" : `nav-link`}`}
                           id={`Edu-tab-${categoryActive}`}
                           data-bs-toggle="tab"
                           data-bs-target={`#MT-tabPane-${categoryActive}`}
@@ -373,44 +373,88 @@ const Dashboard = ({ categoryListApi, categoryDetailsApi, topperListAPI, toppers
               </div>
 
               <div className="tab-content MT_TabContent" id="MT_TabContent">
-                <div className="tab-pane fade show active" id={`MT-tabPane-${categoryActive}`} role="tabpanel" aria-labelledby={`Edu-tab-${categoryActive}`} tabindex="0">
-                  <div className="explore-lakshya bg-light-orange">
-                    <div>
-                      <img src="../assets/imgs/lakshya-logo.png" alt="lakshya-logo" />
-                      <p>Lakshay is our partner which provides the higher secondary education science courses for competitive exams.</p>
+                {categoryActive ?
+
+                  <div className="tab-pane fade show active" id={`MT-tabPane-${categoryActive}`} role="tabpanel" aria-labelledby={`Edu-tab-${categoryActive}`} tabindex="0">
+                    <div className="explore-lakshya bg-light-orange">
+                      <div>
+                        <img src="../assets/imgs/lakshya-logo.png" alt="lakshya-logo" />
+                        <p>Lakshay is our partner which provides the higher secondary education science courses for competitive exams.</p>
+                      </div>
+                      <a href="#" className="btn btn-lg">
+                        Explore Lakshya
+                      </a>
                     </div>
-                    <a href="#" className="btn btn-lg">
-                      Explore Lakshya
-                    </a>
-                  </div>
-                  {/* <!-- explore-lakshya --> */}
+                    {/* <!-- explore-lakshya --> */}
 
-                  <OwlCarousel {...CoursesWeOfferConfig}>
-                    {categoryDetailsData &&
-                      categoryDetailsData.data &&
-                      categoryDetailsData.data.map((item) => (
-                        <div className="item">
-                          <div className="articles our-courses">
-                            <div className="article">
-                              <div className="thumbnail">
-                                <img src={item && IMAGE_BASE_URL + "/" + item.image} alt="thumbnail" />
-                              </div>
-
-                              <div className="detail">
-                                <h5>{item && item.title}</h5>
-                                <div className="description">
-                                  <p>{item && parseHtml(item.description.substring(0, 300))}</p>
+                    <OwlCarousel {...CoursesWeOfferConfig}>
+                      {console.log(defaultCategoryDetailsData)}
+                      {categoryDetailsData &&
+                        categoryDetailsData.data &&
+                        categoryDetailsData.data.map((item) => (
+                          <div className="item">
+                            <div className="articles our-courses">
+                              <div className="article">
+                                <div className="thumbnail">
+                                  <img src={item && IMAGE_BASE_URL + "/" + item.image} alt="thumbnail" />
                                 </div>
-                                <div className="tag-link">
-                                  <div className="tag">{item.tag_name}</div>
+
+                                <div className="detail">
+                                  <h5>{item && item.title}</h5>
+                                  <div className="description">
+                                    <p>{item && parseHtml(item.description.substring(0, 300))}</p>
+                                  </div>
+                                  <div className="tag-link">
+                                    <div className="tag">{item.tag_name}</div>
+                                  </div>
                                 </div>
                               </div>
                             </div>
                           </div>
-                        </div>
-                      ))}
-                  </OwlCarousel>
-                </div>
+                        ))}
+                    </OwlCarousel>
+                  </div>
+                  :
+
+                  <div className="tab-pane fade show active" id="MT-tabPane-0" role="tabpanel" aria-labelledby="Edu-tab-0" tabindex="0">
+                    <div className="explore-lakshya bg-light-orange">
+                      <div>
+                        <img src="../assets/imgs/lakshya-logo.png" alt="lakshya-logo" />
+                        <p>Lakshay asdDAis our partner which provides the higher secondary education science courses for competitive exams.</p>
+                      </div>
+                      <a href="#" className="btn btn-lg">
+                        Explore Lakshya
+                      </a>
+                    </div>
+                    {/* <!-- explore-lakshya --> */}
+
+                    <OwlCarousel {...CoursesWeOfferConfig}>
+                      {defaultCategoryDetailsData &&
+                        defaultCategoryDetailsData.data &&
+                        defaultCategoryDetailsData.data.map((item) => (
+                          <div className="item">
+                            <div className="articles our-courses">
+                              <div className="article">
+                                <div className="thumbnail">
+                                  <img src={item && IMAGE_BASE_URL + "/" + item.image} alt="thumbnail" />
+                                </div>
+
+                                <div className="detail">
+                                  <h5>{item && item.title}</h5>
+                                  <div className="description">
+                                    <p>{item && parseHtml(item.description.substring(0, 300))}</p>
+                                  </div>
+                                  <div className="tag-link">
+                                    <div className="tag">{item.tag_name}</div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        ))}
+                    </OwlCarousel>
+                  </div>
+                }
               </div>
             </div>
           </div>
@@ -441,7 +485,7 @@ const Dashboard = ({ categoryListApi, categoryDetailsApi, topperListAPI, toppers
 const mapStateToProps = (state) => {
   const { DemoVideoReducer, HomeReducer, CategoryReducer } = state;
   const { toppersData, achivementsData, cityData, areaData } = HomeReducer;
-  const { categoryData, categoryDetailsData } = CategoryReducer;
+  const { categoryData, categoryDetailsData, defaultCategoryDetailsData } = CategoryReducer;
   return {
     toppersData: HomeReducer.toppersData,
     achivementsData: HomeReducer.achivementsData,
@@ -450,6 +494,7 @@ const mapStateToProps = (state) => {
     areaData: HomeReducer.areaData,
     categoryData: CategoryReducer.categoryData,
     categoryDetailsData: CategoryReducer.categoryDetailsData,
+    defaultCategoryDetailsData: CategoryReducer.defaultCategoryDetailsData,
   };
 };
 
@@ -460,6 +505,7 @@ const mapDispatchToProps = (dispatch) => {
     categoryBaodStandardsListAPI: (data) => dispatch(categoryBaodStandardsListAPI(data)),
     categoryListApi: () => dispatch(categoryListApi()),
     cityListAPI: () => dispatch(cityListAPI()),
+    defaultCategoryListApi: () => dispatch(defaultCategoryListApi()),
     AreaListAPI: (data) => dispatch(AreaListAPI(data)),
     categoryDetailsApi: (data) => dispatch(categoryDetailsApi(data)),
   };

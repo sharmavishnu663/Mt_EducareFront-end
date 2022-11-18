@@ -1,6 +1,7 @@
 const initState = {
     demoListData: [],
     videoDetailData: [],
+    defaultVideoDetailData: [],
     error: null
 };
 const DemoVideoReducer = (state = initState, action) => {
@@ -19,6 +20,11 @@ const DemoVideoReducer = (state = initState, action) => {
             return {
                 ...state,
                 videoDetailData: data,
+            };
+        case "DEFAULT_DEMO_VIDEO_DATA_RESPONSE":
+            return {
+                ...state,
+                defaultVideoDetailData: data,
             };
         case "DEMO_VIDEO_ERROR":
             return {

@@ -1,6 +1,6 @@
 import axios from "axios";
 import { getCommonApiHeader } from "../../Utils/utils";
-import { DEMO_VIDEO_CATEGORY, DEMO_VIDEO_DETAIL } from "../constants";
+import { DEMO_VIDEO_CATEGORY, DEMO_VIDEO_DETAIL, DEFAULT_DEMO_VIDEO } from "../constants";
 
 
 export const demoVideoListApi = (data) => {
@@ -15,6 +15,25 @@ export const demoVideoListApi = (data) => {
             .then((response) => {
                 if (response) {
                     dispatch(getDEMOVIDEODataRespond(response?.data));
+                }
+            }).catch(err => {
+                dispatch(handleError(err));
+            });
+    };
+}
+
+export const defaultDemoVideoListApi = (data) => {
+    return (dispatch, getState) => {
+        dispatch(getDemoVideoDataRequest());
+        axios
+            .get(DEFAULT_DEMO_VIDEO, {
+                headers: {
+                    ...getCommonApiHeader(),
+                },
+            })
+            .then((response) => {
+                if (response) {
+                    dispatch(getDEFAULTDEMOVIDEODataRespond(response?.data));
                 }
             }).catch(err => {
                 dispatch(handleError(err));
@@ -57,6 +76,13 @@ export const getVideoDetailataRespond = data => {
 export const getDEMOVIDEODataRespond = data => {
     return {
         type: "DEMO_VIDEO_DATA_RESPONSE",
+        data: data,
+    };
+};
+
+export const getDEFAULTDEMOVIDEODataRespond = data => {
+    return {
+        type: "DEFAULT_DEMO_VIDEO_DATA_RESPONSE",
         data: data,
     };
 };

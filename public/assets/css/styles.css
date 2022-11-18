@@ -697,14 +697,21 @@ section h3,
     max-width: none;
     border-radius: 42px;
     border: 1px solid var(--light-blue);
-    float: left;
-    /* width: calc((100% / 3) - 32px); */
-    /* margin: 16px; */
+    width: 100%;
+    margin: 0px;
     transition: all 0.3s ease;
 }
 
 .articles .article .thumbnail {
     overflow: hidden;
+}
+
+.articles .article .thumbnail img {
+    display: inline-block;
+    border-radius: 36px;
+    width: 100%;
+    height: 215px;
+    object-fit: cover;
 }
 
 .articles .article:hover {
@@ -1567,19 +1574,27 @@ nav[aria-label="breadcrumb"] {
     display: block;
     height: 6px;
     width: 100%;
-    max-width: calc(100% - 25px);
+    max-width: calc(100%);
     background-color: var(--mt-blue);
     top: -24px;
     opacity: 0.12;
     border-radius: 20px;
     margin: auto;
-    left: 15px;
-    right: auto;
+    left: 0px;
+    right: 0px;
     z-index: 0;
 }
 
 .timeline ul li {
     position: relative;
+}
+
+.timeline ul li:first-child {
+    transform: translateX(-50%);
+}
+
+.timeline ul li:last-child {
+    transform: translateX(50%);
 }
 
 .timeline ul li a {
@@ -1763,7 +1778,7 @@ nav[aria-label="breadcrumb"] {
     border: 1px solid var(--light-blue);
     border-radius: 25px;
     margin-bottom: 24px;
-    min-height: 290px;
+    height: 100%;
 }
 
 .management .card-address h5 {
@@ -1789,7 +1804,7 @@ nav[aria-label="breadcrumb"] {
 }
 
 .management .card-address .detail {
-    padding: 24px;
+    padding: 24px 24px 0px;
 }
 
 .management .card-address ul {
@@ -1892,6 +1907,7 @@ nav[aria-label="breadcrumb"] {
     margin-bottom: 140px;
 }
 
+
 .media-coverage .coverage {
     padding: 12px;
 }
@@ -1899,6 +1915,7 @@ nav[aria-label="breadcrumb"] {
 .media {
     padding: 20px 24px;
     border-radius: 8px;
+    height: 100%;
 }
 
 .media h5 {
@@ -1936,6 +1953,7 @@ nav[aria-label="breadcrumb"] {
     min-width: auto;
     float: right;
     margin: 0 0 40px 60px;
+    border-radius: 40px;
 }
 
 .job-description {
