@@ -79,8 +79,8 @@ const About = ({ introListAPI, introData, boardCommitteeAPI, commitesData, board
                             <div className="timeline">
                                 <ul>
                                     {introData && introData.data
-                                        ? introData.data.map((item) => (
-                                            <li key={item.id} className={`${item.id < activeYear || item.id === activeYear ? "active" : ""}`}>
+                                        ? introData.data.map((item, index) => (
+                                            <li key={item.id} className={`${(item.id < activeYear || item.id === activeYear) || index === 0 ? "active" : ""}`}>
                                                 <Link to="" onClick={() => handleStepClick(item.id)}>
                                                     {item.year}
                                                 </Link>
@@ -124,7 +124,7 @@ const About = ({ introListAPI, introData, boardCommitteeAPI, commitesData, board
                         <div className="col-md-12 pills">
                             <ul className="nav nav-tabs MT_Tab" id="MT_Tab" role="tablist">
                                 <li className="nav-item" role="presentation">
-                                    <button className={`nav-link ${localStorage.getItem("vision") == 'management' ? 'active' : ''}`} id="Edu-tab-1" data-bs-toggle="tab" data-bs-target="#MT-tabPane-1" type="button" role="tab" aria-controls="MT-tabPane-1" aria-selected="true">
+                                    <button className={`nav-link ${(localStorage.getItem("vision") && localStorage.getItem("vision") == 'management') || !localStorage.getItem("vision") ? 'active' : ''}`} id="Edu-tab-1" data-bs-toggle="tab" data-bs-target="#MT-tabPane-1" type="button" role="tab" aria-controls="MT-tabPane-1" aria-selected="true">
                                         Key Management
                                     </button>
                                 </li>
