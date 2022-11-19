@@ -79,7 +79,7 @@ export const JOB_LIST = `${BASE_URL}/job-list`;
 export const JOB_DATA_LIST = `${BASE_URL}/job-data-list/`;
 
 // Enquiry form  api
-export const ENQUIRY_POST_DATA = `${BASE_URL}/enquiry-post/`;
+export const ENQUIRY_POST_DATA = `${BASE_URL}/enquiry-post`;
 
 // Category List  api
 export const Category_LIST = `${BASE_URL}/category-list`;

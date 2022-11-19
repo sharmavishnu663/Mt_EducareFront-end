@@ -168,7 +168,7 @@ const Header = ({ categoryListApi, categoryData }) => {
                 </a>
                 <ul className="dropdown-menu">
                   <li>
-                    <a className="dropdown-item" target="_blank" href="">
+                    <a className="dropdown-item" target="_blank" href="https://admission.mteducare.com/">
                       School
                     </a>
                   </li>
