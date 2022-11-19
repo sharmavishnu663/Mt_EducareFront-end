@@ -16,7 +16,6 @@ const Center = ({ categoryListApi, categoryBaodStandardsListAPI, boardStandardsD
   const [standards, setStandards] = useState();
   const [city, setCity] = useState();
   const [area, setArea] = useState();
-  console.log(centerSearchData);
   useEffect(() => {
     centerListAPI();
     categoryListApi();
@@ -36,7 +35,6 @@ const Center = ({ categoryListApi, categoryBaodStandardsListAPI, boardStandardsD
 
   useEffect(() => {
     if (city) {
-      console.log(localStorage.getItem("cityId"));
       AreaListAPI(localStorage.getItem("cityId"));
     }
   }, [city]);
@@ -62,9 +60,9 @@ const Center = ({ categoryListApi, categoryBaodStandardsListAPI, boardStandardsD
           <div className="row">
             <div className="col-md-12 text-center">
               <h3 className="headline">
-                Our <span className="text-blue">Management</span>
+                Our <span className="text-blue">centers</span>
               </h3>
-              <p className="sub-headline">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Volutpat montes, pharetra cras odio nec scelerisque viverra.</p>
+              <p className="sub-headline">Our world-class infrastructure is reaching into various cities. Find one of our institutes near you.</p>
             </div>
           </div>
 
@@ -81,8 +79,8 @@ const Center = ({ categoryListApi, categoryBaodStandardsListAPI, boardStandardsD
               >
                 <div className="floating-form in-banner">
                   <div className="form-controls">
-                    <Form.Item label="Category" name="category" className="form-label" rules={[{ required: true, message: "Please select your category!" }]}>
-                      <select name="course" className="form-controls w-100" id="course" value={category} onChange={(e) => setCategory(e.target.value)} required>
+                    <Form.Item label="Category" name="category" className="form-label" >
+                      <select name="course" className="form-controls w-100" id="course" value={category} onChange={(e) => setCategory(e.target.value)}>
                         <option disabled selected hidden>
                           Select Category
                         </option>
@@ -92,8 +90,8 @@ const Center = ({ categoryListApi, categoryBaodStandardsListAPI, boardStandardsD
                   </div>
 
                   <div className="form-controls">
-                    <Form.Item label="Baord" name="board" className="form-label" rules={[{ required: true, message: "Please select your board!" }]}>
-                      <select name="boards" className="form-controls w-100" id="boards" value={boards} onChange={(e) => setBoards(e.target.value)} required>
+                    <Form.Item label="Baord" name="board" className="form-label" >
+                      <select name="boards" className="form-controls w-100" id="boards" value={boards} onChange={(e) => setBoards(e.target.value)} >
                         <option disabled selected hidden>
                           Select Board
                         </option>
@@ -103,8 +101,8 @@ const Center = ({ categoryListApi, categoryBaodStandardsListAPI, boardStandardsD
                   </div>
 
                   <div className="form-controls">
-                    <Form.Item label="Standards" name="standards" className="form-label" rules={[{ required: true, message: "Please select your standard!" }]}>
-                      <select name="standards" id="standards" className="form-controls w-100" value={standards} onChange={(e) => setStandards(e.target.value)} required>
+                    <Form.Item label="Standards" name="standards" className="form-label" >
+                      <select name="standards" id="standards" className="form-controls w-100" value={standards} onChange={(e) => setStandards(e.target.value)} >
                         <option disabled selected hidden>
                           Select Standards
                         </option>
@@ -114,8 +112,8 @@ const Center = ({ categoryListApi, categoryBaodStandardsListAPI, boardStandardsD
                   </div>
 
                   <div className="form-controls">
-                    <Form.Item label="City" name="city" className="form-label" rules={[{ required: true, message: "Please select your city!" }]}>
-                      <select name="standards" id="standards" className="form-controls w-100" value={city} onChange={(e) => handleCityChange(e)} required>
+                    <Form.Item label="City" name="city" className="form-label" >
+                      <select name="standards" id="standards" className="form-controls w-100" value={city} onChange={(e) => handleCityChange(e)} >
                         <option disabled selected hidden>
                           Select City
                         </option>
@@ -125,8 +123,8 @@ const Center = ({ categoryListApi, categoryBaodStandardsListAPI, boardStandardsD
                   </div>
 
                   <div className="form-controls">
-                    <Form.Item label="Area" name="area" className="form-label" rules={[{ required: true, message: "Please select your area!" }]}>
-                      <select name="area" id="area" className="form-controls w-100" value={area} onChange={(e) => setArea(e.target.value)} required>
+                    <Form.Item label="Area" name="area" className="form-label" >
+                      <select name="area" id="area" className="form-controls w-100" value={area} onChange={(e) => setArea(e.target.value)} >
                         <option disabled selected hidden>
                           Select Area
                         </option>
@@ -148,8 +146,8 @@ const Center = ({ categoryListApi, categoryBaodStandardsListAPI, boardStandardsD
           </div>
 
           <div className="row">
-            {console.log(centerSearchData.length)}
-            {centerSearchData.length > 0 ? (
+
+            {centerSearchData && centerSearchData.data ? (
               <>
                 {centerSearchData &&
                   centerSearchData.data &&
@@ -163,7 +161,7 @@ const Center = ({ categoryListApi, categoryBaodStandardsListAPI, boardStandardsD
                               <span>
                                 <img src="../assets/imgs/icon-phone.svg" alt="icon" />
                               </span>
-                              <span>Ph12: {item.mobile}</span>
+                              <span>Ph : {item.mobile}</span>
                             </li>
                             <li>
                               <span>
@@ -203,7 +201,7 @@ const Center = ({ categoryListApi, categoryBaodStandardsListAPI, boardStandardsD
                               <span>
                                 <img src="../assets/imgs/icon-phone.svg" alt="icon" />
                               </span>
-                              <span>Ph: {item.mobile}</span>
+                              <span>Ph: {item.mobile}  </span>
                             </li>
                             <li>
                               <span>

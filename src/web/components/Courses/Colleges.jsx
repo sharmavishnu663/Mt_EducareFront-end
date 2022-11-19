@@ -42,7 +42,7 @@ const College = ({ categoryListApi, categoryDetailsApi, categoryDetailsData, dem
               <h3 className="headline text-center mb-3">
                 <span className="text-blue">Courses</span> we offer
               </h3>
-              <p className="sub-headline text-center">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Volutpat montes, pharetra cras odio nec scelerisque viverra.</p>
+              <p className="sub-headline text-center">Discover our expansive range of courses with world class curriculum and teaching faculty, here at MT Educare.</p>
 
               <div className="article-header with-search">
                 <ul className="nav nav-tabs MT_Tab" id="MT_Tab" role="tablist">
@@ -77,7 +77,8 @@ const College = ({ categoryListApi, categoryDetailsApi, categoryDetailsData, dem
 
               <div className="tab-content MT_TabContent" id="MT_TabContent">
                 <div className="tab-pane fade show active" id="MT-tabPane-1" role="tabpanel" aria-labelledby="Edu-tab-1" tabindex="0">
-                  {console.log(indexData)}   {indexData == 0 || indexData === 'undefined' ?
+                  {console.log(indexData)}{" "}
+                  {indexData == 0 || indexData === "undefined" ? (
                     <div className="explore-lakshya bg-light-orange">
                       <div>
                         <img src="../assets/imgs/lakshya-logo.png" alt="lakshya-logo" />
@@ -87,38 +88,34 @@ const College = ({ categoryListApi, categoryDetailsApi, categoryDetailsData, dem
                         Explore Lakshya
                       </a>
                     </div>
-                    :
-                    null
-                  }
-
-                  {indexData && indexData == 1 ?
+                  ) : null}
+                  {indexData && indexData == 1 ? (
                     <div class="explore-lakshya bg-light-orange">
                       <div>
                         <img src="../assets/imgs/mahesh-tutorials-school.png" alt="lakshya-logo" />
                         <p>For over three decades, Mahesh tutorials has been mentoring students for success, in academics and in life. </p>
                       </div>
-                      <a href="https://www.lakshyainstitute.com/" class="btn btn-lg" target="_blank">Explore School</a>
+                      <a href="https://www.lakshyainstitute.com/" class="btn btn-lg" target="_blank">
+                        Explore School
+                      </a>
                     </div>
-                    :
-                    null
-                  }
-
-                  {indexData && indexData == 2 ?
+                  ) : null}
+                  {indexData && indexData == 2 ? (
                     <div class="explore-lakshya bg-light-orange">
                       <div>
                         <img src="../assets/imgs/mahesh-tutorials.png" alt="lakshya-logo" />
                       </div>
                       <div>
-                        <a href="#" class="btn btn-lg mr-3" style={{ marginRight: "22px" }}>Explore Commerce</a>
-
-                        <a href="#" class="btn btn-lg">Explore Science</a>
+                        <a href="https://commerce.maheshtutorials.com/" class="btn btn-lg mr-3" style={{ marginRight: "22px" }} target="_blank">
+                          Explore Commerce
+                        </a>
+                        <a href="http://science.maheshtutorials.com/" class="btn btn-lg" target="_blank">
+                          Explore Science
+                        </a>
                       </div>
                     </div>
-                    :
-                    null
-                  }
+                  ) : null}
                   {/* <!-- explore-lakshya --> */}
-
                   <OwlCarousel>
                     {categoryDetailsData &&
                       categoryDetailsData.data &&
@@ -157,7 +154,7 @@ const College = ({ categoryListApi, categoryDetailsApi, categoryDetailsData, dem
               <h3 class="headline text-center mb-3">
                 Our <span class="text-blue">provisions</span>
               </h3>
-              <p class="sub-headline text-center">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
+              <p class="sub-headline text-center">Our top-class facilities available for students at all times to ensure easy accessibility and outstanding results.</p>
 
               <div class="provision-list">
                 <ul>

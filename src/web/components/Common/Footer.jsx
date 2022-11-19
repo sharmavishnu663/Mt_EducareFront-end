@@ -13,6 +13,9 @@ const Footer = ({ emailSubscriptionApi, categoryData }) => {
   const onFinish = () => {
     const data = { email: email }
     emailSubscriptionApi(data);
+    setInterval(() => {
+      window.location.reload(false);
+    }, 1000 * 5);
 
   }
 
@@ -32,8 +35,8 @@ const Footer = ({ emailSubscriptionApi, categoryData }) => {
           <div className="row">
             <div className="col-md-4">
               <div className="download-app">
-                <img src="../assets/imgs/app-store.svg" alt="app-store" />
-                <img src="../assets/imgs/google-play.svg" alt="google-play" />
+                <a href="https://apps.apple.com/in/app/robomate-std-8-12-iit-neet-ca/id1133076165" target="_blank"> <img src="../assets/imgs/app-store.svg" alt="app-store" /></a>
+                <a href="https://play.google.com/store/apps/details?id=com.mteducare.mtrobomateplus" target="_blank"> <img src="../assets/imgs/google-play.svg" alt="google-play" /> </a>
               </div>
 
               <p>To Install Robomate+ at your Institution call 9987686444</p>
@@ -86,10 +89,10 @@ const Footer = ({ emailSubscriptionApi, categoryData }) => {
                     <Link to={WebRoutes.ABOUT_US} onClick={(e) => handleVision('Directors')}>Board of Directors</Link>
                   </li>
                   <li>
-                    <Link to={WebRoutes.ABOUT_US} onClick={(e) => handleVision('Directors')}>Key Management</Link>
+                    <Link to={WebRoutes.ABOUT_US} onClick={(e) => handleVision('management')}>Key Management</Link>
                   </li>
                   <li>
-                    <Link to={WebRoutes.ABOUT_US} onClick={(e) => handleVision('Directors')}>Board Committees</Link>
+                    <Link to={WebRoutes.ABOUT_US} onClick={(e) => handleVision('committe')}>Board Committees</Link>
                   </li>
                   <li>
                     <Link to={WebRoutes.AWARD_RECOGNITION}>Awards & Recognition</Link>

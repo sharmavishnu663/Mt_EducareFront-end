@@ -97,7 +97,7 @@ export const DEMO_VIDEO_DETAIL = `${BASE_URL}/demo-video-detail/`;
 export const TOPPER_LIST = `${BASE_URL}/topper-list`;
 
 //Email subscription api
-export const EMAIL_SUBSCRIPTION = `${BASE_URL}/email-subscription/`;
+export const EMAIL_SUBSCRIPTION = `${BASE_URL}/email-subscription`;
 
 //ACHIVEMENTS api
 export const ACHIVEMENTS = `${BASE_URL}/our-achivement`;

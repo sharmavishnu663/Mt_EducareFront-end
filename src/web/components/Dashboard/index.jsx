@@ -24,7 +24,7 @@ const Dashboard = ({ categoryListApi, defaultCategoryListApi, categoryDetailsApi
 
   const heroToppersConfig = {
     loop: true,
-    autoplay: true,
+    autoplay: false,
     autoplayTimeout: 2000,
     // autoplaySpeed: 2000,
     margin: 0,
@@ -135,7 +135,6 @@ const Dashboard = ({ categoryListApi, defaultCategoryListApi, categoryDetailsApi
     categoryDetailsApi(categoryActive);
   }, [categoryActive]);
 
-
   return (
     <>
       {/* BANNER  */}
@@ -161,7 +160,7 @@ const Dashboard = ({ categoryListApi, defaultCategoryListApi, categoryDetailsApi
                               <h2>
                                 <span className="text-orange">30+ Years</span> of legacy with Sterling Results
                               </h2>
-                              <p className="mt-3">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Volutpat montes, pharetra cras odio nec scelerisque viverra.</p>
+                              <p className="mt-3">Will you be the next star of MT Educare? Accomplish greatness and be a part of our legacy. Find your course now.</p>
                             </div>
                           </div>
 
@@ -340,7 +339,7 @@ const Dashboard = ({ categoryListApi, defaultCategoryListApi, categoryDetailsApi
               <h3 className="headline text-center mb-3">
                 <span className="text-blue">Courses</span> we offer
               </h3>
-              <p className="sub-headline text-center">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Volutpat montes, pharetra cras odio nec scelerisque viverra.</p>
+              <p className="sub-headline text-center">Our world class teaching techniques combined with a heterogeneity of top most courses all in one place. Register with MT Educare now.</p>
 
               <div className="article-header">
                 <ul className="nav nav-tabs MT_Tab" id="MT_Tab" role="tablist">
@@ -375,10 +374,9 @@ const Dashboard = ({ categoryListApi, defaultCategoryListApi, categoryDetailsApi
               </div>
 
               <div className="tab-content MT_TabContent" id="MT_TabContent">
-                {categoryActive ?
-
+                {categoryActive ? (
                   <div className="tab-pane fade show active" id={`MT-tabPane-${categoryActive}`} role="tabpanel" aria-labelledby={`Edu-tab-${categoryActive}`} tabindex="0">
-                    {indexData == 0 ?
+                    {indexData == 0 ? (
                       <div className="explore-lakshya bg-light-orange">
                         <div>
                           <img src="../assets/imgs/lakshya-logo.png" alt="lakshya-logo" />
@@ -388,35 +386,35 @@ const Dashboard = ({ categoryListApi, defaultCategoryListApi, categoryDetailsApi
                           Explore Lakshya
                         </a>
                       </div>
-                      :
-                      null
-                    }
+                    ) : null}
 
-                    {indexData && indexData == 1 ?
+                    {indexData && indexData == 1 ? (
                       <div class="explore-lakshya bg-light-orange">
                         <div>
                           <img src="../assets/imgs/mahesh-tutorials-school.png" alt="lakshya-logo" />
                           <p>For over three decades, Mahesh tutorials has been mentoring students for success, in academics and in life. </p>
                         </div>
-                        <a href="https://www.lakshyainstitute.com/" class="btn btn-lg" target="_blank">Explore School</a>
+                        <a href="https://www.lakshyainstitute.com/" class="btn btn-lg" target="_blank">
+                          Explore School
+                        </a>
                       </div>
-                      :
-                      null
-                    }
+                    ) : null}
 
-                    {indexData && indexData == 2 ?
+                    {indexData && indexData == 2 ? (
                       <div class="explore-lakshya bg-light-orange">
                         <div>
                           <img src="../assets/imgs/mahesh-tutorials.png" alt="lakshya-logo" />
                         </div>
                         <div>
-                          <a href="#" class="btn btn-lg mr-3" style={{ marginRight: "22px" }}>Explore Commerce</a>
-                          <a href="#" class="btn btn-lg">Explore Science</a>
+                          <a href="https://commerce.maheshtutorials.com/" class="btn btn-lg mr-3" style={{ marginRight: "22px" }} target="_blank">
+                            Explore Commerce
+                          </a>
+                          <a href="http://science.maheshtutorials.com/" class="btn btn-lg" target="_blank">
+                            Explore Science
+                          </a>
                         </div>
                       </div>
-                      :
-                      null
-                    }
+                    ) : null}
                     {/* <!-- explore-lakshya --> */}
 
                     <OwlCarousel {...CoursesWeOfferConfig}>
@@ -446,8 +444,7 @@ const Dashboard = ({ categoryListApi, defaultCategoryListApi, categoryDetailsApi
                         ))}
                     </OwlCarousel>
                   </div>
-                  :
-
+                ) : (
                   <div className="tab-pane fade show active" id="MT-tabPane-0" role="tabpanel" aria-labelledby="Edu-tab-0" tabindex="0">
                     <div className="explore-lakshya bg-light-orange">
                       <div>
@@ -486,7 +483,7 @@ const Dashboard = ({ categoryListApi, defaultCategoryListApi, categoryDetailsApi
                         ))}
                     </OwlCarousel>
                   </div>
-                }
+                )}
               </div>
             </div>
           </div>

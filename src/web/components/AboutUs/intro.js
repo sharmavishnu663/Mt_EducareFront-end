@@ -26,42 +26,44 @@ const Intro = ({ introData, activeYear }) => {
 
   return (
     <>
+
       <OwlCarousel {...toppersConfig}>
         {aboutUs &&
           aboutUs.map((item) => (
             <>
-              <div className="item col-md-6">
-                <h2 className="mb-4">
-                  <span className="text-orange">{item.title}</span>
-                </h2>
-                <p>{parseHtml(item.description)} </p>
-                {JSON.parse(item.key_highlights).center && (
-                  <>
-                    <p className="big">Key Highlights</p>
+              <div class="row align-items-center">
+                <div className="item col-md-6">
+                  <h2 className="mb-4">
+                    <span className="text-orange">{item.title}</span>
+                  </h2>
+                  <p>{parseHtml(item.description)} </p>
+                  {JSON.parse(item.key_highlights).center && (
+                    <>
+                      <p className="big">Key Highlights</p>
 
-                    <ul className="highlights">
-                      <li>
-                        <span>Number of centers </span>
-                        <span>: {JSON.parse(item.key_highlights).center}</span>
-                      </li>
-                      <li>
-                        <span>Revenue</span>
-                        <span>: Rs.{JSON.parse(item.key_highlights).revenue} Crores</span>
-                      </li>
-                      <li>
-                        <span>Number of students</span>
-                        <span>: {JSON.parse(item.key_highlights).students}+</span>
-                      </li>
-                    </ul>
-                  </>
-                )}
-              </div>
-              <div className="col-md-6 text-center">
-                <img src={item.image} alt="illustration" />
-              </div>
+                      <ul className="highlights">
+                        <li>
+                          <span>Number of centers </span>
+                          <span>: {JSON.parse(item.key_highlights).center}</span>
+                        </li>
+                        <li>
+                          <span>Revenue</span>
+                          <span>: Rs.{JSON.parse(item.key_highlights).revenue} Crores</span>
+                        </li>
+                        <li>
+                          <span>Number of students</span>
+                          <span>: {JSON.parse(item.key_highlights).students}+</span>
+                        </li>
+                      </ul>
+                    </>
+                  )}
 
-              <div className="col-md-6 text-center">
-                <img src={IMAGE_BASE_URL + "/" + item.image} alt="illustration" />
+                </div>
+
+
+                <div className="col-md-6 text-center">
+                  <img src={IMAGE_BASE_URL + "/" + item.image} alt="illustration" />
+                </div>
               </div>
             </>
           ))}

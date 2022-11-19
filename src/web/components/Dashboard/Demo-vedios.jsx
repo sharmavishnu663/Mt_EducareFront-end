@@ -14,13 +14,12 @@ const DemoVideos = ({ demoVideoListApi, demoListData, demoVideoDetailApi, videoD
   useEffect(() => {
     demoVideoListApi();
     defaultDemoVideoListApi();
-
   }, []);
   useEffect(() => {
-    console.log(demoListData && demoListData.data && demoListData.data[0] && demoListData.data[0].id)
+    console.log(demoListData && demoListData.data && demoListData.data[0] && demoListData.data[0].id);
 
     demoVideoDetailApi(demoListData && demoListData.data && demoListData.data[0] && demoListData.data[0].id);
-  }, [demoListData])
+  }, [demoListData]);
   useEffect(() => {
     demoVideoDetailApi(activeTabDetail);
   }, [activeTabDetail]);
@@ -46,9 +45,9 @@ const DemoVideos = ({ demoVideoListApi, demoListData, demoVideoDetailApi, videoD
 
   const apiHit = () => {
     demoVideoDetailApi(activeTabDetail);
-  }
+  };
 
-  console.log(defaultVideoDetailData)
+  console.log(defaultVideoDetailData);
 
   return (
     <>
@@ -57,69 +56,10 @@ const DemoVideos = ({ demoVideoListApi, demoListData, demoVideoDetailApi, videoD
           <div className="row">
             <div className="col-md-12 box-radius">
               <h3 className="headline text-center mb-3">
-                Watch our <span className="text-blue">demo videos</span>
+                Watch our <span className="text-blue">Demo Videos</span>
               </h3>
-              <p className="sub-headline text-center">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Volutpat montes, pharetra cras odio nec scelerisque viverra.</p>
+              <p className="sub-headline text-center">Take a look at some of our demo sessions to get an idea for what we stand for in educating our student.</p>
             </div>
-
-            {/* <div className="col-md-12">
-              <ul className="nav nav-tabs MT_Tab" id="MT_Tab" role="tablist">
-                {demoListData &&
-                  demoListData.data &&
-                  demoListData.data.map((item, index) => (
-                    <li className="nav-item" role="presentation">
-                      <button
-                        className={`${item && item.id === activeTab ? "nav-link active" : "nav-link"}`}
-                        id={`Edu-tab-${activeTab}`}
-                        data-bs-toggle="tab"
-                        data-bs-target={`#MT-tabPane-${activeTab}`}
-                        type="button"
-                        role="tab"
-                        aria-controls={`#MT-tabPane-${activeTab}`}
-                        aria-selected="true"
-                        onClick={() => {
-                          setActiveTab(item && item.id);
-                          setActiveTabDetail(item && item.class_id);
-                        }}
-                      >
-                        {item && item.class_category && item.class_category.name}
-                      </button>
-                    </li>
-                  ))}
-              </ul>
-              <div className="tab-content MT_TabContent" id="MT_TabContent">
-                <div className="tab-pane fade show active" id={`MT-tabPane-${activeTab}`} role="tabpanel" aria-labelledby={`Edu-tab${activeTab}`} tabindex="0">
-                  <OwlCarousel className="owl-theme MT-OwlDots" {...demoVideoConfig}>
-                    {videoDetailData &&
-                      videoDetailData.data &&
-                      videoDetailData.data.map((item, index) => (
-                        <div className="item">
-                          <div className="articles">
-                            <div className="article">
-                              <div className="thumbnail">
-                                <a href={item && item.video_url} data-fancybox>
-                                  <video src={item && item.video_url}></video>
-                                </a>
-                              </div>
-
-                              <div className="detail">
-                                <h5>{item && item.title}</h5>
-                                <div className="description">
-                                  <p>{item && parseHtml(item.description.substring(0, 300))}</p>
-                                </div>
-                                <div className="tag-link flex-none">
-                                  <div className="tag blue bg-light-blue">{item && item.tag_name}</div>
-                                  <div className="tag bg-light-orange">{item && item.tag_name}</div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      ))}
-                  </OwlCarousel>
-                </div>
-              </div>
-            </div> */}
 
             <div className="row">
               <div className="col-md-12 pills">
@@ -128,22 +68,29 @@ const DemoVideos = ({ demoVideoListApi, demoListData, demoVideoDetailApi, videoD
                     demoListData.data &&
                     demoListData.data.map((item, index) => (
                       <li className="nav-item" role="presentation">
-                        <button className={`${(item && item.id == activeTab) || index === 0 ? "nav-link active" : `nav-link`}`} id={`Edu-tab-${activeTab}`} data-bs-toggle="tab" data-bs-target={`#MT-tabPane-${activeTab}`} type="button" role="tab" aria-controls={`MT-tabPane-${activeTab}`} aria-selected="true" onClick={() => {
-                          setActiveTab(item && item.id);
-                          setActiveTabDetail(item && item.class_id);
-                          apiHit();
-                        }}>
+                        <button
+                          className={`${(item && item.id == activeTab) || index === 0 ? "nav-link active" : `nav-link`}`}
+                          id={`Edu-tab-${activeTab}`}
+                          data-bs-toggle="tab"
+                          data-bs-target={`#MT-tabPane-${activeTab}`}
+                          type="button"
+                          role="tab"
+                          aria-controls={`MT-tabPane-${activeTab}`}
+                          aria-selected="true"
+                          onClick={() => {
+                            setActiveTab(item && item.id);
+                            setActiveTabDetail(item && item.class_id);
+                            apiHit();
+                          }}
+                        >
                           {item && item.class_category && item.class_category.name}
                         </button>
                       </li>
                     ))}
-
                 </ul>
               </div>
               <div className="tab-content " id="MT_TabContent">
-
-                {activeTab ?
-
+                {activeTab ? (
                   <div className="tab-pane fade show active" id={`MT-tabPane-${activeTab}`} role="tabpanel" aria-labelledby={`Edu-tab-${activeTab}`} tabindex="0">
                     {/* <!-- explore-lakshya --> */}
 
@@ -166,7 +113,7 @@ const DemoVideos = ({ demoVideoListApi, demoListData, demoVideoDetailApi, videoD
                                     <p>{item && parseHtml(item.description.substring(0, 300))}</p>
                                   </div>
                                   <div className="tag-link flex-none">
-                                    <div className="tag blue bg-light-blue">{item && item.tag_name}</div>
+                                    <div className="tag blue bg-light-blue">{item && item.title}</div>
                                     <div className="tag bg-light-orange">{item && item.tag_name}</div>
                                   </div>
                                 </div>
@@ -176,8 +123,7 @@ const DemoVideos = ({ demoVideoListApi, demoListData, demoVideoDetailApi, videoD
                         ))}
                     </OwlCarousel>
                   </div>
-
-                  :
+                ) : (
                   <div className="tab-pane fade show active" id={`MT-tabPane-${activeTab}`} role="tabpanel" aria-labelledby={`Edu-tab-${activeTab}`} tabindex="0">
                     {/* <!-- explore-lakshya --> */}
 
@@ -210,9 +156,7 @@ const DemoVideos = ({ demoVideoListApi, demoListData, demoVideoDetailApi, videoD
                         ))}
                     </OwlCarousel>
                   </div>
-                }
-
-
+                )}
               </div>
             </div>
           </div>

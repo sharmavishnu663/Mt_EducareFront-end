@@ -29,7 +29,7 @@ function Feedback() {
               <h3 className="headline text-center mb-3 full">
                 Hear it from our <span className="text-blue">students & parents</span>
               </h3>
-              <p className="sub-headline text-center">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Volutpat montes, pharetra cras odio nec scelerisque viverra.</p>
+              <p className="sub-headline text-center">Our alumni and their parents appreciate what we at MT Educare have to offer. Want to join the league? Signup now.</p>
               <OwlCarousel className="owl-theme MT-OwlDots" {...OfferingsConfig}>
                 <div className="item">
                   <div className="articles">
