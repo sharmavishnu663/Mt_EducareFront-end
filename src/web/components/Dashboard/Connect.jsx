@@ -4,6 +4,8 @@ import { Form, Input, Select } from "antd";
 import { categoryBaodStandardsListAPI, cityListAPI, AreaListAPI } from "../../../redux/action/home";
 import { categoryListApi } from "../../../redux/action/category";
 import { userQueryApi } from "../../../redux/action/enquiry";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Connect = ({ categoryListApi, userQueryApi, categoryBaodStandardsListAPI, cityListAPI, AreaListAPI, categoryData, boardStandardsData }) => {
   const [queryname, setQueryName] = useState();
@@ -21,25 +23,35 @@ const Connect = ({ categoryListApi, userQueryApi, categoryBaodStandardsListAPI, 
   }, [querycategory]);
 
   const handleConnectSubmint = () => {
-    const data = {
-      name: queryname,
-      email: queryEmail,
-      mobile: queryMobile,
-      category: querycategory,
-      board: queryboards,
-      standards: queryStandards,
-    };
+    const mobileData = queryMobile;
+    if (!isNaN(mobileData)) {
+      const data = {
+        name: queryname,
+        email: queryEmail,
+        mobile: queryMobile,
+        category: querycategory,
+        board: queryboards,
+        standards: queryStandards,
+      };
 
-    userQueryApi(data);
-    setInterval(() => {
-      window.location.reload();
-    }, 1000 * 5);
+      userQueryApi(data);
+      setInterval(() => {
+        window.location.reload();
+      }, 1000 * 5);
+    }
+    else {
+      toast.error('Mobile number should be numeric value');
+      return false;
+    }
   };
-  const handleContact = (e) => {
-    if (e.target.value >= '0' && e.target.value <= '9') setQueryMobile(e.target.value);
-  }
+  // const handleContact = (event) => {
+  //   const result = event.target.value.replace(/\D/g, '');
+
+  //   setQueryMobile(result);
+  // }
   return (
     <>
+      <ToastContainer />
       <section className="connect">
         <div className="container">
           <div className="row">
@@ -60,7 +72,7 @@ const Connect = ({ categoryListApi, userQueryApi, categoryBaodStandardsListAPI, 
                 <div className="floating-form">
                   <div className="form-controls">
                     <Form.Item label="Name" name="name" className="form-label text-blue" rules={[{ required: true, message: " name!" }]}>
-                      <input type="text" id="name" placeholder="Name" value={queryname} onChange={(e) => setQueryName(e.target.value)} required />
+                      <input type="text" id="name" placeholder="Name" pattern="[a-zA-Z_&-]+([ ]?[a-zA-Z_&-]+)*" value={queryname} onChange={(e) => setQueryName(e.target.value)} required />
                     </Form.Item>
                   </div>
 
@@ -72,7 +84,7 @@ const Connect = ({ categoryListApi, userQueryApi, categoryBaodStandardsListAPI, 
 
                   <div className="form-controls">
                     <Form.Item label="Phone Number" name="mobile" className="form-label text-blue" rules={[{ required: true, message: " mobile!" }]}>
-                      <input type="text" id="phone" minlength="10" maxlength="11" placeholder="Mobile" value={queryMobile} onChange={(e) => handleContact(e)} required />
+                      <input type="text" id="phone" pattern="^[0-9]*$" minlength="10" maxlength="10" placeholder="Mobile" value={queryMobile} onChange={(e) => setQueryMobile(e.target.value)} required />
                     </Form.Item>
                   </div>
 

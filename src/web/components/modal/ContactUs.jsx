@@ -4,6 +4,8 @@ import { Form, Input, Select } from "antd";
 import { categoryBaodStandardsListAPI, cityListAPI, AreaListAPI } from "../../../redux/action/home";
 import { categoryListApi } from "../../../redux/action/category";
 import { userQueryApi } from "../../../redux/action/enquiry";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css"
 
 import { Modal } from "react-bootstrap";
 const ContactUs = ({ openContact, handleCancel, categoryListApi, userQueryApi, categoryBaodStandardsListAPI, cityListAPI, AreaListAPI, categoryData, boardStandardsData }) => {
@@ -22,22 +24,33 @@ const ContactUs = ({ openContact, handleCancel, categoryListApi, userQueryApi, c
   }, [querycategory]);
 
   const handleConnectSubmint = () => {
-    const data = {
-      name: queryname,
-      email: queryEmail,
-      mobile: queryMobile,
-      category: querycategory,
-      board: queryboards,
-      standards: queryStandards,
-    };
+    const mobileData = queryMobile;
+    if (isNaN(mobileData)) {
+      toast.error('Mobile number should be numeric value');
+      return false;
+    }
+    if (!isNaN(queryname)) {
+      toast.error('Name  should be numeric value');
+      return false;
+    } else {
+      const data = {
+        name: queryname,
+        email: queryEmail,
+        mobile: queryMobile,
+        category: querycategory,
+        board: queryboards,
+        standards: queryStandards,
+      };
 
-    userQueryApi(data);
-    setInterval(() => {
-      window.location.reload(false);
-    }, 1000 * 5);
+      userQueryApi(data);
+      setInterval(() => {
+        window.location.reload(false);
+      }, 1000 * 5);
+    }
   };
   return (
     <>
+      <ToastContainer />
       <Modal show={openContact} onHide={handleCancel} className="modal fade modal-xl contact-us" id="contactUs" tabindex="-1" aria-labelledby="contactUsLabel" aria-hidden="true">
         <Modal.Header closeButton></Modal.Header>
 
@@ -93,7 +106,7 @@ const ContactUs = ({ openContact, handleCancel, categoryListApi, userQueryApi, c
             <div className="floating-form">
               <div className="form-controls">
                 <Form.Item label="Name" name="name" className="form-label text-blue" rules={[{ required: true, message: "Please enter your name!" }]}>
-                  <input type="text" id="name" placeholder="Name" value={queryname} onChange={(e) => setQueryName(e.target.value)} required />
+                  <input type="text" id="name" placeholder="Name" pattern="[a-zA-Z_&-]+([ ]?[a-zA-Z_&-]+)*" value={queryname} onChange={(e) => setQueryName(e.target.value)} required />
                 </Form.Item>
               </div>
 
@@ -105,7 +118,7 @@ const ContactUs = ({ openContact, handleCancel, categoryListApi, userQueryApi, c
 
               <div className="form-controls">
                 <Form.Item label="Phone Number" name="mobile" className="form-label text-blue" rules={[{ required: true, message: "Please select your mobile!" }]}>
-                  <input type="text" id="phone" minlength="10" maxlength="10" placeholder="Mobile" value={queryMobile} onChange={(e) => setQueryMobile(e.target.value)} required />
+                  <input type="text" className="allow_numeric" id="phone" pattern="^[0-9]*$" minlength="10" maxlength="10" placeholder="Mobile" value={queryMobile} onChange={(e) => setQueryMobile(e.target.value)} required />
                 </Form.Item>
               </div>
 

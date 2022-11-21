@@ -89,7 +89,7 @@ const College = ({ categoryListApi, categoryDetailsApi, categoryDetailsData, dem
                       </a>
                     </div>
                   ) : null}
-                  {indexData && indexData == 1 ? (
+                  {indexData && indexData == 2 ? (
                     <div class="explore-lakshya bg-light-orange">
                       <div>
                         <img src="../assets/imgs/mahesh-tutorials-school.png" alt="lakshya-logo" />
@@ -100,7 +100,7 @@ const College = ({ categoryListApi, categoryDetailsApi, categoryDetailsData, dem
                       </a>
                     </div>
                   ) : null}
-                  {indexData && indexData == 2 ? (
+                  {indexData && indexData == 1 ? (
                     <div class="explore-lakshya bg-light-orange">
                       <div>
                         <img src="../assets/imgs/mahesh-tutorials.png" alt="lakshya-logo" />

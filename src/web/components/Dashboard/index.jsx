@@ -388,7 +388,7 @@ const Dashboard = ({ categoryListApi, defaultCategoryListApi, categoryDetailsApi
                       </div>
                     ) : null}
 
-                    {indexData && indexData == 1 ? (
+                    {indexData && indexData == 2 ? (
                       <div class="explore-lakshya bg-light-orange">
                         <div>
                           <img src="../assets/imgs/mahesh-tutorials-school.png" alt="lakshya-logo" />
@@ -400,7 +400,7 @@ const Dashboard = ({ categoryListApi, defaultCategoryListApi, categoryDetailsApi
                       </div>
                     ) : null}
 
-                    {indexData && indexData == 2 ? (
+                    {indexData && indexData == 1 ? (
                       <div class="explore-lakshya bg-light-orange">
                         <div>
                           <img src="../assets/imgs/mahesh-tutorials.png" alt="lakshya-logo" />
@@ -449,7 +449,7 @@ const Dashboard = ({ categoryListApi, defaultCategoryListApi, categoryDetailsApi
                     <div className="explore-lakshya bg-light-orange">
                       <div>
                         <img src="../assets/imgs/lakshya-logo.png" alt="lakshya-logo" />
-                        <p>Lakshay asdDAis our partner which provides the higher secondary education science courses for competitive exams.</p>
+                        <p>Lakshay is our partner which provides the higher secondary education science courses for competitive exams.</p>
                       </div>
                       <a href="#" className="btn btn-lg">
                         Explore Lakshya

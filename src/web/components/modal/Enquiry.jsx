@@ -6,6 +6,8 @@ import { Form, Input } from "antd";
 import { categoryBaodStandardsListAPI, cityListAPI, AreaListAPI } from "../../../redux/action/home";
 import { categoryListApi } from "../../../redux/action/category";
 import { enquiryForm } from "../../../redux/action/enquiry";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css"
 
 const Enquiry = ({ openEnquiry, handleCancel, enquiryForm, userQueryApi, categoryBaodStandardsListAPI, cityListAPI, AreaListAPI, categoryData, boardStandardsData, cityData }) => {
   const [validated, setValidated] = useState(false);
@@ -27,26 +29,31 @@ const Enquiry = ({ openEnquiry, handleCancel, enquiryForm, userQueryApi, categor
   }, [category]);
 
   const onFinish = (event) => {
-    const data = {
-      name: name,
-      mobile: mobile,
-      email: email,
-      category: category,
-      city: city,
-      board: board,
-      standard: standard,
-      demo_time: demoTime
-    };
-    enquiryForm(data);
-    setInterval(() => {
-      window.location.reload(false);
-    }, 1000 * 5);
+    if (!isNaN(mobile)) {
+      const data = {
+        name: name,
+        mobile: mobile,
+        email: email,
+        category: category,
+        city: city,
+        board: board,
+        standard: standard,
+        demo_time: demoTime
+      };
+      enquiryForm(data);
+      setInterval(() => {
+        window.location.reload(false);
+      }, 1000 * 5);
+    } else {
+      toast.error('Mobile number should be numeric value');
+      return false;
+    }
 
   };
 
   return (
     <>
-
+      <ToastContainer />
       <Modal
         show={openEnquiry}
         onHide={handleCancel}
@@ -86,7 +93,7 @@ const Enquiry = ({ openEnquiry, handleCancel, enquiryForm, userQueryApi, categor
                     name="name"
                     className="form-label"
                     rules={[{ required: true, message: 'Please input your name!' }]}>
-                    <Input type="text" className="form-control" value={name} placeholder="Enter Full Name" onChange={(e) => setName(e.target.value)} required />
+                    <Input type="text" className="form-control" pattern="[a-zA-Z_&-]+([ ]?[a-zA-Z_&-]+)*" value={name} placeholder="Enter Full Name" onChange={(e) => setName(e.target.value)} required />
 
                   </Form.Item>
                 </div>
@@ -118,7 +125,7 @@ const Enquiry = ({ openEnquiry, handleCancel, enquiryForm, userQueryApi, categor
                     name="mobile"
                     className="form-label"
                     rules={[{ required: true, message: 'Please input your Mobile number!' }]}>
-                    <Input type="text" className="form-control" maxLength={10} placeholder="+91" value={mobile} onChange={(e) => setMobile(e.target.value)} required />
+                    <Input type="text" className="form-control" pattern="^[0-9]*$" maxLength={10} placeholder="+91" value={mobile} onChange={(e) => setMobile(e.target.value)} required />
                   </Form.Item>
                 </div>
 
