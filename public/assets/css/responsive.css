@@ -16,6 +16,169 @@
         height: 170px;
     }
 
+    nav.navbar {
+        padding: 0px;
+        padding-bottom: 5px;
+    }
+
+    .navbar+header,
+    .navbar+.cards {
+        margin-top: 100px;
+    }
+
+    .banner .caption {
+        padding: 30px 20px 20px;
+    }
+
+    .banner .caption h2 {
+        line-height: 1.4;
+        font-size: 40px;
+    }
+
+    .top-students .students .detail {
+        justify-content: center;
+        min-width: auto;
+        padding: 0px 0px 0px;
+    }
+
+    .floating-form .form-controls {
+        width: 100%;
+        max-width: initial;
+        border: none;
+        padding: 0px;
+    }
+
+    .in-banner {
+        max-width: initial;
+        margin-inline: auto;
+        flex-direction: column;
+        height: auto;
+        padding: 40px 15px 30px;
+        margin: 20px auto 0px;
+        border: 1px solid #ccc;
+    }
+
+    .in-banner::before {
+        top: 11px;
+        left: auto;
+        right: auto;
+        font-size: 16px;
+    }
+
+    .floating-form .form-controls input,
+    .floating-form .form-controls select {
+        margin-bottom: 15px;
+    }
+
+    .floating-form .form-controls label {
+        opacity: 0.5;
+    }
+
+    .floating-form .form-controls input,
+    .floating-form .form-controls select {
+        margin-top: 0px;
+        margin-bottom: 15px;
+    }
+
+    .floating-form .form-controls .btn-submit {
+        width: 100%;
+    }
+
+    .download-app {
+        display: flex;
+    }
+
+    .records {
+        margin-top: 60px;
+        margin-bottom: 50px;
+    }
+
+    .records h4 {
+        max-width: initial;
+        margin-top: 25px;
+        margin-bottom: 15px;
+    }
+
+    .record-grid,
+    .timeline {
+        overflow: auto;
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+
+    :is(.record-grid, .timeline)::-webkit-scrollbar {
+        display: none;
+    }
+
+    .cards .col-md-12 {
+        padding: 40px 20px 0px;
+    }
+
+    .cards .headline,
+    .cards .sub-headline {
+        max-width: initial;
+    }
+
+    .articles {
+        margin: 20px 0px 0px;
+        padding: 0px 0px 20px;
+    }
+
+    .articles .article .detail {
+        padding: 18px;
+    }
+
+    .articles .article .detail h5 {
+        margin-bottom: 12px;
+        min-height: auto;
+    }
+
+    .articles .article .detail .tag-link .tag {
+        margin-bottom: 5px;
+    }
+
+    .articles .article .detail .description {
+        min-height: initial;
+    }
+
+    .footer p {
+        max-width: initial;
+    }
+
+    .footer .download-app {
+        margin-bottom: 20px;
+    }
+
+    .subscription-form form>div {
+        display: flex;
+    }
+
+    .terms-policies {
+        max-width: initial;
+        flex-wrap: wrap;
+        justify-content: space-around;
+    }
+
+    .articles {
+        margin-inline: 2px;
+    }
+
+    .record-grid>div {
+        padding: 8px;
+    }
+
+    .navbar {
+        box-shadow: 0px 2px 15px rgb(0 0 0 / 10%);
+    }
+
+    .terms .pills a {
+        margin-right: 10px;
+    }
+
+    .MT_Tab.nav-tabs .nav-item .nav-link {
+        padding: 6px 14px;
+        font-size: 12px;
+    }
 }
 
 /* ========== Small devices (landscape phones, 576px and up) ========== */
@@ -97,7 +260,7 @@
     }
 }
 
-@media screen and (min-width: 360px) and (max-width: 767px) {
+@media screen and (min-width: 320px) and (max-width: 767px) {
     .fixed-top {
         position: relative !important;
     }
@@ -196,8 +359,9 @@
         position: relative;
         padding-left: 15px;
         padding-right: 15px;
-        margin: 40px 0 30px 0;
-        max-width: none;
+        margin: 40px 0px;
+        max-width: initial;
+        width: 100%;
     }
 
     .floating-form .form-controls {
@@ -293,6 +457,7 @@
     .explore-lakshya {
         padding: 16px;
         display: block;
+        margin-bottom: 10px;
     }
 
     .explore-lakshya div:last-of-type a {
@@ -576,7 +741,8 @@
     }
 
     .timeline ul {
-        min-width: 767px;
+        min-width: 600px;
+        margin-inline: 30px;
     }
 
     .timeline ul li a {
@@ -759,7 +925,7 @@
         font-size: 14px;
     }
 
-    @media only screen and (max-width: 360px) {
+    @media only screen and (max-width: 320px) {
         .record-grid>div {
             margin: 5.5px;
         }

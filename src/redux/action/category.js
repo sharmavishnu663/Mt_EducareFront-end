@@ -1,5 +1,5 @@
 import axios from "axios";
-import { Category_LIST, Category_Details, DEFAULT_COURSE } from "../constants";
+import { Category_LIST, Category_Details, DEFAULT_COURSE, COURSE_SEARCH_API } from "../constants";
 import { getCommonApiHeader } from "../../Utils/utils";
 
 
@@ -60,6 +60,25 @@ export const categoryDetailsApi = (data) => {
     };
 }
 
+export const courseSearchDetailAPI = (data) => {
+    return (dispatch, getState) => {
+        dispatch(getCategoryDataRequest());
+        axios
+            .post(COURSE_SEARCH_API, data, {
+                headers: {
+                    ...getCommonApiHeader(),
+                },
+            })
+            .then((response) => {
+                if (response) {
+                    dispatch(getCourseSearchDetailDataRespond(response?.data));
+                }
+            }).catch(err => {
+                dispatch(handleError(err));
+            });
+    };
+}
+
 export const getCategoryDataRequest = data => {
     return {
         type: "CATEGORY_Data_REQUESTED",
@@ -85,6 +104,14 @@ export const getDefaultCategoryDetailDataRespond = data => {
         data: data,
     };
 };
+
+export const getCourseSearchDetailDataRespond = data => {
+    return {
+        type: "COURSE_SEARCH_DETAILS_DATA_RESPONSE",
+        data: data,
+    };
+};
+
 
 export const handleSuccess = (data) => {
     return {

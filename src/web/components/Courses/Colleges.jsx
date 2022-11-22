@@ -9,14 +9,16 @@ import OwlCarousel from "react-owl-carousel";
 import { demoVideoListApi, demoVideoDetailApi } from "../../../redux/action/demoVideo";
 import { useEffect } from "react";
 import { topperListAPI, achivementListAPI, categoryBaodStandardsListAPI, cityListAPI, AreaListAPI } from "../../../redux/action/home";
-import { categoryListApi, categoryDetailsApi } from "../../../redux/action/category";
+import { categoryListApi, categoryDetailsApi, courseSearchDetailAPI } from "../../../redux/action/category";
 import Connect from "../Dashboard/Connect";
 import { parseHtml } from "../../../Utils/utils";
 import { IMAGE_BASE_URL } from "../../../redux/constants";
 
-const College = ({ categoryListApi, categoryDetailsApi, categoryDetailsData, demoVideoListApi, demoVideoDetailApi, demoListData, videoDetailData, topperListAPI, toppersData, achivementListAPI, achivementsData, categoryBaodStandardsListAPI, boardStandardsData, categoryData, cityListAPI, AreaListAPI, cityData, areaData }) => {
+const College = ({ categoryListApi, categoryDetailsApi, categoryDetailsData, demoVideoListApi, topperListAPI, toppersData, achivementListAPI, categoryData, cityListAPI, courseSearchDetailAPI, courseSearchDetailsData }) => {
   const [categoryActive, setCategoryActive] = useState(localStorage.getItem("categorySelectedId"));
+  const [search, setSearch] = useState();
   const [indexData, setIndexData] = useState(0);
+
 
   useEffect(() => {
     demoVideoListApi();
@@ -33,6 +35,17 @@ const College = ({ categoryListApi, categoryDetailsApi, categoryDetailsData, dem
   useEffect(() => {
     categoryDetailsApi(categoryActive);
   }, [categoryActive]);
+
+
+  const handleSearch = (e) => {
+
+    if (e) {
+      const data = { search: e }
+      courseSearchDetailAPI(data);
+    } else {
+      categoryDetailsApi(categoryActive);
+    }
+  }
   return (
     <>
       <section className="cards" id="courses">
@@ -71,7 +84,7 @@ const College = ({ categoryListApi, categoryDetailsApi, categoryDetailsData, dem
                     ))}
                 </ul>
                 <form action="">
-                  <input type="text" class="search" placeholder="Search Course" />
+                  <input type="text" class="search" placeholder="Search Course" value={search} onChange={(e) => handleSearch(e.target.value)} />
                 </form>
               </div>
 
@@ -117,29 +130,63 @@ const College = ({ categoryListApi, categoryDetailsApi, categoryDetailsData, dem
                   ) : null}
                   {/* <!-- explore-lakshya --> */}
                   <OwlCarousel>
-                    {categoryDetailsData &&
-                      categoryDetailsData.data &&
-                      categoryDetailsData.data.map((item) => (
-                        <div className="item">
-                          <div className="articles our-courses">
-                            <div className="article">
-                              <div className="thumbnail">
-                                <img src={item && IMAGE_BASE_URL + "/" + item.image} alt="thumbnail" />
-                              </div>
+                    {/* {console.log(courseSearchDetailsData && 'vishnu' + courseSearchDetailsData.data.length)} */}
+                    {courseSearchDetailsData && courseSearchDetailsData.data ? (
+                      <>
+                        {courseSearchDetailsData &&
+                          courseSearchDetailsData.data &&
+                          courseSearchDetailsData.data.map((item) => (
+                            <div className="item">
+                              <div className="articles our-courses">
+                                <div className="article">
+                                  <div className="thumbnail">
+                                    <img src={item && IMAGE_BASE_URL + "/" + item.image} alt="thumbnail" />
+                                  </div>
 
-                              <div className="detail">
-                                <h5>{item && item.title}</h5>
-                                <div className="description">
-                                  <p>{item && parseHtml(item.description.substring(0, 300))}</p>
-                                </div>
-                                <div className="tag-link">
-                                  <div className="tag">{item.tag_name}</div>
+                                  <div className="detail">
+                                    <h5>{item && item.title}</h5>
+                                    <div className="description">
+                                      <p>{item && parseHtml(item.description.substring(0, 300))}</p>
+                                    </div>
+                                    <div className="tag-link">
+                                      <div className="tag">{item.tag_name}</div>
+                                    </div>
+                                  </div>
                                 </div>
                               </div>
                             </div>
-                          </div>
-                        </div>
-                      ))}
+                          ))}
+                      </>
+                    )
+                      :
+                      (
+                        <>
+                          {categoryDetailsData &&
+                            categoryDetailsData.data &&
+                            categoryDetailsData.data.map((item) => (
+                              <div className="item">
+                                <div className="articles our-courses">
+                                  <div className="article">
+                                    <div className="thumbnail">
+                                      <img src={item && IMAGE_BASE_URL + "/" + item.image} alt="thumbnail" />
+                                    </div>
+
+                                    <div className="detail">
+                                      <h5>{item && item.title}</h5>
+                                      <div className="description">
+                                        <p>{item && parseHtml(item.description.substring(0, 300))} </p>
+                                      </div>
+                                      <div className="tag-link">
+                                        <div className="tag">{item.tag_name}</div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            ))}
+                        </>
+                      )
+                    }
                   </OwlCarousel>
                 </div>
               </div>
@@ -205,7 +252,7 @@ const mapStateToProps = (state) => {
   const { DemoVideoReducer, HomeReducer, CategoryReducer } = state;
   const { demoListData, videoDetailData } = DemoVideoReducer;
   const { toppersData, achivementsData, cityData, areaData } = HomeReducer;
-  const { categoryData, categoryDetailsData } = CategoryReducer;
+  const { categoryData, categoryDetailsData, courseSearchDetailsData } = CategoryReducer;
   return {
     demoListData: DemoVideoReducer.demoListData,
     videoDetailData: DemoVideoReducer.videoDetailData,
@@ -216,6 +263,7 @@ const mapStateToProps = (state) => {
     areaData: HomeReducer.areaData,
     categoryData: CategoryReducer.categoryData,
     categoryDetailsData: CategoryReducer.categoryDetailsData,
+    courseSearchDetailsData: CategoryReducer.courseSearchDetailsData,
   };
 };
 
@@ -230,6 +278,7 @@ const mapDispatchToProps = (dispatch) => {
     cityListAPI: () => dispatch(cityListAPI()),
     AreaListAPI: (data) => dispatch(AreaListAPI(data)),
     categoryDetailsApi: (data) => dispatch(categoryDetailsApi(data)),
+    courseSearchDetailAPI: (data) => dispatch(courseSearchDetailAPI(data)),
   };
 };
 

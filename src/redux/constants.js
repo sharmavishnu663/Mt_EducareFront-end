@@ -126,3 +126,6 @@ export const DEFAULT_COURSE = `${BASE_URL}/default-category-list`;
 
 //Default demo detail List api
 export const DEFAULT_DEMO_VIDEO = `${BASE_URL}/default-demo-list`;
+
+//Course search api
+export const COURSE_SEARCH_API = `${BASE_URL}/course-search`;

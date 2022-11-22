@@ -29,14 +29,9 @@ function Offerings() {
               <h3 className="headline text-center mb-3">
                 Our <span className="text-orange">Offerings</span>
               </h3>
-              <p className="sub-headline text-center full">
-                MT Educare is truly a national player with multi-city presence
-                and a diverse product portfolio, standing a className apart due to
-                technology enabled business processes, digital content delivery
-                and 24 x 7 online support for the courses offered.
-              </p>
+              <p className="sub-headline text-center full">MT Educare is truly a national player with multi-city presence and a diverse product portfolio, standing a className apart due to technology enabled business processes, digital content delivery and 24 x 7 online support for the courses offered.</p>
 
-              <OwlCarousel {...OfferingsConfig}>
+              <OwlCarousel {...OfferingsConfig} className="owl-theme  MT-OwlDots">
                 <div className="item">
                   <div className="articles">
                     <div className="article">
@@ -49,17 +44,11 @@ function Offerings() {
                       <div className="detail">
                         <h5>Robomate+</h5>
                         <div className="description">
-                          <p>
-                            Get experts advise & start referring to the question
-                            papers of previous yrs.
-                          </p>
+                          <p>Get experts advise & start referring to the question papers of previous yrs.</p>
                         </div>
                         <div className="tag-link justify-content-end">
                           <a href="https://roboestore.com/" className="btn btn-sm" target="_blank">
-                            <img
-                              src="../assets/imgs/icon-arrow-right.svg"
-                              alt="icon"
-                            />
+                            <img src="../assets/imgs/icon-arrow-right.svg" alt="icon" />
                           </a>
                         </div>
                       </div>
@@ -78,17 +67,11 @@ function Offerings() {
                       <div className="detail">
                         <h5>Mahesh Tutorial School Section</h5>
                         <div className="description">
-                          <p>
-                            Get experts advise & start referring to the question
-                            papers of previous yrs.
-                          </p>
+                          <p>Get experts advise & start referring to the question papers of previous yrs.</p>
                         </div>
                         <div className="tag-link justify-content-end">
                           <a href="https://www.lakshyainstitute.com/" className="btn btn-sm" target="_blank">
-                            <img
-                              src="../assets/imgs/icon-arrow-right.svg"
-                              alt="icon"
-                            />
+                            <img src="../assets/imgs/icon-arrow-right.svg" alt="icon" />
                           </a>
                         </div>
                       </div>
@@ -107,17 +90,34 @@ function Offerings() {
                       <div className="detail">
                         <h5>Lakshya Forum for Competitions</h5>
                         <div className="description">
-                          <p>
-                            Get experts advise & start referring to the question
-                            papers of previous yrs.
-                          </p>
+                          <p>Get experts advise & start referring to the question papers of previous yrs.</p>
                         </div>
                         <div className="tag-link justify-content-end">
                           <a href="https://www.lakshyainstitute.com/" className="btn btn-sm" target="_blank">
-                            <img
-                              src="../assets/imgs/icon-arrow-right.svg"
-                              alt="icon"
-                            />
+                            <img src="../assets/imgs/icon-arrow-right.svg" alt="icon" />
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="item">
+                  <div className="articles">
+                    <div className="article">
+                      <div className="thumbnail">
+                        <a href="https://www.lakshyainstitute.com/" target="_blank">
+                          <img src="../assets/imgs/offer2.png" alt="image" />
+                        </a>
+                      </div>
+
+                      <div className="detail">
+                        <h5>Mahesh Tutorial School Section</h5>
+                        <div className="description">
+                          <p>Get experts advise & start referring to the question papers of previous yrs.</p>
+                        </div>
+                        <div className="tag-link justify-content-end">
+                          <a href="https://www.lakshyainstitute.com/" className="btn btn-sm" target="_blank">
+                            <img src="../assets/imgs/icon-arrow-right.svg" alt="icon" />
                           </a>
                         </div>
                       </div>

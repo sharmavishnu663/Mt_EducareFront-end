@@ -305,10 +305,10 @@ const Dashboard = ({ categoryListApi, defaultCategoryListApi, categoryDetailsApi
                   <span className="label text-g-blue">Institutes</span>
                 </div>
 
-                <div className="colleges bg-light-orange">
+                {/* <div className="colleges bg-light-orange">
                   <span className="record text-g-orange">{achivementsData && achivementsData.data && achivementsData.data.college_ratio}+</span>
                   <span className="label text-g-orange">Colleges</span>
-                </div>
+                </div> */}
               </div>
               {/* RECORDS ENDS HERE */}
             </div>
@@ -328,7 +328,6 @@ const Dashboard = ({ categoryListApi, defaultCategoryListApi, categoryDetailsApi
             </div>
           </div>
         </div>
-        {/* APP LINK ends here */}
       </section>
 
       {/* COURSES */}

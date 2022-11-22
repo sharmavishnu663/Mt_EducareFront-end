@@ -14,7 +14,7 @@ function WhyMtEducare() {
             </div>
           </div>
 
-          <div class="row">
+          <div class="row g-4">
             <div class="col-md-4">
               <div class="mt-card bg-light-orange">
                 <img src="../assets/imgs/icon-experience.svg" alt="icon" />

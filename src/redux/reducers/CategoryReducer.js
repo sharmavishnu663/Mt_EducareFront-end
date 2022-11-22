@@ -2,6 +2,7 @@ const initState = {
     categoryData: [],
     categoryDetailsData: [],
     defaultCategoryDetailsData: [],
+    courseSearchDetailsData: [],
     error: null
 };
 const CategoryReducer = (state = initState, action) => {
@@ -25,6 +26,11 @@ const CategoryReducer = (state = initState, action) => {
             return {
                 ...state,
                 defaultCategoryDetailsData: data,
+            };
+        case "COURSE_SEARCH_DETAILS_DATA_RESPONSE":
+            return {
+                ...state,
+                courseSearchDetailsData: data,
             };
         case "CATEGORY_ERROR":
             return {

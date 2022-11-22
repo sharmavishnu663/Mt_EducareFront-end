@@ -4,7 +4,7 @@ import OwlCarousel from "react-owl-carousel";
 function Feedback() {
   const OfferingsConfig = {
     loop: true,
-    autoplay: true,
+    autoplay: false,
     autoplayTimeout: 2000,
     margin: 0,
     dots: true,
@@ -36,7 +36,7 @@ function Feedback() {
                     <div className="article">
                       <div className="detail">
                         <div className="description">
-                          <p>"This Course is amazing with the current version, I can't imagine it, how cool will it be when you finish the all."</p>
+                          <p>"This Course is amazing with the current version, I can’t imagine it, how cool will it be when you finish the all. This Course is amazing with the current version, I can’t imagine it.</p>
                         </div>
 
                         <div className="profile">
@@ -76,27 +76,7 @@ function Feedback() {
                     <div className="article">
                       <div className="detail">
                         <div className="description">
-                          <p>"This Course is amazing with the current version, I can’t imagine it, how cool will it be when you finish the all "</p>
-                        </div>
-
-                        <div className="profile">
-                          <img src="../assets/imgs/img-profile-placeholder.png" alt="placeholder" />
-
-                          <div className="user">
-                            <p className="name">Jeremy Bieber</p>
-                            <p className="role">Architect</p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="item">
-                  <div className="articles">
-                    <div className="article">
-                      <div className="detail">
-                        <div className="description">
-                          <p>"This Course is amazing with the current version, I can’t imagine it, how cool will it be when you finish the all."</p>
+                          <p>"This Course is amazing with the current version, I can’t imagine it, how cool will it be when you finish the all. This Course is amazing with the current version, I can’t imagine it.</p>
                         </div>
 
                         <div className="profile">
@@ -136,7 +116,27 @@ function Feedback() {
                     <div className="article">
                       <div className="detail">
                         <div className="description">
-                          <p>"This Course is amazing with the current version, I can’t imagine it, how cool will it be when you finish the all "</p>
+                          <p>"This Course is amazing with the current version, I can’t imagine it, how cool will it be when you finish the all. This Course is amazing with the current version, I can’t imagine it.</p>
+                        </div>
+
+                        <div className="profile">
+                          <img src="../assets/imgs/img-profile-placeholder.png" alt="placeholder" />
+
+                          <div className="user">
+                            <p className="name">Jeremy Bieber</p>
+                            <p className="role">Architect</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="item">
+                  <div className="articles">
+                    <div className="article">
+                      <div className="detail">
+                        <div className="description">
+                          <p>"This Course is amazing with the current version, I can’t imagine it, how cool will it be when you finish the all. This Course is amazing with the current version, I can’t imagine it.</p>
                         </div>
 
                         <div className="profile">

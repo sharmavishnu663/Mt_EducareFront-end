@@ -59,6 +59,14 @@
 /* ========== MT-Educare Nav Tabs End ========== */
 
 /* ========== Owl Carousel Config Start ========== */
+.owl-carousel .owl-stage {
+    display: flex;
+}
+
+.owl-carousel .owl-stage>* {
+    height: 100%;
+}
+
 .MT-OwlDots.owl-theme {
     transition: 400ms;
 }
@@ -81,3 +89,6 @@
 }
 
 /* ========== Owl Carousel Config End ========== */
+.ant-form-item-explain-error {
+    color: red;
+}
